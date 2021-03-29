@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/profil_page"
+        android:icon="@drawable/person_24"
+        android:title="Page de profil"
+        />
+    <item
+        android:id="@+id/map_page"
+        android:icon="@drawable/search_location_24"
+        android:title="Carte"
+        />
+
+    <item android:id="@+id/placeholder"
+        android:title=""
+        />
+
+
+    <item
+        android:id="@+id/take_picture"
+        android:icon="@drawable/take_picture_24"
+        android:title="Ajouter une plante"
+        />
+
+    <item
+        android:id="@+id/repository"
+        android:icon="@drawable/book_24"
+        android:title="Vos plantes"
+        />
+
+
+</menu>
