@@ -2,26 +2,23 @@ package com.example.td1_plantes;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity {
+public class MapSearchActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_map_search);
 
-        // Initialize and assign variable
+        // MENU
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -53,20 +50,19 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView2 = findViewById(R.id.bottomNavigationView);
         bottomNavigationView2.setBackground(null);
         bottomNavigationView2.getMenu().getItem(2).setEnabled(false);
-        bottomNavigationView2.getMenu().getItem(2).setChecked(true);
-
-        //bottomNavigationView2.performClick();
-
-        //R.id.placeholder
+        //R.id.map_page
+        bottomNavigationView2.getMenu().getItem(1).setChecked(true);
 
 
 
-
-
+        // Floating Action Button qui retourne vers la page d'acceuil
+        FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                overridePendingTransition(0,0);
+            }
+        });
     }
-
-
-
-
-
 }
