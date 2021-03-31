@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    * @author : D'Andrea William
+    *
+-->
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.homefragments.NewsDivHomeFragment"
+    android:padding="10dp"
+    >
+
+
+
+    <View
+        android:id="@+id/topDivider"
+        android:layout_width="match_parent"
+        android:layout_height="20dp" />
+    <View
+
+        android:layout_alignParentTop="true"
+        android:id="@+id/view"
+        android:layout_width="315dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFEB3B" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="-8dp"
+        android:fontFamily="@font/montserrat_bold"
+
+        android:text="News"
+        android:textColor="#000000"
+        android:textSize="30dp" />
+
+</RelativeLayout>
