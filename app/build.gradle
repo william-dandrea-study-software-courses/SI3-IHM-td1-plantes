@@ -2,12 +2,13 @@ plugins {
     id 'com.android.application'
 }
 
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.example.td1_plantes"
+        applicationId "com.td1.plantes"
         minSdkVersion 25
         targetSdkVersion 30
         versionCode 1
@@ -28,13 +29,19 @@ android {
     }
 }
 
+
+//apply plugin: 'com.td1.plantes'
+apply plugin: 'com.google.gms.google-services'
+
+
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:5.+'
+    implementation 'com.google.firebase:firebase-firestore:21.4.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation platform('com.google.firebase:firebase-bom:26.8.0')
 
     // Material Design
     implementation 'com.google.android.material:material:1.3.0'
