@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -63,14 +64,12 @@ public class TakePictureActivity extends AppCompatActivity {
             //String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             try {
                 photoFile = createImageFile();
-                //photoFile = File.createTempFile("photo"+time,".jpg",photoDir);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoFile);
-                setResult(RESULT_OK,takePictureIntent);
-                finish();
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile);
             startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
             }catch (IOException e){
                 e.printStackTrace();
             }
+            //photoFile = File.createTempFile("photo"+time,".jpg",photoDir);
         }
     }
 
