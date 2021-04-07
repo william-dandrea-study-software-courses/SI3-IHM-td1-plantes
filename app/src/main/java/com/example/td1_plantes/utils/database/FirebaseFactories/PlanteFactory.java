@@ -12,7 +12,12 @@ import java.util.Objects;
  */
 public class PlanteFactory extends FirebaseObjectFactory<Plante> {
     @Override
-    public Plante fromMap(Map<String, Object> map) {
+    protected String getCollectionName() {
+        return Plante.COLLECTION_NAME;
+    }
+
+    @Override
+    protected Plante fromMap(Map<String, Object> map) {
         return new Plante(
                 (String)map.get("id"),
                 (String)map.get("name"),

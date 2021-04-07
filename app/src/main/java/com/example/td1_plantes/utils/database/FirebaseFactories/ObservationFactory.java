@@ -13,7 +13,12 @@ import java.util.Map;
  */
 public class ObservationFactory extends FirebaseObjectFactory<Observation> {
     @Override
-    public Observation fromMap(Map<String, Object> map) {
+    protected String getCollectionName() {
+        return Observation.COLLECTION_NAME;
+    }
+
+    @Override
+    protected Observation fromMap(Map<String, Object> map) {
         return new Observation(
                 (String)map.get("id"),
                 (String)map.get("author"),

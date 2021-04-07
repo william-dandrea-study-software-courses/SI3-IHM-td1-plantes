@@ -10,7 +10,12 @@ import java.util.Map;
  */
 public class UserFactory extends FirebaseObjectFactory<User> {
     @Override
-    public User fromMap(Map<String, Object> map) {
+    protected String getCollectionName() {
+        return User.COLLECTION_NAME;
+    }
+
+    @Override
+    protected User fromMap(Map<String, Object> map) {
         return new User(
                 (String)map.get("id"),
                 (String)map.get("email"),
