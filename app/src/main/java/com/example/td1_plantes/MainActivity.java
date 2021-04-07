@@ -1,17 +1,15 @@
 package com.example.td1_plantes;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-
 import com.example.td1_plantes.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.fragments.homefragments.NewsDivHomeFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.example.td1_plantes.utils.database.FirebaseFactories.UserFactory;
 
 /**
  * @author D'Andrea William
@@ -42,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft2 = fm2.beginTransaction();
         ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(2));
         ft2.commit();
+
+
+        UserFactory userFactory = new UserFactory();
+        userFactory.loadFromFirebase("DSVBZgTAmIdw1k0jqTaW", user -> {
+            TextView welcome = findViewById(R.id.home_welcome);
+            welcome.setText("Bienvenue, " + user.getUsername() + "!");
+        }, error -> {
+
+        });
 
     }
 

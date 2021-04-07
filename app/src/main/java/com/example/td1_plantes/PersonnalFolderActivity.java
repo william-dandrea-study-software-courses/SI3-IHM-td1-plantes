@@ -1,12 +1,14 @@
 package com.example.td1_plantes;
 
+import android.os.Bundle;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-
 import com.example.td1_plantes.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.utils.database.FirebaseFactories.UserFactory;
 
 /**
  * @author D'Andrea William
@@ -22,10 +24,19 @@ public class PersonnalFolderActivity extends AppCompatActivity {
         //bottom_app_bar
         FragmentManager fm2 = getSupportFragmentManager();
         FragmentTransaction ft2 = fm2.beginTransaction();
-        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(4));
+        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(2));
         ft2.commit();
 
+        UserFactory userFactory = new UserFactory();
+        userFactory.loadFromFirebase("DSVBZgTAmIdw1k0jqTaW", (user) -> {
+            TextView email = findViewById(R.id.email);
+            TextView username = findViewById(R.id.username);
+
+            email.setText(user.getEmail());
+            username.setText(user.getUsername());
+        }, (error) -> {
+
+        });
+
     }
-
-
 }
