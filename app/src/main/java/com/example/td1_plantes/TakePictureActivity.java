@@ -1,19 +1,37 @@
 package com.example.td1_plantes;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.td1_plantes.fragments.MyBottomBarFragment;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * @author D'Andrea William
+ */
 public class TakePictureActivity extends AppCompatActivity {
+    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private File photoFile = null;
+    private String mCurrentPhotoPath;
+    private ImageView mImageThumbnail;
+    private Button mTakePictureBtn;
+    private byte[] mFileBytes = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,49 +39,74 @@ public class TakePictureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_take_picture);
 
         // MENU
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        //bottom_app_bar
+        FragmentManager fm2 = getSupportFragmentManager();
+        FragmentTransaction ft2 = fm2.beginTransaction();
+        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(3));
+        ft2.commit();
 
-                switch (item.getItemId()) {
-                    case R.id.profil_page:
-                        startActivity(new Intent(getApplicationContext(), UserProfilActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.map_page:
-                        startActivity(new Intent(getApplicationContext(), MapSearchActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.take_picture:
-                        startActivity(new Intent(getApplicationContext(), TakePictureActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.repository:
-                        startActivity(new Intent(getApplicationContext(), PersonnalFolderActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-
-                return false;
-            }
-        });
-
-        BottomNavigationView bottomNavigationView2 = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView2.setBackground(null);
-        bottomNavigationView2.getMenu().getItem(2).setEnabled(false);
-
-        bottomNavigationView2.getMenu().getItem(3).setChecked(true);
-
-
-        // Floating Action Button qui retourne vers la page d'acceuil
-        FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        //Code pour ajouter une photo
+        mImageThumbnail = (ImageView) findViewById(R.id.img_thumbnail);
+        mTakePictureBtn = (Button) findViewById(R.id.btnCapture);
+        mTakePictureBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                overridePendingTransition(0,0);
+                takePictureIntent();
             }
         });
+
     }
+
+    private void takePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            //String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            try {
+                photoFile = createImageFile();
+                //photoFile = File.createTempFile("photo"+time,".jpg",photoDir);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,photoFile);
+                setResult(RESULT_OK,takePictureIntent);
+                finish();
+            startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                retrieveCapturedPicture();
+            }
+        }
+    }
+
+    private void retrieveCapturedPicture() {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+        Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath(), options);
+        mImageThumbnail.setImageBitmap(bitmap);
+
+
+        try {
+            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream1);
+            mFileBytes = stream1.toByteArray();
+        } catch (OutOfMemoryError e) { //possibility of memoryexception
+            e.printStackTrace();
+        }
+
+    }
+
+    private File createImageFile() throws IOException {
+        File photoDir = getExternalFilesDir(Environment.DIRECTORY_DCIM);
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "1mind_" + timeStamp + ".jpg";
+        File photo = new File(photoDir,  imageFileName);
+        return photo;
+    }
+
 }

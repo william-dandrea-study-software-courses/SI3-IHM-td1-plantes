@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    * @author : D'Andrea William
+    *
+-->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.MyBottomBarFragment">
+
+
+
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+
+        app:fabCradleMargin="8dp"
+        app:fabCradleRoundedCornerRadius="8dp"
+        app:hideOnScroll="true"
+        >
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:menu="@menu/bottom_navigation_menu"
+            app:labelVisibilityMode="unlabeled"
+
+            android:layout_marginEnd="16dp"
+            android:background="@color/colorPrimary"
+            >
+
+
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/home_24"
+        app:layout_anchor="@id/bottomAppBar"
+        android:backgroundTint="@color/colorPrimary"
+        android:tint="@android:color/white"
+
+        android:contentDescription="Thehe" />
+
+
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
