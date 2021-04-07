@@ -37,4 +37,12 @@ public class User extends FirebaseObject {
         result.put("username", username);
         return result;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 }

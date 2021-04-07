@@ -6,7 +6,7 @@ import com.google.firebase.firestore.SetOptions;
 /**
  * @author Yann CLODONG
  */
-public class FirebaseFactory {
+public class Firebase {
     private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     /**
@@ -26,5 +26,12 @@ public class FirebaseFactory {
         }).addOnFailureListener(r -> {
             failure.onTrigger(r.getCause());
         });
+    }
+
+    /**
+     * Please execute this before use the firebase features
+     */
+    public static void ConnectToFirebase() {
+
     }
 }

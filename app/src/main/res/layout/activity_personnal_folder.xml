@@ -7,12 +7,9 @@
     tools:context=".PersonnalFolderActivity">
 
 
-
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,9 +17,15 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Personnal Folder"/>
+                android:text="Personnal Folder" />
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Personnal Folder" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

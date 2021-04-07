@@ -1,13 +1,15 @@
 package com.example.td1_plantes;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.td1_plantes.utils.database.FirebaseFactories.UserFactory;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -45,6 +47,17 @@ public class PersonnalFolderActivity extends AppCompatActivity {
 
                 return false;
             }
+        });
+
+        UserFactory userFactory = new UserFactory();
+        userFactory.loadFromFirebase("DSVBZgTAmIdw1k0jqTaW", (user) -> {
+            TextView email = findViewById(R.id.email);
+            TextView username = findViewById(R.id.username);
+
+            email.setText(user.getEmail());
+            username.setText(user.getUsername());
+        }, (error) -> {
+
         });
 
         BottomNavigationView bottomNavigationView2 = findViewById(R.id.bottomNavigationView);
