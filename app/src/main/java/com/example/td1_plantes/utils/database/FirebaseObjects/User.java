@@ -1,64 +1,40 @@
 package com.example.td1_plantes.utils.database.FirebaseObjects;
 
 import com.example.td1_plantes.utils.database.FirebaseObject;
-import com.example.td1_plantes.utils.database.IEventHandler;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
+/**
+ * @author Yann CLODONG
+ */
 public class User extends FirebaseObject {
-    private final String id;
+    public static final String COLLECTION_NAME = "Users";
+
     private final String email;
     private final String username;
 
-    private static CollectionReference collection = FirebaseFirestore.getInstance().collection("Users");
-
     public User(String email, String username) {
-        this.id = Long.valueOf(System.currentTimeMillis()).toString();
+        this(Long.valueOf(System.currentTimeMillis()).toString(), email, username);
+    }
+
+    public User(String id, String email, String username) {
+        super(id);
         this.email = email;
         this.username = username;
     }
 
+    @Override
+    public String getCollectionName() {
+        return COLLECTION_NAME;
+    }
 
     @Override
     public Map<String, Object> toMap() {
-        return null;
-    }
-
-    public static User fromMap(Map<String, Object> map) {
-        return null;
-    }
-
-    @Override
-    public void save(IEventHandler<Object> success, IEventHandler<Throwable> failure) {
-        collection.whereEqualTo("email", email).get().addOnCompleteListener((r) -> {
-            if(Objects.requireNonNull(r.getResult()).getDocuments().size() > 0) {
-                failure.onTrigger(new RuntimeException("User allready exist !"));
-            } else {
-                collection.document(id).set(toMap(), SetOptions.merge()).addOnCompleteListener(re -> {
-                    success.onTrigger(null);
-                }).addOnFailureListener(re -> {
-                    failure.onTrigger(re.getCause());
-                });
-            }
-        }).addOnFailureListener(r -> {
-            failure.onTrigger(r.getCause());
-        });
-    }
-
-    public static void load(String email, IEventHandler<User> success, IEventHandler<Throwable> failure) {
-        collection.whereEqualTo("email", email).get().addOnSuccessListener(r -> {
-            if(r.getDocuments().size() > 0) {
-                User user = fromMap(r.getDocuments().get(0).getData());
-                success.onTrigger(user);
-            } else {
-                failure.onTrigger(new RuntimeException("Internal Error"));
-            }
-        }).addOnFailureListener(r -> {
-            failure.onTrigger(r.getCause());
-        });
+        Map<String, Object> result = new HashMap<>();
+        result.put("id", this.getObjectId());
+        result.put("email", email);
+        result.put("username", username);
+        return result;
     }
 }
