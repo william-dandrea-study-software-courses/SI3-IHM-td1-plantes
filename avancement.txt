@@ -1,0 +1,12 @@
+-> Ce que vous avez fait pour le projet :
+        Création de la BottomNavBar (un fragment) et en place des différentes activités qui font office de
+        pages de l'application
+        Création des débuts de la page Home
+        Mise en place de Google FireBase et de l'implementation dans le projet dans la BDD
+
+-> Ce qui reste à faire
+        Les pages, les maps, le notifications, l'implementation back-end / front-end
+
+-> Difficultés
+        Difficultés avec les fragments car la bottomBar est un fragment et difficulté pour l'implémenter
+        dynamiquement dans toutes les classes

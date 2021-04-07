@@ -1,3 +1,8 @@
+<!--
+    * @author : D'Andrea William
+    *
+-->
+
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -25,14 +30,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/black"
+                android:textSize="30dp"
                 android:text="Bienvenue, George!"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/montserrat"
 
                 android:text="Que voulez vous faire aujourd'hui ?" />
 
