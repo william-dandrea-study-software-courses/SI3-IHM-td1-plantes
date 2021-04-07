@@ -30,7 +30,56 @@
                 android:layout_height="wrap_content"
                 android:text="Take Picture"/>
 
+            <ImageView
+                android:id="@+id/img_thumbnail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left" />
+            <Button
+                android:id="@+id/btnCapture"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="prendre photo"
+                android:layout_gravity="center"/>
+
+            <!--<Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="privée" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="public" />-->
+
+            <EditText
+                android:id="@+id/editNamePlant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Nom de la plante"
+                android:inputType="text"
+                android:layout_gravity="left"/>
+
+            <EditText
+                android:id="@+id/descriptionPlant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Description de la plante"
+                android:inputType="text"
+                android:layout_gravity="left"/>
+
+            <Button
+                android:id="@+id/btnValidationAjoutPlante"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="valider"
+                android:layout_gravity="center" />
+
         </LinearLayout>
+
+
     </androidx.core.widget.NestedScrollView>
 
     <FrameLayout

@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Td1plantes">
-        <activity android:name=".PersonnalFolderActivity"></activity>
+        <activity android:name=".PersonnalFolderActivity" />
         <activity android:name=".TakePictureActivity" />
         <activity android:name=".MapSearchActivity" />
         <activity android:name=".MainActivity">
