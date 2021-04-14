@@ -17,13 +17,10 @@ import com.example.td1_plantes.utils.database.FirebaseFactories.UserFactory;
 public class MainActivity extends AppCompatActivity {
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
 
@@ -42,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         ft2.commit();
 
 
+
         UserFactory userFactory = new UserFactory();
         userFactory.loadFromFirebase("DSVBZgTAmIdw1k0jqTaW", user -> {
             TextView welcome = findViewById(R.id.home_welcome);
@@ -49,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
         }, error -> {
 
         });
+
+
 
     }
 

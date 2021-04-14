@@ -27,6 +27,8 @@ public class PersonnalFolderActivity extends AppCompatActivity {
         ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(2));
         ft2.commit();
 
+        /*
+
         UserFactory userFactory = new UserFactory();
         userFactory.loadFromFirebase("DSVBZgTAmIdw1k0jqTaW", (user) -> {
             TextView email = findViewById(R.id.email);
@@ -37,6 +39,10 @@ public class PersonnalFolderActivity extends AppCompatActivity {
         }, (error) -> {
 
         });
+
+         */
+
+
 
     }
 }
