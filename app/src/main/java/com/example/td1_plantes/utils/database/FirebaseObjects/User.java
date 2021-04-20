@@ -2,7 +2,9 @@ package com.example.td1_plantes.utils.database.FirebaseObjects;
 
 import com.example.td1_plantes.utils.database.FirebaseObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,6 +16,7 @@ public class User extends FirebaseObject {
     private final String email;
     private final String username;
 
+
     public User(String email, String username) {
         this(Long.valueOf(System.currentTimeMillis()).toString(), email, username);
     }
@@ -22,6 +25,7 @@ public class User extends FirebaseObject {
         super(id);
         this.email = email;
         this.username = username;
+
     }
 
     @Override
@@ -31,10 +35,14 @@ public class User extends FirebaseObject {
 
     @Override
     public Map<String, Object> toMap() {
+
+
         Map<String, Object> result = new HashMap<>();
         result.put("id", this.getObjectId());
         result.put("email", email);
         result.put("username", username);
+
+
         return result;
     }
 

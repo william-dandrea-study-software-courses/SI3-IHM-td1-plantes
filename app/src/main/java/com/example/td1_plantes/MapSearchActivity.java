@@ -8,12 +8,15 @@ import androidx.preference.PreferenceManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.td1_plantes.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.utils.database.FirebaseFactories.UserFactory;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.osmdroid.api.IMapController;
@@ -26,6 +29,7 @@ import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -34,10 +38,13 @@ import java.util.ArrayList;
 public class MapSearchActivity extends AppCompatActivity {
 
     private MapView map;
+    private ArrayList<OverlayItem> pointsOnMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.setPointsOnMap();
+
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         Configuration.getInstance().setUserAgentValue(getPackageName());
         setContentView(R.layout.activity_map_search);
@@ -53,18 +60,20 @@ public class MapSearchActivity extends AppCompatActivity {
         mapController.setZoom(18.0);
         mapController.setCenter(startPoint);
 
-        ArrayList<OverlayItem> items = new ArrayList<>();
-        OverlayItem home = new OverlayItem("My Title", "My SubTittle", new GeoPoint(43.65020, 7.00517));
+        //ArrayList<OverlayItem> items = new ArrayList<>();
+        //OverlayItem home = new OverlayItem("My Title", "My SubTittle", new GeoPoint(43.65020, 7.00517));
+        //Drawable m = home.getMarker(0);
+        //items.add(home);
+        //items.add(new OverlayItem("Resto", "Chez babar", new GeoPoint(43.6495, 7.00517)));
 
-        Drawable m = home.getMarker(0);
-        items.add(home);
-        items.add(new OverlayItem("Resto", "Chez babar", new GeoPoint(43.6495, 7.00517)));
 
 
-        ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), items, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+        ItemizedOverlayWithFocus<OverlayItem> mOverlay = new ItemizedOverlayWithFocus<OverlayItem>(getApplicationContext(), this.pointsOnMap, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
             @Override
             public boolean onItemSingleTapUp(int index, OverlayItem item) {
-                return true;
+                System.out.println(index);
+                engageTheInfoBottomAppBar();
+                return false;
             }
 
             @Override
@@ -76,6 +85,8 @@ public class MapSearchActivity extends AppCompatActivity {
         mOverlay.setFocusItemsOnTap(true);
         map.getOverlays().add(mOverlay);
 
+
+
         //bottom_app_bar
         FragmentManager fm2 = getSupportFragmentManager();
         FragmentTransaction ft2 = fm2.beginTransaction();
@@ -83,34 +94,16 @@ public class MapSearchActivity extends AppCompatActivity {
         ft2.commit();
 
 
-
-
-
         // BUTTON FOR MOVING BAR
-        Button buttonShow = findViewById(R.id.buttonShow);
+        /*Button buttonShow = findViewById(R.id.buttonShow);
         buttonShow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(
-                        MapSearchActivity.this, R.style.BottomSheetDialogTheme
-                );
-                View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(
-                        R.layout.layout_bottom_sheet,
-                        (LinearLayout)findViewById(R.id.bottomSheetContainer)
-                );
-
-                bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v) {
-                        Toast.makeText(MapSearchActivity.this, "Share ...", Toast.LENGTH_SHORT).show();
-                        bottomSheetDialog.dismiss();
-                    }
-                });
-
-                bottomSheetDialog.setContentView(bottomSheetView);
-                bottomSheetDialog.show();
+                engageTheInfoBottomAppBar();
             }
         });
+
+         */
     }
 
 
@@ -125,6 +118,44 @@ public class MapSearchActivity extends AppCompatActivity {
         super.onResume();
         map.onResume();
     }
+
+
+
+
+   void setPointsOnMap() {
+
+       /*UserFactory userFactory = new UserFactory();
+       userFactory.loadFromFirebase("DSVBZgTAmIdw1k0jqTaW", user -> {
+           TextView welcome = findViewById(R.id.home_welcome);
+           welcome.setText("Bienvenue, " + user.getUsername() + "!");
+       }, error -> {
+
+       });
+        */
+
+       this.pointsOnMap = new ArrayList<>();
+       this.pointsOnMap.add(new OverlayItem("My Title", "My SubTittle", new GeoPoint(43.65020, 7.00517)));
+       this.pointsOnMap.add(new OverlayItem("Resto", "Chez babar", new GeoPoint(43.6495, 7.00517)));
+
+
+   }
+
+
+   void engageTheInfoBottomAppBar() {
+       BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MapSearchActivity.this, R.style.BottomSheetDialogTheme);
+       View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
+
+       bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View v) {
+               Toast.makeText(MapSearchActivity.this, "Share ...", Toast.LENGTH_SHORT).show();
+               bottomSheetDialog.dismiss();
+           }
+       });
+
+       bottomSheetDialog.setContentView(bottomSheetView);
+       bottomSheetDialog.show();
+   }
 
 
 }
