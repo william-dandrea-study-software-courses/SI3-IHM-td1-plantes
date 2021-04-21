@@ -1,7 +1,10 @@
 package com.example.td1_plantes.utils.database;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -35,5 +38,27 @@ public abstract class FirebaseObjectFactory<T extends FirebaseObject> {
         .addOnFailureListener(res -> {
             failure.onTrigger(res.getCause());
         });
+    }
+
+    /**
+     * Return all objects of the collection
+     * @param success callback when success
+     * @param failure callback when failure
+     */
+    public void getAll(IEventHandler<T[]> success, IEventHandler<Throwable> failure) {
+        db.collection(getCollectionName()).get().addOnCompleteListener(r -> {
+            QuerySnapshot res = r.getResult();
+            if(res == null) {
+                failure.onTrigger(new RuntimeException("Something happens"));
+                return;
+            }
+            List<DocumentSnapshot> docs = res.getDocuments();
+            
+            T[] result = (T[])new Object[docs.size()];
+            for(int i = 0; i < docs.size(); i++)
+                result[i] = fromMap(docs.get(i).getData());
+
+            success.onTrigger(result);
+        }).addOnFailureListener(failure::onTrigger);
     }
 }
