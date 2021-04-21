@@ -1,5 +1,7 @@
 package com.example.td1_plantes.utils.database;
 
+import com.example.td1_plantes.utils.IEventHandler;
+import com.example.td1_plantes.utils.IVoidEventHandler;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.SetOptions;
 
@@ -38,13 +40,13 @@ public abstract class FirebaseObject {
      * @param success callback when success
      * @param failure callback when failure
      */
-    public void save(IEventHandler<Object> success, IEventHandler<Throwable> failure) {
+    public void save(IVoidEventHandler success, IEventHandler<Throwable> failure) {
         db
         .collection(getCollectionName())
         .document(getObjectId())
         .set(toMap(), SetOptions.merge())
         .addOnCompleteListener(r -> {
-            success.onTrigger(null);
+            success.onTrigger();
         }).addOnFailureListener(r -> {
             failure.onTrigger(r.getCause());
         });

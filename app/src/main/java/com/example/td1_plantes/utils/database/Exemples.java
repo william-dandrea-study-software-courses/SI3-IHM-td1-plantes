@@ -17,7 +17,6 @@ public class Exemples {
             // ...
             Optional<User> user = Arrays.stream(r).filter(u -> u.getUsername().equals("Toto")).findAny();
             System.out.println(user.toString());
-
         }, err -> {
             // Show error
             System.err.println(err.getMessage());
@@ -26,7 +25,7 @@ public class Exemples {
 
     public static void SaveANewPlant() {
         Plante plante = new Plante("Rose", new ArrayList<>());
-        plante.save(nullObj -> {
+        plante.save(() -> {
             // Data save successfully
             System.out.println("Data saved");
         }, err -> {

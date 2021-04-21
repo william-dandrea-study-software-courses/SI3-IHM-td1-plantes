@@ -2,6 +2,7 @@ package com.example.td1_plantes.utils.database.FirebaseFactories;
 
 import android.location.Location;
 
+import com.example.td1_plantes.utils.IEventHandler;
 import com.example.td1_plantes.utils.database.FirebaseObjectFactory;
 import com.example.td1_plantes.utils.database.FirebaseObjects.Observation;
 
@@ -26,5 +27,13 @@ public class ObservationFactory extends FirebaseObjectFactory<Observation> {
                 new Location((String)map.get("location")),
                 (List<String>)map.get("photos")
         );
+    }
+
+    public void countForAuthor(String author, IEventHandler<Integer> success, IEventHandler<Throwable> failure) {
+        db.collection(getCollectionName()).whereEqualTo("author", author).get()
+                .addOnFailureListener(failure::onTrigger)
+                .addOnSuccessListener(r -> {
+                    success.onTrigger(r.size());
+                });
     }
 }

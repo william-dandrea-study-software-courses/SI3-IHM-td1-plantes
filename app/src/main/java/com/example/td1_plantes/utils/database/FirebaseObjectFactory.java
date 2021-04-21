@@ -1,5 +1,6 @@
 package com.example.td1_plantes.utils.database;
 
+import com.example.td1_plantes.utils.IEventHandler;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -12,7 +13,7 @@ import java.util.Objects;
  * @author Yann CLODONG
  */
 public abstract class FirebaseObjectFactory<T extends FirebaseObject> {
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    protected final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     protected abstract String getCollectionName();

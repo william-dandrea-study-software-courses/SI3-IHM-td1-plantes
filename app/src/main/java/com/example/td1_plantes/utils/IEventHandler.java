@@ -1,4 +1,4 @@
-package com.example.td1_plantes.utils.database;
+package com.example.td1_plantes.utils;
 
 /**
  * @author Yann CLODONG
