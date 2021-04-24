@@ -1,22 +1,18 @@
-package com.example.td1_plantes;
+package com.example.td1_plantes.activities.mapsearch;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.td1_plantes.R;
 import com.example.td1_plantes.fragments.MyBottomBarFragment;
-import com.example.td1_plantes.utils.database.FirebaseFactories.UserFactory;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.osmdroid.api.IMapController;
@@ -26,10 +22,8 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
-import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.OverlayItem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**

@@ -1,4 +1,4 @@
-package com.example.td1_plantes.adapters;
+package com.example.td1_plantes.activities.userprofil;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
 import com.example.td1_plantes.R;
-import com.example.td1_plantes.utils.LoadImageInBackground;
+import com.example.td1_plantes.model.LoadImageInBackground;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.td1_plantes.utils;
+package com.example.td1_plantes.model;
 
 /**
  * @author Yann CLODONG

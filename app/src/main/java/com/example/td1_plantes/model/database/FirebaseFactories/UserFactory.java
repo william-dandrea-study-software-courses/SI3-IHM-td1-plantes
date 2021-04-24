@@ -1,8 +1,8 @@
-package com.example.td1_plantes.utils.database.FirebaseFactories;
+package com.example.td1_plantes.model.database.FirebaseFactories;
 
-import com.example.td1_plantes.utils.IEventHandler;
-import com.example.td1_plantes.utils.database.FirebaseObjectFactory;
-import com.example.td1_plantes.utils.database.FirebaseObjects.User;
+import com.example.td1_plantes.model.IEventHandler;
+import com.example.td1_plantes.model.database.FirebaseObjectFactory;
+import com.example.td1_plantes.model.database.FirebaseObjects.User;
 
 import java.util.List;
 import java.util.Map;

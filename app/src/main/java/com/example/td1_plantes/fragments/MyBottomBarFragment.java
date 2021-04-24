@@ -12,11 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.td1_plantes.MainActivity;
-import com.example.td1_plantes.MapSearchActivity;
-import com.example.td1_plantes.PersonnalFolderActivity;
+import com.example.td1_plantes.activities.mapsearch.MapSearchActivity;
+import com.example.td1_plantes.activities.personnalfolder.PersonnalFolderActivity;
 import com.example.td1_plantes.R;
-import com.example.td1_plantes.TakePictureActivity;
-import com.example.td1_plantes.UserProfilActivity;
+import com.example.td1_plantes.activities.takepicture.TakePictureActivity;
+import com.example.td1_plantes.activities.userprofil.UserProfilActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

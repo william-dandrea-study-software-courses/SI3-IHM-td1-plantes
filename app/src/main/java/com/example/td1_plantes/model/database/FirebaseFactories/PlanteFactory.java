@@ -1,7 +1,7 @@
-package com.example.td1_plantes.utils.database.FirebaseFactories;
+package com.example.td1_plantes.model.database.FirebaseFactories;
 
-import com.example.td1_plantes.utils.database.FirebaseObjectFactory;
-import com.example.td1_plantes.utils.database.FirebaseObjects.Plante;
+import com.example.td1_plantes.model.database.FirebaseObjectFactory;
+import com.example.td1_plantes.model.database.FirebaseObjects.Plante;
 
 import java.util.Arrays;
 import java.util.Map;

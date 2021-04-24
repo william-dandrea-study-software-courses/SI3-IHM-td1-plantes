@@ -9,10 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.fragments.homefragments.NewsDivHomeFragment;
-import com.example.td1_plantes.models.NewsElement;
-import com.example.td1_plantes.utils.database.FirebaseFactories.UserFactory;
-
-import java.util.GregorianCalendar;
+import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
 
 /**
  * @author D'Andrea William
@@ -20,6 +17,7 @@ import java.util.GregorianCalendar;
 public class MainActivity extends AppCompatActivity {
 
 
+    /*
     private NewsElement[] news =  {
             new NewsElement(
                     "La biologie, une science patriarcale et « viriliste » ?",
@@ -34,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
                     new GregorianCalendar()
             )
     };
+    */
 
 
     @Override
@@ -47,10 +46,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.frame_layout_main, new NewsDivHomeFragment());
         ft.commit();
-
-
-
-
 
 
         //bottom_app_bar

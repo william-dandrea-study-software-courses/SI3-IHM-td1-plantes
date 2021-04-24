@@ -1,4 +1,4 @@
-package com.example.td1_plantes;
+package com.example.td1_plantes.activities.takepicture;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.td1_plantes.R;
 import com.example.td1_plantes.fragments.MyBottomBarFragment;
 
 import java.io.ByteArrayOutputStream;

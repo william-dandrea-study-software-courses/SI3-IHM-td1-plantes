@@ -1,6 +1,6 @@
-package com.example.td1_plantes.utils.database;
+package com.example.td1_plantes.model.database;
 
-import com.example.td1_plantes.utils.IEventHandler;
+import com.example.td1_plantes.model.IEventHandler;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;

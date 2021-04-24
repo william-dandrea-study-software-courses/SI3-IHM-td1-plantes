@@ -1,8 +1,8 @@
-package com.example.td1_plantes.utils.database.FirebaseObjects;
+package com.example.td1_plantes.model.database.FirebaseObjects;
 
 import android.location.Location;
 
-import com.example.td1_plantes.utils.database.FirebaseObject;
+import com.example.td1_plantes.model.database.FirebaseObject;
 
 import java.util.HashMap;
 import java.util.List;

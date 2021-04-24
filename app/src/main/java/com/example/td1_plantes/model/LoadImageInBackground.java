@@ -1,4 +1,4 @@
-package com.example.td1_plantes.utils;
+package com.example.td1_plantes.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

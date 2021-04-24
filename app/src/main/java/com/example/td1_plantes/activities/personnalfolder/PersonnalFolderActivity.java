@@ -1,14 +1,13 @@
-package com.example.td1_plantes;
+package com.example.td1_plantes.activities.personnalfolder;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.td1_plantes.R;
 import com.example.td1_plantes.fragments.MyBottomBarFragment;
-import com.example.td1_plantes.utils.database.FirebaseFactories.UserFactory;
 
 /**
  * @author D'Andrea William
