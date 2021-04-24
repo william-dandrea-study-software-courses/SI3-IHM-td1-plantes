@@ -8,31 +8,27 @@ import android.widget.ImageView;
 
 import java.io.InputStream;
 
-public class LoadImageInBackground extends AsyncTask<String, Void, Bitmap> {
-    private ImageView bmImage;
-    private IVoidEventHandler onfail;
-    private String urldisplay;
+public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    ImageView bmImage;
 
-
-    public LoadImageInBackground(ImageView bmImage, IVoidEventHandler onfail) {
+    public DownloadImageTask(ImageView bmImage) {
         this.bmImage = bmImage;
-        this.onfail = onfail;
     }
 
     protected Bitmap doInBackground(String... urls) {
-        urldisplay = urls[0];
+        String urldisplay = urls[0];
         Bitmap mIcon11 = null;
         try {
             InputStream in = new java.net.URL(urldisplay).openStream();
             mIcon11 = BitmapFactory.decodeStream(in);
         } catch (Exception e) {
-            onfail.onTrigger();
+            Log.e("Error", e.getMessage());
+            e.printStackTrace();
         }
         return mIcon11;
     }
 
     protected void onPostExecute(Bitmap result) {
         bmImage.setImageBitmap(result);
-        Log.d("Photo loaded", urldisplay);
     }
 }

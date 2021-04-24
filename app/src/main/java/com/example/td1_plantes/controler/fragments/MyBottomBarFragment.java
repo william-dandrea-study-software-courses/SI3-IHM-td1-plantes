@@ -1,4 +1,4 @@
-package com.example.td1_plantes.fragments;
+package com.example.td1_plantes.controler.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,11 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.td1_plantes.MainActivity;
-import com.example.td1_plantes.activities.mapsearch.MapSearchActivity;
-import com.example.td1_plantes.activities.personnalfolder.PersonnalFolderActivity;
+import com.example.td1_plantes.controler.activities.mapsearch.MapSearchActivity;
+import com.example.td1_plantes.controler.activities.personnalfolder.PersonnalFolderActivity;
 import com.example.td1_plantes.R;
-import com.example.td1_plantes.activities.takepicture.TakePictureActivity;
-import com.example.td1_plantes.activities.userprofil.UserProfilActivity;
+import com.example.td1_plantes.controler.activities.takepicture.TakePictureActivity;
+import com.example.td1_plantes.controler.activities.userprofil.UserProfilActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

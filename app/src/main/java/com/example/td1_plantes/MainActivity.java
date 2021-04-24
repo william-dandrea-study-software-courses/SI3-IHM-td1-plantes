@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.td1_plantes.fragments.MyBottomBarFragment;
-import com.example.td1_plantes.fragments.homefragments.NewsDivHomeFragment;
+import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.controler.fragments.homefragments.NewsDivHomeFragment;
+import com.example.td1_plantes.model.Mocks;
+import com.example.td1_plantes.model.appobjects.News;
 import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
 
 /**
@@ -17,23 +19,7 @@ import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
 public class MainActivity extends AppCompatActivity {
 
 
-    /*
-    private NewsElement[] news =  {
-            new NewsElement(
-                    "La biologie, une science patriarcale et « viriliste » ?",
-                    "Pour le philosophe Jean-François Braunstein, les discours qui prétendent déconstruire le genre engendrent des conséquences non négligeables sur le monde réel.",
-                    "https://unsplash.com/photos/NoXUQ54pDac/download?force=true&w=1920",
-                    new GregorianCalendar()
-                    ),
-            new NewsElement(
-                    "La biologie, une science patriarcale ?",
-                    "Pou es discours qui prétendent déconstruire le genre engendrent des conséquences non négligeables sur le monde réel.",
-                    "https://unsplash.com/photos/NoXUQ54pDac/download?force=true&w=1920",
-                    new GregorianCalendar()
-            )
-    };
-    */
-
+    News[] newsListOnHome = Mocks.LIST_OF_NEWS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         // GENERATE THE NEWS DIV FRAGMENT
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.frame_layout_main, new NewsDivHomeFragment());
+        ft.add(R.id.frame_layout_main, new NewsDivHomeFragment(newsListOnHome));
         ft.commit();
 
 

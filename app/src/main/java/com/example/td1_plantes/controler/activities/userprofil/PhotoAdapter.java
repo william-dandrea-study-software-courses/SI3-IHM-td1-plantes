@@ -1,4 +1,4 @@
-package com.example.td1_plantes.activities.userprofil;
+package com.example.td1_plantes.controler.activities.userprofil;
 
 import android.content.Context;
 import android.util.Log;

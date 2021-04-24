@@ -1,4 +1,4 @@
-package com.example.td1_plantes.activities.mapsearch;
+package com.example.td1_plantes.controler.activities.mapsearch;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.td1_plantes.R;
-import com.example.td1_plantes.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.osmdroid.api.IMapController;

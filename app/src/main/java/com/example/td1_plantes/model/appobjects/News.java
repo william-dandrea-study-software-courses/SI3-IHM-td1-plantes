@@ -10,11 +10,11 @@ public class News {
 
     private String title;
     private String description;
-    private Calendar date;
+    private String date;
     private String imageURL;
     private String author;
 
-    public News(String title, String description, Calendar date, String imageURL, String author) {
+    public News(String title, String description, String date, String imageURL, String author) {
         this.title = title;
         this.description = description;
         this.date = date;
@@ -30,7 +30,7 @@ public class News {
         return description;
     }
 
-    public Calendar getDate() {
+    public String getDate() {
         return date;
     }
 

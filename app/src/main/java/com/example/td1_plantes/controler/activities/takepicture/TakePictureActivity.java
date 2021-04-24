@@ -1,4 +1,4 @@
-package com.example.td1_plantes.activities.takepicture;
+package com.example.td1_plantes.controler.activities.takepicture;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -16,7 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.td1_plantes.R;
-import com.example.td1_plantes.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

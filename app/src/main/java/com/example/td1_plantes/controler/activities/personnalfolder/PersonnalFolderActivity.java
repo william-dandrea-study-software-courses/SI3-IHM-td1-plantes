@@ -1,4 +1,4 @@
-package com.example.td1_plantes.activities.personnalfolder;
+package com.example.td1_plantes.controler.activities.personnalfolder;
 
 import android.os.Bundle;
 
@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.R;
-import com.example.td1_plantes.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 
 /**
  * @author D'Andrea William

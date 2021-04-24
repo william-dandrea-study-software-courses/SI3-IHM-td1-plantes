@@ -1,4 +1,4 @@
-package com.example.td1_plantes.activities.userprofil;
+package com.example.td1_plantes.controler.activities.userprofil;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.R;
-import com.example.td1_plantes.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.model.LoadImageInBackground;
 import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
 

@@ -14,9 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Td1plantes">
-        <activity android:name=".activities.personnalfolder.PersonnalFolderActivity" />
-        <activity android:name=".activities.takepicture.TakePictureActivity" />
-        <activity android:name=".activities.mapsearch.MapSearchActivity" />
+        <activity android:name=".controler.activities.personnalfolder.PersonnalFolderActivity" />
+        <activity android:name=".controler.activities.takepicture.TakePictureActivity" />
+        <activity android:name=".controler.activities.mapsearch.MapSearchActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.userprofil.UserProfilActivity" />
+        <activity android:name=".controler.activities.userprofil.UserProfilActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
