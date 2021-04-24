@@ -9,12 +9,31 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.fragments.homefragments.NewsDivHomeFragment;
+import com.example.td1_plantes.models.NewsElement;
 import com.example.td1_plantes.utils.database.FirebaseFactories.UserFactory;
+
+import java.util.GregorianCalendar;
 
 /**
  * @author D'Andrea William
  */
 public class MainActivity extends AppCompatActivity {
+
+
+    private NewsElement[] news =  {
+            new NewsElement(
+                    "La biologie, une science patriarcale et « viriliste » ?",
+                    "Pour le philosophe Jean-François Braunstein, les discours qui prétendent déconstruire le genre engendrent des conséquences non négligeables sur le monde réel.",
+                    "https://unsplash.com/photos/NoXUQ54pDac/download?force=true&w=1920",
+                    new GregorianCalendar()
+                    ),
+            new NewsElement(
+                    "La biologie, une science patriarcale ?",
+                    "Pou es discours qui prétendent déconstruire le genre engendrent des conséquences non négligeables sur le monde réel.",
+                    "https://unsplash.com/photos/NoXUQ54pDac/download?force=true&w=1920",
+                    new GregorianCalendar()
+            )
+    };
 
 
     @Override
@@ -28,6 +47,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ft = fm.beginTransaction();
         ft.add(R.id.frame_layout_main, new NewsDivHomeFragment());
         ft.commit();
+
+
+
+
 
 
         //bottom_app_bar
@@ -45,9 +68,6 @@ public class MainActivity extends AppCompatActivity {
         }, error -> {
 
         });
-
-
-
     }
 
 
