@@ -7,8 +7,12 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +27,7 @@ import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.User;
 import com.example.td1_plantes.model.appobjects.smallelements.Fiability;
 import com.example.td1_plantes.model.appobjects.smallelements.StatusUser;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -54,6 +59,8 @@ public class PlantPageActivity extends AppCompatActivity {
     boolean dispSources = false;
     boolean dispAddSource = false;
 
+    String newDescritpion;
+    String newSource;
 
 
     // Pour créer la nouvelle activité et passer un paramètres, utiliser ces lignes :
@@ -81,6 +88,13 @@ public class PlantPageActivity extends AppCompatActivity {
         dispOrHideElements();
 
 
+        // Dynamisme de la page (modifs, pouces verts, rouges ...)
+        editElementsInPage();
+
+
+
+
+
 
 
         //bottom_app_bar
@@ -91,6 +105,80 @@ public class PlantPageActivity extends AppCompatActivity {
     }
 
 
+
+    private void editElementsInPage() {
+
+        // AJOUT D'UN BON / MAUVAIS AVIS
+        ImageButton addPositiveReview = (ImageButton) findViewById(R.id.plant_page_good_review_id);
+        ImageButton addNegativeReview = (ImageButton) findViewById(R.id.plant_page_bad_review_id);
+
+        addPositiveReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionDatabase.addPositiveReviewToOnePlant(currentPlant.getIdPlant());
+                initializeTheInformations();
+            }
+        });
+
+        addNegativeReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionDatabase.addNegativeReviewToOnePlant(currentPlant.getIdPlant());
+                initializeTheInformations();
+            }
+        });
+
+
+        // MODIFICATION DE LA DESCRIPTION
+        TextInputLayout descriptionInput = (TextInputLayout) findViewById(R.id.plant_page_intern_edit_description);
+
+        descriptionInput.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
+                newDescritpion = text.toString();
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        Button validateDescriptionButton = (Button) findViewById(R.id.plant_page_intern_edit_description_validate_button);
+        validateDescriptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionDatabase.setOnePlantDescription(currentPlant.getIdPlant(), newDescritpion);
+                initializeTheInformations();
+            }
+        });
+
+
+
+
+
+        // AJOUT D'UNE SOURCE
+        TextInputLayout sourceInput = (TextInputLayout) findViewById(R.id.plant_page_intern_edit_sources);
+
+        sourceInput.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
+                newSource = text.toString();
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        Button validateSourceButton = (Button) findViewById(R.id.plant_page_intern_edit_sources_validate);
+        validateSourceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionDatabase.addOnePlantSource(currentPlant.getIdPlant(), newSource);
+                initializeTheInformations();
+            }
+        });
+    }
 
 
     private void dispOrHideElements() {

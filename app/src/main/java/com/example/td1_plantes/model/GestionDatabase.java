@@ -166,4 +166,65 @@ public class GestionDatabase {
         return finalList;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+    // SET D'ELEMNTS
+    public static void addContributon(Contribution contribution) {
+
+        Mocks.contributions.add(contribution);
+    }
+
+    public static void setOnePlantDescription(UUID plantID, String newDescription) {
+
+        Plant plant = getRealPlant(plantID).get();
+
+        plant.setDescription(newDescription);
+
+    }
+
+    public static void addOnePlantSource(UUID plantID, String newSource) {
+
+        Plant plant = getRealPlant(plantID).get();
+
+        plant.getSources().add(newSource);
+
+    }
+
+
+
+    public static void addPositiveReviewToOnePlant(UUID plantID) {
+
+
+        Optional<Contribution> contribOp = getAllContributions().stream().filter(contri -> contri.getContributor().equals(getCurrentUser().getUserId()) && contri.getPlant().equals(plantID)).findAny();
+
+        if (contribOp.isPresent()) {
+            contribOp.get().setPositiveAdvice(true);
+        } else {
+            addContributon(new Contribution(getCurrentUser().getUserId(), plantID, true));
+        }
+
+    }
+
+    public static void addNegativeReviewToOnePlant(UUID plantID) {
+
+        Optional<Contribution> contribOp = getAllContributions().stream().filter(contri -> contri.getContributor().equals(getCurrentUser().getUserId()) && contri.getPlant().equals(plantID)).findAny();
+
+        if (contribOp.isPresent()) {
+            contribOp.get().setPositiveAdvice(false);
+        } else {
+            addContributon(new Contribution(getCurrentUser().getUserId(), plantID, false));
+        }
+    }
+
+
 }

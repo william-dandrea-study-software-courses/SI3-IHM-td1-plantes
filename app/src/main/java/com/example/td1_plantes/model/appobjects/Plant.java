@@ -93,6 +93,45 @@ public class Plant {
         return sources;
     }
 
+    public void setIdPlant(UUID idPlant) {
+        this.idPlant = idPlant;
+    }
+
+    public void setPublic(boolean aPublic) {
+        isPublic = aPublic;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setPublicationDate(String publicationDate) {
+        this.publicationDate = publicationDate;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+    }
+
+    public void setSources(List<String> sources) {
+        this.sources = sources;
+    }
 
     @Override
     public String toString() {

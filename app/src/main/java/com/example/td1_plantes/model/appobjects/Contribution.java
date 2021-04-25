@@ -48,4 +48,17 @@ public class Contribution {
                 ", positiveAdvice=" + positiveAdvice +
                 '}'  + '\n';
     }
+
+
+    public void setContributor(UUID contributor) {
+        this.contributor = contributor;
+    }
+
+    public void setPlant(UUID plant) {
+        this.plant = plant;
+    }
+
+    public void setPositiveAdvice(boolean positiveAdvice) {
+        this.positiveAdvice = positiveAdvice;
+    }
 }
