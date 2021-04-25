@@ -6,6 +6,9 @@ import com.example.td1_plantes.model.appobjects.User;
 import com.example.td1_plantes.model.appobjects.UserAndPlant;
 import com.example.td1_plantes.model.appobjects.smallelements.Fiability;
 
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.OverlayItem;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -168,7 +171,59 @@ public class GestionDatabase {
 
 
 
+    public static List<OverlayItem> getAllPublicPlantsOnMap() {
 
+        List<OverlayItem> finalList = new ArrayList<>();
+        // new OverlayItem("My Title", "My SubTittle", new GeoPoint(43.65020, 7.00517))
+
+        for (Plant plant : getAllPublicPlants()) {
+
+            if (plant.isPublic()) {
+
+                OverlayItem item = new OverlayItem(
+                        plant.getTitle(),
+                        findAuthorOfOnePlant(plant.getIdPlant()).get().getSurname() + " " + findAuthorOfOnePlant(plant.getIdPlant()).get().getName(),
+                        new GeoPoint(plant.getMyPosition().getLattitude(), plant.getMyPosition().getLongitude())
+                );
+
+                finalList.add(item);
+            }
+        }
+
+        return finalList;
+
+    }
+
+    public static List<OverlayItem> getPrivatePlantsFromCurrentUserOnMap() {
+
+        List<OverlayItem> finalList = new ArrayList<>();
+        // new OverlayItem("My Title", "My SubTittle", new GeoPoint(43.65020, 7.00517))
+
+        for (Plant plant : getAllPrivatePlantsFromOneUser(getCurrentUser().getUserId())) {
+
+            if (!plant.isPublic()) {
+
+                OverlayItem item = new OverlayItem(
+                        plant.getTitle(),
+                        findAuthorOfOnePlant(plant.getIdPlant()).get().getSurname() + " " + findAuthorOfOnePlant(plant.getIdPlant()).get().getName(),
+                        new GeoPoint(plant.getMyPosition().getLattitude(), plant.getMyPosition().getLongitude())
+                );
+
+                finalList.add(item);
+            }
+        }
+
+        return finalList;
+
+    }
+
+    public static List<OverlayItem> getAllPlantsFromCurrentUserOnMap() {
+
+        List<OverlayItem> finalList = getAllPublicPlantsOnMap();
+        finalList.addAll(getPrivatePlantsFromCurrentUserOnMap());
+        return finalList;
+
+    }
 
 
 

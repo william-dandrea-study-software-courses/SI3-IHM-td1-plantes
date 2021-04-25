@@ -8,13 +8,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.controler.fragments.OpenStreetMapFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.NewsDivHomeFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.PlantListHomePageFragment;
 import com.example.td1_plantes.model.GestionDatabase;
+import com.example.td1_plantes.model.GpsGenerateCurrentLocation;
 import com.example.td1_plantes.model.Mocks;
 import com.example.td1_plantes.model.appobjects.News;
 import com.example.td1_plantes.model.appobjects.Plant;
+import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
 import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
+
+import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.List;
 
@@ -27,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     News[] newsListOnHome = Mocks.LIST_OF_NEWS;
 
     Plant[] publicPlantsForHome;
+    List<OverlayItem> locationsPointsMap;
+    MyPosition myPosition;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         List<Plant> publicPlantsTemp = GestionDatabase.getAllPublicPlants().subList(0, Math.min(GestionDatabase.getAllPublicPlants().size(), 2));
         publicPlantsForHome = new Plant[publicPlantsTemp.size()];
         publicPlantsTemp.toArray(publicPlantsForHome);
+
+        locationsPointsMap = GestionDatabase.getAllPublicPlantsOnMap();
+        myPosition = (new GpsGenerateCurrentLocation(this)).getUserCurrentPosition();
+
+        // myPosition = new MyPosition(0,0,"salut");
 
         // GENERATE THE NEWS DIV FRAGMENT
         FragmentManager fm = getSupportFragmentManager();
@@ -50,6 +63,17 @@ public class MainActivity extends AppCompatActivity {
         ft2.add(R.id.frame_layout_homepage_plants, new PlantListHomePageFragment(publicPlantsForHome));
         ft2.commit();
 
+
+        TextView txtTemp = (TextView) findViewById(R.id.super_temporaire);
+        txtTemp.setText((myPosition.getLattitude() + " " + myPosition.getLongitude()));
+
+        // frame_layout_homepage_map
+        /*
+        FragmentManager fm4 = getSupportFragmentManager();
+        FragmentTransaction ft4 = fm4.beginTransaction();
+        ft4.add(R.id.frame_layout_homepage_map, new OpenStreetMapFragment(locationsPointsMap, myPosition));
+        ft4.commit();
+*/
 
         //bottom_app_bar
         FragmentManager fm3 = getSupportFragmentManager();

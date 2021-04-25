@@ -1,9 +1,7 @@
 package com.example.td1_plantes.model.appobjects;
 
-import com.example.td1_plantes.model.appobjects.smallelements.Fiability;
-import com.example.td1_plantes.model.appobjects.smallelements.Position;
+import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,12 +16,12 @@ public class Plant {
     private int size;
     private String publicationDate;
     private String description;
-    private Position position;
+    private MyPosition myPosition;
 
     private List<String> sources;
 
 
-    public Plant(boolean isPublic, String title, String color, String imageURL, int size, String publicationDate, String description, Position position, List<String> sources) {
+    public Plant(boolean isPublic, String title, String color, String imageURL, int size, String publicationDate, String description, MyPosition myPosition, List<String> sources) {
 
         this.idPlant = UUID.randomUUID();
 
@@ -34,7 +32,7 @@ public class Plant {
         this.size = size;
         this.publicationDate = publicationDate;
         this.description = description;
-        this.position = position;
+        this.myPosition = myPosition;
         this.sources = sources;
 
 
@@ -85,8 +83,8 @@ public class Plant {
         return description;
     }
 
-    public Position getPosition() {
-        return position;
+    public MyPosition getMyPosition() {
+        return myPosition;
     }
 
     public List<String> getSources() {
@@ -125,8 +123,8 @@ public class Plant {
         this.description = description;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setMyPosition(MyPosition myPosition) {
+        this.myPosition = myPosition;
     }
 
     public void setSources(List<String> sources) {
@@ -144,7 +142,7 @@ public class Plant {
                 ", size=" + size +
                 ", publicationDate='" + publicationDate + '\'' +
                 ", description='" + description + '\'' +
-                ", position=" + position +
+                ", myPosition=" + myPosition +
                 ", sources=" + sources +
                 '}'  + '\n';
     }

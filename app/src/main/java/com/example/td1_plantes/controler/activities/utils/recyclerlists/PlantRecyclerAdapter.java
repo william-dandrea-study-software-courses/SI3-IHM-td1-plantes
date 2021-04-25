@@ -25,8 +25,6 @@ import com.example.td1_plantes.model.GestionDatabase;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.smallelements.Fiability;
 
-import java.util.Arrays;
-
 public class PlantRecyclerAdapter extends RecyclerView.Adapter<PlantRecyclerAdapter.ViewHolder> {
 
     String CALL_TO_ACTION = "Découvrir";
@@ -82,9 +80,9 @@ public class PlantRecyclerAdapter extends RecyclerView.Adapter<PlantRecyclerAdap
             holder.describerTitle.setText(fiabilityString);
         }
 
-        // Position
+        // MyPosition
 
-        holder.position.setText(data[position].getPosition().getNameCity());
+        holder.position.setText(data[position].getMyPosition().getNameCity());
 
         // Mise en italique et bold du text
         SpannableString content = new SpannableString(CALL_TO_ACTION);

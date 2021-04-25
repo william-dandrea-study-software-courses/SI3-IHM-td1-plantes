@@ -72,6 +72,27 @@
                 android:layout_height="20dp" />
 
 
+
+            <!--
+            <FrameLayout
+                android:id="@+id/frame_layout_homepage_map"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_margin="10dp"/>
+
+
+-->
+
+            <TextView
+                android:id="@+id/super_temporaire"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="salut"
+                />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp" />
+
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

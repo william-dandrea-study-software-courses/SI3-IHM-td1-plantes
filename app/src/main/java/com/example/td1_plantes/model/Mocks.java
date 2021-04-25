@@ -5,11 +5,10 @@ import com.example.td1_plantes.model.appobjects.News;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.User;
 import com.example.td1_plantes.model.appobjects.UserAndPlant;
-import com.example.td1_plantes.model.appobjects.smallelements.Position;
+import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
 import com.example.td1_plantes.model.appobjects.smallelements.StatusUser;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class Mocks {
@@ -39,15 +38,15 @@ public class Mocks {
     public static final User user6 = new User("Robertette", "Delavier", "02/07/1982", StatusUser.EXPERT);
     public static final User user7 = new User("Roger", "Lavalant", "01/02/1943", StatusUser.EXPERT);
 
-    public static final Plant plant1 = new Plant(true, "Plaquetia", "Vert", "https://unsplash.com/photos/8mqOw4DBBSg/download?force=true&w=640",20, "20/04/2021", descriptionBanal, new Position(43.6961, 7.27178, "Nice - France"), new ArrayList<String>() {{add("Wikipedia"); add("GeoFrance"); add("SuperMondePlante");}});
-    public static final Plant plant2 = new Plant(true, "Cornemusa", "Vert", "https://unsplash.com/photos/eA2z1JSzZFI/download?force=true&w=640",25, "20/02/2021", descriptionBanal, new Position(43.6965, 7.27189, "Antibes - France"), new ArrayList<String>() {{add("FranceMonde"); add("SuperTulipe"); add("Wikipedia");}});
-    public static final Plant plant3 = new Plant(true, "Plaquetirum", "Vert", "https://unsplash.com/photos/wMqPJs2x0-A/download?force=true&w=640",40, "20/02/2021", descriptionBanal, new Position(43.69653, 7.27195, "Grasse - France"), new ArrayList<String>() {{add("RomuLULU"); add("GeoFrance"); add("SuperMondePlante");}});
-    public static final Plant plant4 = new Plant(true, "Plaquetirum", "Vert", "https://unsplash.com/photos/wMqPJs2x0-A/download?force=true&w=640",40, "20/02/2021", descriptionBanal, new Position(43.6963, 7.271954, "Biot - France"), new ArrayList<String>() {{add("Wikipedia"); add("GeoFrance"); add("SuperMondePlante");}});
-    public static final Plant plant5 = new Plant(false, "Turlutura", "Blanc", "https://unsplash.com/photos/f2kQaPm7muc/download?force=true&w=640",5, "20/02/2021", descriptionBanal, new Position(43.6912, 7.27154, "Juan-les-Pins - France"), new ArrayList<String>() {{add("Wikipedia"); add("GeoFrance"); add("SuperMondePlante");}});
-    public static final Plant plant6 = new Plant(false, "Claquira", "Jaune", "https://unsplash.com/photos/qoOLTV5A9vg/download?force=true&w=640",8, "20/02/2021", descriptionBanal, new Position(43.6952, 7.271, "Cannes - France"), new ArrayList<String>() {{add("YoFlower"); add("GeoFrance"); add("SuperMondePlante");}});
-    public static final Plant plant7 = new Plant(false, "Versabra", "Rose", "https://unsplash.com/photos/IIJfaPtF4J4/download?force=true&w=640",3, "20/02/2021", descriptionBanal, new Position(43.69541, 7.27134, "Monaco - France"), new ArrayList<String>() {{add("Wikipedia"); add("SuperFlower"); add("SuperMondePlante");}});
-    public static final Plant plant8 = new Plant(false, "Venusa", "Rose", "https://unsplash.com/photos/Ru6hBXxVph8/download?force=true&w=640",5, "20/02/2021", descriptionBanal, new Position(43.69548, 7.271342, "Valbonne - France"), new ArrayList<String>() {{add("Wikipedia"); add("GeoFrance"); add("ViveLaNature");}});
-    public static final Plant plant9 = new Plant(false, "Colerivana", "Violet", "https://unsplash.com/photos/DlYzHwAl32g/download?force=true&w=640",30, "20/02/2021", descriptionBanal, new Position(43.69567, 7.27103, "Golfe-Juan - France"), new ArrayList<String>() {{add("BonjourTulipe"); add("GeoFrance"); add("GeoFrance");}});
+    public static final Plant plant1 = new Plant(true, "Plaquetia", "Vert", "https://unsplash.com/photos/8mqOw4DBBSg/download?force=true&w=640",20, "20/04/2021", descriptionBanal, new MyPosition(43.6961, 7.27178, "Nice - France"), new ArrayList<String>() {{add("Wikipedia"); add("GeoFrance"); add("SuperMondePlante");}});
+    public static final Plant plant2 = new Plant(true, "Cornemusa", "Vert", "https://unsplash.com/photos/eA2z1JSzZFI/download?force=true&w=640",25, "20/02/2021", descriptionBanal, new MyPosition(43.6965, 7.27189, "Antibes - France"), new ArrayList<String>() {{add("FranceMonde"); add("SuperTulipe"); add("Wikipedia");}});
+    public static final Plant plant3 = new Plant(true, "Plaquetirum", "Vert", "https://unsplash.com/photos/wMqPJs2x0-A/download?force=true&w=640",40, "20/02/2021", descriptionBanal, new MyPosition(43.69653, 7.27195, "Grasse - France"), new ArrayList<String>() {{add("RomuLULU"); add("GeoFrance"); add("SuperMondePlante");}});
+    public static final Plant plant4 = new Plant(true, "Plaquetirum", "Vert", "https://unsplash.com/photos/wMqPJs2x0-A/download?force=true&w=640",40, "20/02/2021", descriptionBanal, new MyPosition(43.6963, 7.271954, "Biot - France"), new ArrayList<String>() {{add("Wikipedia"); add("GeoFrance"); add("SuperMondePlante");}});
+    public static final Plant plant5 = new Plant(false, "Turlutura", "Blanc", "https://unsplash.com/photos/f2kQaPm7muc/download?force=true&w=640",5, "20/02/2021", descriptionBanal, new MyPosition(43.6912, 7.27154, "Juan-les-Pins - France"), new ArrayList<String>() {{add("Wikipedia"); add("GeoFrance"); add("SuperMondePlante");}});
+    public static final Plant plant6 = new Plant(false, "Claquira", "Jaune", "https://unsplash.com/photos/qoOLTV5A9vg/download?force=true&w=640",8, "20/02/2021", descriptionBanal, new MyPosition(43.6952, 7.271, "Cannes - France"), new ArrayList<String>() {{add("YoFlower"); add("GeoFrance"); add("SuperMondePlante");}});
+    public static final Plant plant7 = new Plant(false, "Versabra", "Rose", "https://unsplash.com/photos/IIJfaPtF4J4/download?force=true&w=640",3, "20/02/2021", descriptionBanal, new MyPosition(43.69541, 7.27134, "Monaco - France"), new ArrayList<String>() {{add("Wikipedia"); add("SuperFlower"); add("SuperMondePlante");}});
+    public static final Plant plant8 = new Plant(false, "Venusa", "Rose", "https://unsplash.com/photos/Ru6hBXxVph8/download?force=true&w=640",5, "20/02/2021", descriptionBanal, new MyPosition(43.69548, 7.271342, "Valbonne - France"), new ArrayList<String>() {{add("Wikipedia"); add("GeoFrance"); add("ViveLaNature");}});
+    public static final Plant plant9 = new Plant(false, "Colerivana", "Violet", "https://unsplash.com/photos/DlYzHwAl32g/download?force=true&w=640",30, "20/02/2021", descriptionBanal, new MyPosition(43.69567, 7.27103, "Golfe-Juan - France"), new ArrayList<String>() {{add("BonjourTulipe"); add("GeoFrance"); add("GeoFrance");}});
 
 
     public static final List<User> users = new ArrayList<User>() {{

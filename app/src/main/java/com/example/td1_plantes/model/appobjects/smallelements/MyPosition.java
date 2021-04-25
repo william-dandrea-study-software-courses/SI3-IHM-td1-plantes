@@ -1,12 +1,12 @@
 package com.example.td1_plantes.model.appobjects.smallelements;
 
-public class Position {
+public class MyPosition {
 
     private double lattitude;
     private double longitude;
     private String nameCity;
 
-    public Position(double lattitude, double longitude, String nameCity) {
+    public MyPosition(double lattitude, double longitude, String nameCity) {
         this.lattitude = lattitude;
         this.longitude = longitude;
         this.nameCity = nameCity;

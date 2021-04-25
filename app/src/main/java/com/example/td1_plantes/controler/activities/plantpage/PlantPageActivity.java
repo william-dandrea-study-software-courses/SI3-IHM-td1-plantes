@@ -32,19 +32,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-/**
- *
- * SI PLANTE LOCALE PRIVEE
- * -> Ne pas afficher les contributeurs
- * -> Ne pas afficher les sources
- * -> Ne pas afficher les avis / fiabilité
- *
- * SI UTILISATEUR EST UN EXPERT :
- * -> Afficher les field de modification
- * -> Afficher l'ajout d'un bon review
- *
- *
- */
 
 
 public class PlantPageActivity extends AppCompatActivity {
