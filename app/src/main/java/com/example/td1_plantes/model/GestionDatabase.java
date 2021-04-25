@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class GestionDatabase {
 
     public static User getCurrentUser() {
-        return Mocks.user1;
+        return Mocks.user4;
     }
 
     public static List<User> getAllUsers() {
@@ -89,6 +89,7 @@ public class GestionDatabase {
 
 
 
+
     public static List<Contribution> getContributionsForOnePlant(UUID plantID) {
 
         return getAllContributions().stream().filter(con -> con.getPlant().equals(plantID)).collect(Collectors.toList());
@@ -135,6 +136,34 @@ public class GestionDatabase {
     }
 
 
+    public static Optional<User> findAuthorOfOnePlant(UUID idPlant) {
 
+        for (UserAndPlant userAndPlant : getAllUserAndPlant()) {
+
+            if (userAndPlant.getPlant().equals(idPlant)) {
+                return getRealUser(userAndPlant.getUser());
+            }
+        }
+
+        return Optional.empty();
+    }
+
+
+
+    public static List<Plant> getAllPlantsCreateByCurrentUser() {
+
+        List<UserAndPlant> allUserAnPlants = getAllUserAndPlant();
+        List<Plant> finalList = new ArrayList<>();
+
+        for (UserAndPlant uAp : allUserAnPlants) {
+
+            if (uAp.getUser().equals(getCurrentUser().getUserId())) {
+
+                finalList.add(getRealPlant(uAp.getPlant()).get());
+
+            }
+        }
+        return finalList;
+    }
 
 }
