@@ -1,6 +1,8 @@
 package com.example.td1_plantes.controler.activities.utils.recyclerlists;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -17,9 +19,11 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.td1_plantes.R;
+import com.example.td1_plantes.controler.activities.plantpage.PlantPageActivity;
 import com.example.td1_plantes.model.DownloadImageTask;
 import com.example.td1_plantes.model.GestionDatabase;
 import com.example.td1_plantes.model.appobjects.Plant;
+import com.example.td1_plantes.model.appobjects.smallelements.Fiability;
 
 import java.util.Arrays;
 
@@ -60,7 +64,22 @@ public class PlantRecyclerAdapter extends RecyclerView.Adapter<PlantRecyclerAdap
 
             holder.describerTitle.setText(pblcStr);
         } else {
-            holder.describerTitle.setText(GestionDatabase.getFiabilityForOnePlant(data[position].getIdPlant()).toString());
+            String fiabilityString = "";
+
+            if (GestionDatabase.getFiabilityForOnePlant(data[position].getIdPlant()) == Fiability.LOW) {
+                fiabilityString += "Non-fiable";
+                holder.describerTitle.setTextColor(Color.parseColor("#FF0000"));
+            }
+            if (GestionDatabase.getFiabilityForOnePlant(data[position].getIdPlant()) == Fiability.MEDIUM) {
+                fiabilityString += "Peu-fiable";
+                holder.describerTitle.setTextColor(Color.parseColor("#f58442"));
+            }
+            if (GestionDatabase.getFiabilityForOnePlant(data[position].getIdPlant()) == Fiability.HIGH) {
+                fiabilityString += "Fiable";
+                holder.describerTitle.setTextColor(Color.parseColor("#0f7025"));
+            }
+
+            holder.describerTitle.setText(fiabilityString);
         }
 
         // Position
@@ -79,6 +98,10 @@ public class PlantRecyclerAdapter extends RecyclerView.Adapter<PlantRecyclerAdap
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Cliqued on " + data[position] , Toast.LENGTH_SHORT).show();
+
+                Intent i = new Intent(context, PlantPageActivity.class);
+                i.putExtra("plantID", data[position].getIdPlant());
+                context.startActivity(i);
             }
         });
 

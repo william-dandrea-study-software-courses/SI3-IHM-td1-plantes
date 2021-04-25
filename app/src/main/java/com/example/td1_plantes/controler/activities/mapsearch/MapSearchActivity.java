@@ -88,16 +88,6 @@ public class MapSearchActivity extends AppCompatActivity {
         ft2.commit();
 
 
-        // BUTTON FOR MOVING BAR
-        /*Button buttonShow = findViewById(R.id.buttonShow);
-        buttonShow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                engageTheInfoBottomAppBar();
-            }
-        });
-
-         */
     }
 
 

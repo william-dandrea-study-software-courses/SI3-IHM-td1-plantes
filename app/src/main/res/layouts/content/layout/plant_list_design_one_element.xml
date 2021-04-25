@@ -56,7 +56,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:textSize="12dp"
+                        android:textSize="16dp"
                         android:textColor="@color/black"
 
                         android:padding="5dp"
@@ -70,8 +70,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:textSize="10dp"
-                        android:textColor="#FF0000"
+                        android:textSize="12dp"
+                        android:textColor="@color/black"
 
                         android:text="Non-fiable"
                         android:padding="5dp"
@@ -122,10 +122,10 @@
                         android:layout_height="wrap_content"
 
                         android:text="Expertiser cette plante"
-                        android:textSize="10dp"
+                        android:textSize="12dp"
                         android:textColor="@color/black"
 
-                        android:padding="5dp"
+                        android:padding="2dp"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
