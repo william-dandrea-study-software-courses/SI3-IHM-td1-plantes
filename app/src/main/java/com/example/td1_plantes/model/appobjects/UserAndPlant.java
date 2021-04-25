@@ -29,4 +29,13 @@ public class UserAndPlant {
     public Optional<Plant> getRealPlant(List<Plant> plants) {
         return plants.stream().filter(pl -> pl.isSamePlant(this.plant)).findFirst();
     }
+
+
+    @Override
+    public String toString() {
+        return "UserAndPlant{" +
+                "user=" + user +
+                ", plant=" + plant +
+                '}'  + '\n';
+    }
 }

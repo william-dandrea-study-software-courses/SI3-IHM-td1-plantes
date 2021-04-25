@@ -47,6 +47,16 @@ public class GestionDatabase {
         return getAllPlants().stream().filter(Plant::isPublic).collect(Collectors.toList());
     }
 
+    public static List<Plant> getAllPrivatePlants() {
+        return getAllPlants().stream().filter(pl -> !pl.isPublic()).collect(Collectors.toList());
+    }
+
+
+    /**
+     * TESTED
+     * @param userID
+     * @return
+     */
     public static List<Plant> getAllPrivatePlantsFromOneUser(UUID userID) {
 
         List<Plant> finalList = new ArrayList<>();
@@ -54,20 +64,30 @@ public class GestionDatabase {
         for (UserAndPlant userAndPlant : getAllUserAndPlant()) {
 
             if (userAndPlant.getUser().equals(userID)) {
-                Optional<Plant> goodPlant = getRealPlant(userAndPlant.getPlant());
-                if (goodPlant.isPresent()) {
-                    Plant veryGoodPlant = goodPlant.get();
 
-                    if (!veryGoodPlant.isPublic()) {
-                        finalList.add(veryGoodPlant);
+                System.out.println("Bon User");
+
+
+                for (Plant plant : getAllPlants()) {
+
+                    if (plant.isSamePlant(userAndPlant.getPlant()) && !plant.isPublic()) {
+
+
+                        finalList.add(plant);
+
                     }
 
                 }
+
             }
         }
 
+
         return finalList;
     }
+
+
+
 
     public static List<Contribution> getContributionsForOnePlant(UUID plantID) {
 

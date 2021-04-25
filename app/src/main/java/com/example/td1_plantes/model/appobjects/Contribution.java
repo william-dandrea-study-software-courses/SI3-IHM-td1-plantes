@@ -38,4 +38,14 @@ public class Contribution {
     public boolean isPositiveAdvice() {
         return positiveAdvice;
     }
+
+
+    @Override
+    public String toString() {
+        return "Contribution{" +
+                "contributor=" + contributor +
+                ", plant=" + plant +
+                ", positiveAdvice=" + positiveAdvice +
+                '}'  + '\n';
+    }
 }

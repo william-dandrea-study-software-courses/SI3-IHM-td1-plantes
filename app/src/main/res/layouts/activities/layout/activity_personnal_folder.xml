@@ -93,18 +93,22 @@
             <!-- VOS PLANTES - LIST -->
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp" />
 
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_vos_plantes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                />
 
 
-
-
-
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
 
             <!-- REPERTOIRE PUBLIC -->
@@ -148,6 +152,22 @@
 
             <!-- REPRTOIRE PUBLIC - LIST -->
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_repertoire_public"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
 
 

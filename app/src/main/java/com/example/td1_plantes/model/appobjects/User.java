@@ -53,4 +53,16 @@ public class User {
     public StatusUser getStatusUser() {
         return statusUser;
     }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
+                ", statusUser=" + statusUser +
+                '}' + '\n';
+    }
 }

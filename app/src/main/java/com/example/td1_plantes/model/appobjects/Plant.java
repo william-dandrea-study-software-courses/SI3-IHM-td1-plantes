@@ -44,8 +44,8 @@ public class Plant {
         this.sources.add(source);
     }
 
-    public boolean isSamePlant(UUID idPlant) {
-        if (this.idPlant.equals(idPlant))
+    public boolean isSamePlant(UUID idPlantF) {
+        if (this.idPlant.equals(idPlantF))
             return true;
         return false;
     }
@@ -94,4 +94,19 @@ public class Plant {
     }
 
 
+    @Override
+    public String toString() {
+        return "Plant{" +
+                "idPlant=" + idPlant +
+                ", isPublic=" + isPublic +
+                ", title='" + title + '\'' +
+                ", color='" + color + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", size=" + size +
+                ", publicationDate='" + publicationDate + '\'' +
+                ", description='" + description + '\'' +
+                ", position=" + position +
+                ", sources=" + sources +
+                '}'  + '\n';
+    }
 }

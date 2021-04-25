@@ -41,4 +41,16 @@ public class News {
     public String getAuthor() {
         return author;
     }
+
+
+    @Override
+    public String toString() {
+        return "News{" +
+                "title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", date='" + date + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", author='" + author + '\'' +
+                '}'  + '\n';
+    }
 }
