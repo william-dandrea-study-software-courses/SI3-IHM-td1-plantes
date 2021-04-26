@@ -1,15 +1,21 @@
 package com.example.td1_plantes.model.appobjects;
 
+import com.example.td1_plantes.model.database.FirebaseObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-public class UserAndPlant {
+public class UserAndPlant extends FirebaseObject {
+    public static final String COLLECTION_NAME = "UserAndPlants";
 
     private UUID user;
     private UUID plant;
 
     public UserAndPlant(UUID user, UUID plant) {
+        super(UUID.randomUUID().toString());
         this.user = user;
         this.plant = plant;
     }
@@ -37,5 +43,18 @@ public class UserAndPlant {
                 "user=" + user +
                 ", plant=" + plant +
                 '}'  + '\n';
+    }
+
+    @Override
+    protected String getCollectionName() {
+        return COLLECTION_NAME;
+    }
+
+    @Override
+    public Map<String, Object> toMap() {
+        return new HashMap<String, Object>() {{
+            put("user", user.toString());
+            put("plant", plant.toString());
+        }};
     }
 }

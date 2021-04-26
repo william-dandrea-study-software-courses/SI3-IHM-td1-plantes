@@ -5,6 +5,10 @@ import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.User;
 import com.example.td1_plantes.model.appobjects.UserAndPlant;
 import com.example.td1_plantes.model.appobjects.smallelements.Fiability;
+import com.example.td1_plantes.model.database.FirebaseFactories.ContributionFactory;
+import com.example.td1_plantes.model.database.FirebaseFactories.PlantFactory;
+import com.example.td1_plantes.model.database.FirebaseFactories.UserAndPlantFactory;
+import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
 
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.OverlayItem;
@@ -17,41 +21,70 @@ import java.util.stream.Collectors;
 
 public class GestionDatabase {
 
+
+
+    private static final UserAndPlantFactory userAndPlantFactory = new UserAndPlantFactory();
+    private static final UserFactory userFactory = new UserFactory();
+    private static final PlantFactory plantFactory = new PlantFactory();
+    private static final ContributionFactory contribFactory = new ContributionFactory();
+
+    private static User currentUser = Mocks.user4;
+
     public static User getCurrentUser() {
-        return Mocks.user4;
+        return currentUser;
     }
 
-    public static List<User> getAllUsers() {
-        return Mocks.users;
+    public static void loadUser(String username) {
+        userFactory.getBySurname("Fanzi", user -> currentUser = user, err -> {
+            throw (RuntimeException)err;
+        });
     }
 
-    public static List<Plant> getAllPlants() {
-        return Mocks.plants;
+    public static void getAllUsers(IEventHandler<List<User>> callback) {
+        userFactory.getAll(callback, err -> {
+            throw new RuntimeException("Error while retrieving Users");
+        });
     }
 
-    public static List<UserAndPlant> getAllUserAndPlant() {
-        return Mocks.userAndPlants;
+    public static void getAllPlants(IEventHandler<List<Plant>> callback) {
+        plantFactory.getAll(callback, err -> {
+            throw new RuntimeException("Error while retrieving plants");
+        });
     }
 
-    public static List<Contribution> getAllContributions() {
-        return Mocks.contributions;
+    public static void getAllUserAndPlant(IEventHandler<List<UserAndPlant>> callback) {
+        userAndPlantFactory.getAll(callback, err -> {
+            throw new RuntimeException("Error while retrieving UserAndPlants");
+        });
     }
 
-    public static Optional<User> getRealUser(UUID idUser) {
-        return getAllUsers().stream().filter(us -> us.isSameUser(idUser)).findFirst();
+    public static void getAllContributions(IEventHandler<List<Contribution>> callback) {
+        contribFactory.getAll(callback, err -> {
+            throw new RuntimeException("Error while retrieving contributions");
+        });
     }
 
-    public static Optional<Plant> getRealPlant(UUID idPlant) {
-        return getAllPlants().stream().filter(us -> us.isSamePlant(idPlant)).findFirst();
+    public static void getRealUser(UUID idUser, IEventHandler<Optional<User>> callback) {
+        userFactory.loadFromFirebase(idUser.toString(), res -> callback.onTrigger(Optional.of(res)), err -> callback.onTrigger(Optional.empty()));
+        //getAllUsers(users -> callback.onTrigger(Arrays.stream(users).filter(u -> u.getUserId().equals(idUser)).findAny()));
+    }
+
+    public static void getRealPlant(UUID idPlant, IEventHandler<Optional<Plant>> callback) {
+        //getAllPlants().stream().filter(us -> us.isSamePlant(idPlant)).findFirst();
+        plantFactory.loadFromFirebase(idPlant.toString(), res -> callback.onTrigger(Optional.of(res)), err -> callback.onTrigger(Optional.empty()));
     }
 
 
-    public static List<Plant> getAllPublicPlants() {
-        return getAllPlants().stream().filter(Plant::isPublic).collect(Collectors.toList());
+    public static void getAllPublicPlants(IEventHandler<List<Plant>> callback) {
+        plantFactory.getPublicPlants(callback, err -> {
+            throw new RuntimeException("Error while retrieving plants");
+        });
     }
 
-    public static List<Plant> getAllPrivatePlants() {
-        return getAllPlants().stream().filter(pl -> !pl.isPublic()).collect(Collectors.toList());
+    public static void getAllPrivatePlants(IEventHandler<List<Plant>> callback) {
+        plantFactory.getPrivatePlants(callback, err -> {
+            throw new RuntimeException("Error while retrieving plants");
+        });
     }
 
 
@@ -60,169 +93,140 @@ public class GestionDatabase {
      * @param userID
      * @return
      */
-    public static List<Plant> getAllPrivatePlantsFromOneUser(UUID userID) {
-
-        List<Plant> finalList = new ArrayList<>();
-
-        for (UserAndPlant userAndPlant : getAllUserAndPlant()) {
-
-            if (userAndPlant.getUser().equals(userID)) {
-
-                System.out.println("Bon User");
+    public static void getAllPrivatePlantsFromOneUser(UUID userID, IEventHandler<List<Plant>> callback) {
+        userAndPlantFactory.getPlantsFor(userID, plantIds -> {
+            plantFactory.getManyPlants(plantIds, callback, err -> {
+                throw new RuntimeException("Error while retrieving plants");
+            });
+        });
+    }
 
 
-                for (Plant plant : getAllPlants()) {
-
-                    if (plant.isSamePlant(userAndPlant.getPlant()) && !plant.isPublic()) {
 
 
-                        finalList.add(plant);
 
-                    }
+    public static void getContributionsForOnePlant(UUID plantID, IEventHandler<List<Contribution>> callback) {
+        contribFactory.getContributionsForPlant(plantID, callback);
+    }
 
+    public static void getContributorsForOnePlant(UUID plantId, IEventHandler<List<User>> callback) {
+        getContributionsForOnePlant(plantId, contribs -> {
+            userFactory.getMany(contribs.stream().map(Contribution::getContributor).collect(Collectors.toList()), callback);
+        });
+    }
+
+    public static void getContributionsForOneContributor(UUID userID, IEventHandler<List<Contribution>> callback) {
+        contribFactory.getContributionsForContributor(userID, callback);
+    }
+
+    public static void getNumberOfContributionForOnePlant(UUID plantID, IEventHandler<Integer> callback) {
+        contribFactory.getContributionsForPlant(plantID, contribs -> callback.onTrigger(contribs.size()));
+    }
+
+    public static void getNumberOfPositiveReviewForOnePlant(UUID plantID, IEventHandler<Integer> callback) {
+        contribFactory.getContributionsForPlant(plantID, contribs -> callback.onTrigger((int)contribs.stream().filter(Contribution::isPositiveAdvice).count()));
+    }
+
+    public static void getNumberOfContributionForOneUser(UUID userID, IEventHandler<Integer> callback) {
+        contribFactory.getContributionsForContributor(userID, contribs -> callback.onTrigger(contribs.size()));
+    }
+
+
+
+    public static void getFiabilityForOnePlant(UUID plantID, IEventHandler<Fiability> callback) {
+
+        getNumberOfContributionForOnePlant(plantID, numberOfContribution -> {
+            getNumberOfPositiveReviewForOnePlant(plantID, numberOfPositiveContribution -> {
+                double percentage = (double)numberOfPositiveContribution / (double)numberOfContribution;
+                if (percentage < 0.5) {
+                    callback.onTrigger(Fiability.LOW);
+                }
+                if (percentage < 0.75) {
+                    callback.onTrigger(Fiability.MEDIUM);
                 }
 
-            }
-        }
+                callback.onTrigger(Fiability.HIGH);
+            });
+        });
 
 
-        return finalList;
+
+
+    }
+
+
+    public static void findAuthorOfOnePlant(UUID idPlant, IEventHandler<List<User>> callback) {
+        userAndPlantFactory.getContributorFor(idPlant, userIds -> {
+            userFactory.getMany(userIds, callback);
+        });
     }
 
 
 
-
-
-    public static List<Contribution> getContributionsForOnePlant(UUID plantID) {
-
-        return getAllContributions().stream().filter(con -> con.getPlant().equals(plantID)).collect(Collectors.toList());
-
-    }
-
-    public static List<Contribution> getContributionsForOneContributor(UUID userID) {
-
-        return getAllContributions().stream().filter(con -> con.getContributor().equals(userID)).collect(Collectors.toList());
-
-    }
-
-    public static int getNumberOfContributionForOnePlant(UUID plantID) {
-
-        return (int) getAllContributions().stream().filter(contri -> contri.getPlant().equals(plantID)).count();
-    }
-
-    public static int getNumberOfPositiveReviewForOnePlant(UUID plantID) {
-        return (int) getContributionsForOnePlant(plantID).stream().filter(Contribution::isPositiveAdvice).count();
-    }
-
-    public static int getNumberOfContributionForOneUser(UUID userID) {
-
-        return (int) getAllContributions().stream().filter(contri -> contri.getContributor().equals(userID)).count();
+    public static void getAllPlantsCreateByCurrentUser(IEventHandler<List<Plant>> callback) {
+        getAllUserAndPlant(uaps -> {
+            List<UUID> plants = new ArrayList<>();
+            uaps.forEach(uap -> plants.add(uap.getPlant()));
+            plantFactory.getManyPlants(plants, callback, err -> {
+                throw new RuntimeException("Error while retrieving plants");
+            });
+        });
     }
 
 
 
-    public static Fiability getFiabilityForOnePlant(UUID plantID) {
-
-        double numberOfContribution = (double) getNumberOfContributionForOnePlant(plantID);
-        double numberOfPositiveContribution = (double) getNumberOfPositiveReviewForOnePlant(plantID);
-
-        double percentage = numberOfPositiveContribution / numberOfContribution;
-
-        if (percentage < 0.5) {
-            return Fiability.LOW;
-        }
-        if (percentage < 0.75) {
-            return Fiability.MEDIUM;
-        }
-
-        return Fiability.HIGH;
-    }
-
-
-    public static Optional<User> findAuthorOfOnePlant(UUID idPlant) {
-
-        for (UserAndPlant userAndPlant : getAllUserAndPlant()) {
-
-            if (userAndPlant.getPlant().equals(idPlant)) {
-                return getRealUser(userAndPlant.getUser());
-            }
-        }
-
-        return Optional.empty();
-    }
-
-
-
-    public static List<Plant> getAllPlantsCreateByCurrentUser() {
-
-        List<UserAndPlant> allUserAnPlants = getAllUserAndPlant();
-        List<Plant> finalList = new ArrayList<>();
-
-        for (UserAndPlant uAp : allUserAnPlants) {
-
-            if (uAp.getUser().equals(getCurrentUser().getUserId())) {
-
-                finalList.add(getRealPlant(uAp.getPlant()).get());
-
-            }
-        }
-        return finalList;
-    }
-
-
-
-    public static List<OverlayItem> getAllPublicPlantsOnMap() {
+    public static void getAllPublicPlantsOnMap(IEventHandler<List<OverlayItem>> callback) {
 
         List<OverlayItem> finalList = new ArrayList<>();
         // new OverlayItem("My Title", "My SubTittle", new GeoPoint(43.65020, 7.00517))
 
-        for (Plant plant : getAllPublicPlants()) {
+        getAllPublicPlants(plants -> {
+            for (Plant plant : plants) {
+                findAuthorOfOnePlant(plant.getIdPlant(), users -> {
+                    OverlayItem item = new OverlayItem(
+                            plant.getTitle(),
 
-            if (plant.isPublic()) {
+                            users.size() == 0 ? "Anonymous" : users.get(0).getSurname() + " " + users.get(0).getName(),
+                            new GeoPoint(plant.getMyPosition().getLattitude(), plant.getMyPosition().getLongitude())
+                    );
+
+                    finalList.add(item);
+
+                    callback.onTrigger(finalList);
+                });
+            }
+        });
+    }
+
+    public static void getPrivatePlantsFromCurrentUserOnMap(IEventHandler<List<OverlayItem>> callback) {
+
+        List<OverlayItem> finalList = new ArrayList<>();
+        // new OverlayItem("My Title", "My SubTittle", new GeoPoint(43.65020, 7.00517))
+
+        getAllPrivatePlantsFromOneUser(getCurrentUser().getUserId(), plants -> {
+            for (Plant plant : plants) {
 
                 OverlayItem item = new OverlayItem(
                         plant.getTitle(),
-                        findAuthorOfOnePlant(plant.getIdPlant()).get().getSurname() + " " + findAuthorOfOnePlant(plant.getIdPlant()).get().getName(),
+                        getCurrentUser().getSurname() + " " + getCurrentUser().getName(),
                         new GeoPoint(plant.getMyPosition().getLattitude(), plant.getMyPosition().getLongitude())
                 );
 
                 finalList.add(item);
             }
-        }
 
-        return finalList;
-
-    }
-
-    public static List<OverlayItem> getPrivatePlantsFromCurrentUserOnMap() {
-
-        List<OverlayItem> finalList = new ArrayList<>();
-        // new OverlayItem("My Title", "My SubTittle", new GeoPoint(43.65020, 7.00517))
-
-        for (Plant plant : getAllPrivatePlantsFromOneUser(getCurrentUser().getUserId())) {
-
-            if (!plant.isPublic()) {
-
-                OverlayItem item = new OverlayItem(
-                        plant.getTitle(),
-                        findAuthorOfOnePlant(plant.getIdPlant()).get().getSurname() + " " + findAuthorOfOnePlant(plant.getIdPlant()).get().getName(),
-                        new GeoPoint(plant.getMyPosition().getLattitude(), plant.getMyPosition().getLongitude())
-                );
-
-                finalList.add(item);
-            }
-        }
-
-        return finalList;
+            callback.onTrigger(finalList);
+        });
 
     }
 
-    public static List<OverlayItem> getAllPlantsFromCurrentUserOnMap() {
-
-        List<OverlayItem> finalList = getAllPublicPlantsOnMap();
-        finalList.addAll(getPrivatePlantsFromCurrentUserOnMap());
-        return finalList;
-
+    public static void getAllPlantsFromCurrentUserOnMap(IEventHandler<List<OverlayItem>> callback) {
+        getAllPublicPlantsOnMap(publics -> {
+            getPrivatePlantsFromCurrentUserOnMap(privates -> {
+                publics.addAll(privates);
+                callback.onTrigger(publics);
+            });
+        });
     }
 
 
@@ -235,23 +239,25 @@ public class GestionDatabase {
 
     // SET D'ELEMNTS
     public static void addContributon(Contribution contribution) {
-
-        Mocks.contributions.add(contribution);
+        contribution.save(() -> {}, err -> {
+            throw new RuntimeException("Error while saving contribution");
+        });
+        //Mocks.contributions.add(contribution);
     }
 
     public static void setOnePlantDescription(UUID plantID, String newDescription) {
-
-        Plant plant = getRealPlant(plantID).get();
-
-        plant.setDescription(newDescription);
+        getRealPlant(plantID, plant -> {
+            if(plant.isPresent()) plant.get().setDescription(newDescription);
+            else throw new RuntimeException("No plant found");
+        });
 
     }
 
     public static void addOnePlantSource(UUID plantID, String newSource) {
-
-        Plant plant = getRealPlant(plantID).get();
-
-        plant.getSources().add(newSource);
+        getRealPlant(plantID, plant -> {
+            if(plant.isPresent()) plant.get().getSources().add(newSource);
+            else throw new RuntimeException("No plant found");
+        });
 
     }
 
@@ -259,26 +265,29 @@ public class GestionDatabase {
 
     public static void addPositiveReviewToOnePlant(UUID plantID) {
 
+        getAllContributions(contribs -> {
+            Optional<Contribution> contribOp = contribs.stream().filter(contri -> contri.getContributor().equals(getCurrentUser().getUserId()) && contri.getPlant().equals(plantID)).findAny();
+            if (contribOp.isPresent()) {
+                contribOp.get().setPositiveAdvice(true);
+            } else {
+                addContributon(new Contribution(getCurrentUser().getUserId(), plantID, true));
+            }
+        });
 
-        Optional<Contribution> contribOp = getAllContributions().stream().filter(contri -> contri.getContributor().equals(getCurrentUser().getUserId()) && contri.getPlant().equals(plantID)).findAny();
 
-        if (contribOp.isPresent()) {
-            contribOp.get().setPositiveAdvice(true);
-        } else {
-            addContributon(new Contribution(getCurrentUser().getUserId(), plantID, true));
-        }
+
 
     }
 
     public static void addNegativeReviewToOnePlant(UUID plantID) {
-
-        Optional<Contribution> contribOp = getAllContributions().stream().filter(contri -> contri.getContributor().equals(getCurrentUser().getUserId()) && contri.getPlant().equals(plantID)).findAny();
-
-        if (contribOp.isPresent()) {
-            contribOp.get().setPositiveAdvice(false);
-        } else {
-            addContributon(new Contribution(getCurrentUser().getUserId(), plantID, false));
-        }
+        getAllContributions(contribs -> {
+            Optional<Contribution> contribOp = contribs.stream().filter(contri -> contri.getContributor().equals(getCurrentUser().getUserId()) && contri.getPlant().equals(plantID)).findAny();
+            if (contribOp.isPresent()) {
+                contribOp.get().setPositiveAdvice(false);
+            } else {
+                addContributon(new Contribution(getCurrentUser().getUserId(), plantID, false));
+            }
+        });
     }
 
 

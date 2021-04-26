@@ -13,8 +13,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.R;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.model.GestionDatabase;
 import com.example.td1_plantes.model.LoadImageInBackground;
-import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
 
 /**
  * @author D'Andrea William
@@ -55,17 +55,13 @@ public class UserProfilActivity extends AppCompatActivity {
 
 
         contributionCount.setText("0");
-        UserFactory userFactory = new UserFactory();
-        userFactory.getFromUsername(currentUsername, u -> {
-            usernameHolder.setText(u.getUsername());
-            photoCountHolder.setText(Integer.toString(u.getPhotosCount()));
 
-            new LoadImageInBackground(avatarHolder, () -> Log.d("LOAD", "ERror !")).execute(u.getAvatar());
+        usernameHolder.setText(GestionDatabase.getCurrentUser().getSurname());
+        photoCountHolder.setText(Integer.toString(GestionDatabase.getCurrentUser().getPhotoCount()));
 
-            photos.setAdapter(new PhotoAdapter(getApplicationContext(), u.getPhotos()));
-        }, err -> {
-            error();
-        });
+        new LoadImageInBackground(avatarHolder, () -> Log.d("LOAD", "ERror !")).execute(GestionDatabase.getCurrentUser().getAvatar());
+
+        photos.setAdapter(new PhotoAdapter(getApplicationContext(), GestionDatabase.getCurrentUser().getPhotos()));
     }
 
     private void error() {

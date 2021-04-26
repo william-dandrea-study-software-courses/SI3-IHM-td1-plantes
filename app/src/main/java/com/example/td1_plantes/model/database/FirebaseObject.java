@@ -12,7 +12,7 @@ import java.util.Map;
  */
 public abstract class FirebaseObject {
     private static final FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private final String id;
+    private String id;
 
     public FirebaseObject(String id) {
         this.id = id;
@@ -25,10 +25,15 @@ public abstract class FirebaseObject {
         return this.id;
     }
 
+    void setObjectId(String id) {
+        this.id = id;
+    }
+
     /**
      * @return the name of the collection
      */
     protected abstract String getCollectionName();
+
 
     /**
      * @return This object serialized into a Map<String, Object>

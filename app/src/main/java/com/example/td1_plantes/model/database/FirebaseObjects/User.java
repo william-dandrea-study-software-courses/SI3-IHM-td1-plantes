@@ -17,7 +17,6 @@ public class User extends FirebaseObject {
     private final String avatar;
     private final List<String> photos;
 
-
     public User(String email, String username, String avatar, List<String> photos) {
         this(Long.valueOf(System.currentTimeMillis()).toString(), email, username, avatar, photos);
     }

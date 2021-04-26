@@ -1,13 +1,15 @@
 package com.example.td1_plantes.model.appobjects;
 
 import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
+import com.example.td1_plantes.model.database.FirebaseObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
-public class Plant {
-
-    private UUID idPlant;
+public class Plant extends FirebaseObject {
+    public static final String COLLECTION_NAME = "Plants";
 
     private boolean isPublic;
     private String title;
@@ -22,8 +24,7 @@ public class Plant {
 
 
     public Plant(boolean isPublic, String title, String color, String imageURL, int size, String publicationDate, String description, MyPosition myPosition, List<String> sources) {
-
-        this.idPlant = UUID.randomUUID();
+        super(UUID.randomUUID().toString());
 
         this.imageURL = imageURL;
         this.isPublic = isPublic;
@@ -43,7 +44,7 @@ public class Plant {
     }
 
     public boolean isSamePlant(UUID idPlantF) {
-        if (this.idPlant.equals(idPlantF))
+        if (UUID.fromString(this.getObjectId()).equals(idPlantF))
             return true;
         return false;
     }
@@ -54,7 +55,7 @@ public class Plant {
     }
 
     public UUID getIdPlant() {
-        return idPlant;
+        return UUID.fromString(getObjectId());
     }
 
     public boolean isPublic() {
@@ -91,9 +92,9 @@ public class Plant {
         return sources;
     }
 
-    public void setIdPlant(UUID idPlant) {
+    /*public void setIdPlant(UUID idPlant) {
         this.idPlant = idPlant;
-    }
+    }*/
 
     public void setPublic(boolean aPublic) {
         isPublic = aPublic;
@@ -134,7 +135,7 @@ public class Plant {
     @Override
     public String toString() {
         return "Plant{" +
-                "idPlant=" + idPlant +
+                "idPlant=" + getObjectId() +
                 ", isPublic=" + isPublic +
                 ", title='" + title + '\'' +
                 ", color='" + color + '\'' +
@@ -145,5 +146,25 @@ public class Plant {
                 ", myPosition=" + myPosition +
                 ", sources=" + sources +
                 '}'  + '\n';
+    }
+
+    @Override
+    protected String getCollectionName() {
+        return COLLECTION_NAME;
+    }
+
+    @Override
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("isPublic", isPublic);
+        result.put("title", title);
+        result.put("color", color);
+        result.put("imageURL", imageURL);
+        result.put("size2", size);
+        result.put("publicationDate", publicationDate);
+        result.put("description", description);
+        result.put("myPosition", myPosition.toString());
+        result.put("sources", sources);
+        return  result;
     }
 }

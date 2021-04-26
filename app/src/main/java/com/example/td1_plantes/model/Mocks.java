@@ -30,13 +30,20 @@ public class Mocks {
             )
     };
 
-    public static final User user1 = new User("Jean", "Delaroche", "15/09/1987", StatusUser.PASSIONATE);
-    public static final User user2 = new User("Robert", "Marsais", "12/04/1939", StatusUser.PASSIONATE);
-    public static final User user3 = new User("Marine", "Dumarchant", "30/01/1997", StatusUser.PASSIONATE);
-    public static final User user4 = new User("Louis", "Fanzi", "30/01/1952", StatusUser.EXPERT);
-    public static final User user5 = new User("Yvette", "Lamarche", "26/03/1957", StatusUser.EXPERT);
-    public static final User user6 = new User("Robertette", "Delavier", "02/07/1982", StatusUser.EXPERT);
-    public static final User user7 = new User("Roger", "Lavalant", "01/02/1943", StatusUser.EXPERT);
+    private static final String AVATAR = "https://lh3.googleusercontent.com/proxy/-CCz5nfOGN4QI4_rHA7S1ssDmy2gyl-o4Y4xcB5IU0IueoFrmFnQoB6O238Z_IkYOHZ5ASZ1nOwm0LYE6nH6TXucl5qncDgHAsyw_N_luv6uS8mighfh2716uOSLoM1bC46odLYzZRpuf4tP0YfAOHbm-UK2GY98TdjsRwAaP3uiSMHRUxuTI1q-0djqVxYKNMOK70LV1pehF_3MAwFQ-B8OARIulA";
+    private static final List<String> PHOTOS = new ArrayList<String>() {{
+        add("https://www.meillandrichardier.com/media/catalog/product/cache/1/image/800x800/040ec09b1e35df139433887a97daa66f/1/0/1060-2946-rosier_edith_piaf_meiramboys-mi-t1000.jpg");
+        add("https://cdn4.fermedesaintemarthe.com/I-Autre-25058_1200x1200-tulipe-botanique-turkestanica.net.jpg");
+    }};
+
+    public static final User user1 = new User("Jean", "Delaroche", "15/09/1987", StatusUser.PASSIONATE, AVATAR, PHOTOS);
+    public static final User user2 = new User("Robert", "Marsais", "12/04/1939", StatusUser.PASSIONATE, AVATAR, PHOTOS);
+    public static final User user3 = new User("Marine", "Dumarchant", "30/01/1997", StatusUser.PASSIONATE, AVATAR, PHOTOS);
+    public static final User user4 = new User("Louis", "Fanzi", "30/01/1952", StatusUser.EXPERT, AVATAR, PHOTOS);
+    public static final User user5 = new User("Yvette", "Lamarche", "26/03/1957", StatusUser.EXPERT, AVATAR, PHOTOS);
+    public static final User user6 = new User("Robertette", "Delavier", "02/07/1982", StatusUser.EXPERT, AVATAR, PHOTOS);
+    public static final User user7 = new User("Roger", "Lavalant", "01/02/1943", StatusUser.EXPERT, AVATAR, PHOTOS);
+
 
     public static final Plant plant1 = new Plant(true, "Plaquetia", "Vert", "https://unsplash.com/photos/8mqOw4DBBSg/download?force=true&w=640",20, "20/04/2021", descriptionBanal, new MyPosition(43.6961, 7.27178, "Nice - France"), new ArrayList<String>() {{add("Wikipedia"); add("GeoFrance"); add("SuperMondePlante");}});
     public static final Plant plant2 = new Plant(true, "Cornemusa", "Vert", "https://unsplash.com/photos/eA2z1JSzZFI/download?force=true&w=640",25, "20/02/2021", descriptionBanal, new MyPosition(43.6965, 7.27189, "Antibes - France"), new ArrayList<String>() {{add("FranceMonde"); add("SuperTulipe"); add("Wikipedia");}});
@@ -105,6 +112,11 @@ public class Mocks {
         add(new UserAndPlant(user7.getUserId(), plant4.getIdPlant()));
     }};
 
-
+    public static void PushOnDatabase() {
+        /*userAndPlants.forEach(uap -> uap.save(() -> {}, err -> {}));
+        contributions.forEach(c -> c.save(() -> {}, err -> {}));
+        plants.forEach(c -> c.save(() -> {}, err -> {}));
+        users.forEach(c -> c.save(() -> {}, err -> {}));*/
+    }
 
 }

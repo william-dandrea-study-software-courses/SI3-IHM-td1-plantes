@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
-import com.example.td1_plantes.controler.fragments.OpenStreetMapFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.NewsDivHomeFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.PlantListHomePageFragment;
 import com.example.td1_plantes.model.GestionDatabase;
@@ -17,7 +16,6 @@ import com.example.td1_plantes.model.Mocks;
 import com.example.td1_plantes.model.appobjects.News;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
-import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
 
 import org.osmdroid.views.overlay.OverlayItem;
 
@@ -41,12 +39,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        List<Plant> publicPlantsTemp = GestionDatabase.getAllPublicPlants().subList(0, Math.min(GestionDatabase.getAllPublicPlants().size(), 2));
-        publicPlantsForHome = new Plant[publicPlantsTemp.size()];
-        publicPlantsTemp.toArray(publicPlantsForHome);
+        Mocks.PushOnDatabase();
 
-        locationsPointsMap = GestionDatabase.getAllPublicPlantsOnMap();
-        myPosition = (new GpsGenerateCurrentLocation(this)).getUserCurrentPosition();
+        GestionDatabase.loadUser("");
+
+        GestionDatabase.getAllPublicPlants(plants -> {
+            List<Plant> publicPlantsTemp = plants.subList(0, Math.min(plants.size(), 2));
+            publicPlantsForHome = new Plant[publicPlantsTemp.size()];
+            publicPlantsTemp.toArray(publicPlantsForHome);
+
+            // frame_layout_homepage_plants
+            FragmentManager fm2 = getSupportFragmentManager();
+            FragmentTransaction ft2 = fm2.beginTransaction();
+            ft2.add(R.id.frame_layout_homepage_plants, new PlantListHomePageFragment(publicPlantsForHome));
+            ft2.commit();
+        });
+
+
+        GestionDatabase.getAllPublicPlantsOnMap(plants -> {
+            locationsPointsMap = plants;
+            myPosition = (new GpsGenerateCurrentLocation(this)).getUserCurrentPosition();
+        });
+
 
         // myPosition = new MyPosition(0,0,"salut");
 
@@ -57,15 +71,11 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
 
 
-        // frame_layout_homepage_plants
-        FragmentManager fm2 = getSupportFragmentManager();
-        FragmentTransaction ft2 = fm2.beginTransaction();
-        ft2.add(R.id.frame_layout_homepage_plants, new PlantListHomePageFragment(publicPlantsForHome));
-        ft2.commit();
 
 
-        TextView txtTemp = (TextView) findViewById(R.id.super_temporaire);
-        txtTemp.setText((myPosition.getLattitude() + " " + myPosition.getLongitude()));
+
+        /*TextView txtTemp = (TextView) findViewById(R.id.super_temporaire);
+        txtTemp.setText((myPosition.getLattitude() + " " + myPosition.getLongitude()));*/
 
         // frame_layout_homepage_map
         /*
@@ -83,13 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        UserFactory userFactory = new UserFactory();
-        userFactory.loadFromFirebase("DSVBZgTAmIdw1k0jqTaW", user -> {
-            TextView welcome = findViewById(R.id.home_welcome);
-            welcome.setText("Bienvenue, " + user.getUsername() + "!");
-        }, error -> {
-
-        });
+        TextView welcome = findViewById(R.id.home_welcome);
+        welcome.setText("Bienvenue, " + GestionDatabase.getCurrentUser().getSurname() + "!");
     }
 
 

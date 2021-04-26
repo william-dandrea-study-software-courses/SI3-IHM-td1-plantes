@@ -12,7 +12,6 @@ import com.example.td1_plantes.R;
 import com.example.td1_plantes.controler.activities.utils.recyclerlists.PlantRecyclerAdapter;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.model.GestionDatabase;
-import com.example.td1_plantes.model.Mocks;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.User;
 
@@ -40,31 +39,33 @@ public class PersonnalFolderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personnal_folder);
 
         currentUser = GestionDatabase.getCurrentUser();
-        public_plants = new Plant[GestionDatabase.getAllPublicPlants().size()];
-        GestionDatabase.getAllPublicPlants().toArray(public_plants);
 
+        GestionDatabase.getAllPrivatePlantsFromOneUser(currentUser.getUserId(), plants -> {
+            vos_plantes = plants.toArray(new Plant[0]);
 
-        vos_plantes = new Plant[GestionDatabase.getAllPrivatePlantsFromOneUser(currentUser.getUserId()).size()];
-        GestionDatabase.getAllPrivatePlantsFromOneUser(currentUser.getUserId()).toArray(vos_plantes);
+            // "VOS PLANTES" Recycler View
+            recyclerViewOne = findViewById(R.id.recycler_view_vos_plantes);
+            recyclerViewOne.setLayoutManager(new LinearLayoutManager(this));
 
-
-
-
-        // "VOS PLANTES" Recycler View
-        recyclerViewOne = findViewById(R.id.recycler_view_vos_plantes);
-        recyclerViewOne.setLayoutManager(new LinearLayoutManager(this));
-
-        adapterOne = new PlantRecyclerAdapter(vos_plantes, this,true);
-        recyclerViewOne.setAdapter(adapterOne);
+            adapterOne = new PlantRecyclerAdapter(vos_plantes, this,true);
+            recyclerViewOne.setAdapter(adapterOne);
+        });
 
 
 
-        // "REPERTOIRE PUBLIC" Recycler View
-        recyclerViewTwo = findViewById(R.id.recycler_view_repertoire_public);
-        recyclerViewTwo.setLayoutManager(new LinearLayoutManager(this));
+        GestionDatabase.getAllPublicPlants(plants -> {
+            public_plants = plants.toArray(new Plant[0]);
 
-        adapterTwo = new PlantRecyclerAdapter(public_plants, this,false);
-        recyclerViewTwo.setAdapter(adapterTwo);
+            // "REPERTOIRE PUBLIC" Recycler View
+            recyclerViewTwo = findViewById(R.id.recycler_view_repertoire_public);
+            recyclerViewTwo.setLayoutManager(new LinearLayoutManager(this));
+            adapterTwo = new PlantRecyclerAdapter(public_plants, this,false);
+            recyclerViewTwo.setAdapter(adapterTwo);
+        });
+
+
+
+
 
 
         //bottom_app_bar

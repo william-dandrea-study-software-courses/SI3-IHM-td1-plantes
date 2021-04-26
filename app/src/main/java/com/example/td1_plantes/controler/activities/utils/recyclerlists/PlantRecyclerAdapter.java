@@ -64,18 +64,22 @@ public class PlantRecyclerAdapter extends RecyclerView.Adapter<PlantRecyclerAdap
         } else {
             String fiabilityString = "";
 
-            if (GestionDatabase.getFiabilityForOnePlant(data[position].getIdPlant()) == Fiability.LOW) {
-                fiabilityString += "Non-fiable";
-                holder.describerTitle.setTextColor(Color.parseColor("#FF0000"));
-            }
-            if (GestionDatabase.getFiabilityForOnePlant(data[position].getIdPlant()) == Fiability.MEDIUM) {
-                fiabilityString += "Peu-fiable";
-                holder.describerTitle.setTextColor(Color.parseColor("#f58442"));
-            }
-            if (GestionDatabase.getFiabilityForOnePlant(data[position].getIdPlant()) == Fiability.HIGH) {
-                fiabilityString += "Fiable";
-                holder.describerTitle.setTextColor(Color.parseColor("#0f7025"));
-            }
+            GestionDatabase.getFiabilityForOnePlant(data[position].getIdPlant(), fiability -> {
+                if (fiability == Fiability.LOW) {
+                    holder.describerTitle.setText("Non-fiable");
+                    holder.describerTitle.setTextColor(Color.parseColor("#FF0000"));
+                }
+                else if (fiability == Fiability.MEDIUM) {
+                    holder.describerTitle.setText("Peu-fiable");
+                    holder.describerTitle.setTextColor(Color.parseColor("#f58442"));
+                }
+                else if (fiability == Fiability.HIGH) {
+                    holder.describerTitle.setText("Fiable");
+                    holder.describerTitle.setTextColor(Color.parseColor("#0f7025"));
+                }
+            });
+
+
 
             holder.describerTitle.setText(fiabilityString);
         }
