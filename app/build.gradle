@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.td1.plantes"
-        minSdkVersion 25
+        minSdkVersion 26
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -35,6 +35,7 @@ android {
                             'src/main/res/layouts/activities',
                             'src/main/res/layouts/fragments',
                             'src/main/res/layouts/content',
+                            'src/main/res/layouts/notifications',
                             'src/main/res/layouts',
                             'src/main/res'
                     ]

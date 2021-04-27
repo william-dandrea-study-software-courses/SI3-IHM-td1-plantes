@@ -1,5 +1,6 @@
 package com.example.td1_plantes.controler.activities.plantpage;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,6 +25,8 @@ import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.User;
 import com.example.td1_plantes.model.appobjects.smallelements.Fiability;
 import com.example.td1_plantes.model.appobjects.smallelements.StatusUser;
+import com.example.td1_plantes.notification.NotificationObject;
+import com.example.td1_plantes.notification.NotificationType;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.UUID;
@@ -161,10 +165,18 @@ public class PlantPageActivity extends AppCompatActivity {
 
         Button validateSourceButton = (Button) findViewById(R.id.plant_page_intern_edit_sources_validate);
         validateSourceButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 GestionDatabase.addOnePlantSource(currentPlant.getIdPlant(), newSource);
                 initializeTheInformations();
+
+
+                NotificationObject notification = new NotificationObject()
+                        .setTitle("Sourced Added")
+                        .setMessage("This is an example")
+                        .setType(NotificationType.TYPE_MODIFICATIONS_DETECTED);
+                notification.sendFrom(PlantPageActivity.this);
             }
         });
     }
