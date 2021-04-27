@@ -35,9 +35,10 @@ public class GestionDatabase {
     }
 
     public static void loadUser(String username) {
-        userFactory.getBySurname("Fanzi", user -> currentUser = user, err -> {
-            throw (RuntimeException)err;
-        });
+        userFactory.getBySurname("Delaroche",
+                user -> currentUser = user,
+                err -> { throw (RuntimeException)err; }
+                );
     }
 
     public static void getAllUsers(IEventHandler<List<User>> callback) {

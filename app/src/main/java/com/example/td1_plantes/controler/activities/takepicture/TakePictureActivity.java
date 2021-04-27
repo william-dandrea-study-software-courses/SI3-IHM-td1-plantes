@@ -1,10 +1,14 @@
 package com.example.td1_plantes.controler.activities.takepicture;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -13,9 +17,14 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.td1_plantes.R;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.controler.fragments.TakePictureAndDispPictureFragment;
+import com.example.td1_plantes.controler.fragments.TitleYellowDescriberDivFragment;
+import com.example.td1_plantes.controler.fragments.homefragments.PlantListHomePageFragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -27,85 +36,51 @@ import java.util.Date;
  * @author D'Andrea William
  */
 public class TakePictureActivity extends AppCompatActivity {
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    private File photoFile = null;
-    private String mCurrentPhotoPath;
-    private ImageView mImageThumbnail;
-    private Button mTakePictureBtn;
-    private byte[] mFileBytes = null;
+
+
+
+    private Bitmap imageWeWillSendToDataBase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_picture);
 
-        // MENU
+
+        // take_pricture_activity_ajouter_une_photo_title
+
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.take_pricture_activity_ajouter_une_photo_title, new TitleYellowDescriberDivFragment("Prendre une photo"));
+        transaction.add(R.id.take_pricture_activity_ajouter_des_informations, new TitleYellowDescriberDivFragment("Informations"));
+
+
+
+        TakePictureAndDispPictureFragment takePictureAndDispPictureFragment = new TakePictureAndDispPictureFragment();
+        transaction.add(R.id.take_pricture_activity_ajouter_une_photo_fragment, takePictureAndDispPictureFragment);
+        imageWeWillSendToDataBase = takePictureAndDispPictureFragment.getImageWeSendToDatabase();
+
+
+
+
+
+
+
+
+
         //bottom_app_bar
-        FragmentManager fm2 = getSupportFragmentManager();
-        FragmentTransaction ft2 = fm2.beginTransaction();
-        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(3));
-        ft2.commit();
+        transaction.add(R.id.bottom_app_bar, new MyBottomBarFragment(3));
 
-        //Code pour ajouter une photo
-        mImageThumbnail = (ImageView) findViewById(R.id.img_thumbnail);
-        mTakePictureBtn = (Button) findViewById(R.id.btnCapture);
-        mTakePictureBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePictureIntent();
-            }
-        });
+
+
+        transaction.commit();
 
     }
 
-    private void takePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            //String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-            try {
-                photoFile = createImageFile();
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile);
-            startActivityForResult(takePictureIntent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-            //photoFile = File.createTempFile("photo"+time,".jpg",photoDir);
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK) {
-                retrieveCapturedPicture();
-            }
-        }
-    }
-
-    private void retrieveCapturedPicture() {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        Bitmap bitmap = BitmapFactory.decodeFile(photoFile.getAbsolutePath(), options);
-        mImageThumbnail.setImageBitmap(bitmap);
 
 
-        try {
-            ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream1);
-            mFileBytes = stream1.toByteArray();
-        } catch (OutOfMemoryError e) { //possibility of memoryexception
-            e.printStackTrace();
-        }
 
-    }
-
-    private File createImageFile() throws IOException {
-        File photoDir = getExternalFilesDir(Environment.DIRECTORY_DCIM);
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "1mind_" + timeStamp + ".jpg";
-        File photo = new File(photoDir,  imageFileName);
-        return photo;
-    }
 
 }

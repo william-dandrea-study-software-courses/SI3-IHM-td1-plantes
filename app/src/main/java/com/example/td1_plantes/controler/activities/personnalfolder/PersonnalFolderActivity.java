@@ -41,6 +41,9 @@ public class PersonnalFolderActivity extends AppCompatActivity {
         currentUser = GestionDatabase.getCurrentUser();
 
         GestionDatabase.getAllPrivatePlantsFromOneUser(currentUser.getUserId(), plants -> {
+            System.out.println("USER :: " + currentUser.getUserId().toString());
+            System.out.println("PLANTS YOOOO : " + plants.toString());
+
             vos_plantes = plants.toArray(new Plant[0]);
 
             // "VOS PLANTES" Recycler View

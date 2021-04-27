@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.controler.fragments.OpenStreetMapFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.NewsDivHomeFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.PlantListHomePageFragment;
 import com.example.td1_plantes.model.GestionDatabase;
@@ -16,6 +17,7 @@ import com.example.td1_plantes.model.Mocks;
 import com.example.td1_plantes.model.appobjects.News;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
+import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
 
 import org.osmdroid.views.overlay.OverlayItem;
 
@@ -31,17 +33,23 @@ public class MainActivity extends AppCompatActivity {
 
     Plant[] publicPlantsForHome;
     List<OverlayItem> locationsPointsMap;
-    MyPosition myPosition;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // gpsGenerateCurrentLocation = new GpsGenerateCurrentLocation(this);
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
 
         Mocks.PushOnDatabase();
 
         GestionDatabase.loadUser("");
+
+
 
         GestionDatabase.getAllPublicPlants(plants -> {
             List<Plant> publicPlantsTemp = plants.subList(0, Math.min(plants.size(), 2));
@@ -49,52 +57,58 @@ public class MainActivity extends AppCompatActivity {
             publicPlantsTemp.toArray(publicPlantsForHome);
 
             // frame_layout_homepage_plants
-            FragmentManager fm2 = getSupportFragmentManager();
-            FragmentTransaction ft2 = fm2.beginTransaction();
-            ft2.add(R.id.frame_layout_homepage_plants, new PlantListHomePageFragment(publicPlantsForHome));
-            ft2.commit();
+
+            FragmentManager managerIntern = getSupportFragmentManager();
+            FragmentTransaction transactionIntern = managerIntern.beginTransaction();
+            transactionIntern.add(R.id.frame_layout_homepage_plants, new PlantListHomePageFragment(publicPlantsForHome));
+            transactionIntern.commit();
         });
+
+
+
 
 
         GestionDatabase.getAllPublicPlantsOnMap(plants -> {
             locationsPointsMap = plants;
-            myPosition = (new GpsGenerateCurrentLocation(this)).getUserCurrentPosition();
         });
 
 
-        // myPosition = new MyPosition(0,0,"salut");
+
+
+
+
+
+        // publicPlantsForHome = new Plant[Mocks.plants.size()];
+        // publicPlantsForHome = Mocks.plants.toArray(new Plant[0]);
+
+        // transaction.add(R.id.frame_layout_homepage_plants, new PlantListHomePageFragment(publicPlantsForHome));
+
 
         // GENERATE THE NEWS DIV FRAGMENT
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.add(R.id.frame_layout_homepage_news, new NewsDivHomeFragment(newsListOnHome));
-        ft.commit();
+        transaction.add(R.id.frame_layout_homepage_news, new NewsDivHomeFragment(newsListOnHome));
 
+        // frame_layout_homepage_plants
+        transaction.add(R.id.frame_layout_homepage_plants, new PlantListHomePageFragment(publicPlantsForHome));
 
-
-
-
-        /*TextView txtTemp = (TextView) findViewById(R.id.super_temporaire);
-        txtTemp.setText((myPosition.getLattitude() + " " + myPosition.getLongitude()));*/
-
-        // frame_layout_homepage_map
-        /*
-        FragmentManager fm4 = getSupportFragmentManager();
-        FragmentTransaction ft4 = fm4.beginTransaction();
-        ft4.add(R.id.frame_layout_homepage_map, new OpenStreetMapFragment(locationsPointsMap, myPosition));
-        ft4.commit();
-*/
+        transaction.add(R.id.frame_layout_homepage_map, new OpenStreetMapFragment());
 
         //bottom_app_bar
-        FragmentManager fm3 = getSupportFragmentManager();
-        FragmentTransaction ft3 = fm3.beginTransaction();
-        ft3.add(R.id.bottom_app_bar, new MyBottomBarFragment(2));
-        ft3.commit();
+        transaction.add(R.id.bottom_app_bar, new MyBottomBarFragment(2));
+
+        transaction.commit();
 
 
 
-        TextView welcome = findViewById(R.id.home_welcome);
-        welcome.setText("Bienvenue, " + GestionDatabase.getCurrentUser().getSurname() + "!");
+        /*
+        UserFactory userFactory = new UserFactory();
+        userFactory.loadFromFirebase("DSVBZgTAmIdw1k0jqTaW", user -> {
+            TextView welcome = findViewById(R.id.home_welcome);
+            welcome.setText("Bienvenue, " + user.getUsername() + "!");
+        }, error -> {
+
+        });
+
+         */
     }
 
 

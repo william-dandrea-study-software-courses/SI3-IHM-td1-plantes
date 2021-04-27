@@ -139,7 +139,7 @@
     <orderEntry type="library" name="Gradle: com.google.firebase:protolite-well-known-types:17.1.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: io.grpc:grpc-android:1.28.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: androidx.annotation:annotation-experimental:1.0.0@aar" level="project" />
-    <orderEntry type="library" name="Gradle: org.osmdroid:osmdroid-android:6.0.2@aar" level="project" />
+    <orderEntry type="library" name="Gradle: org.osmdroid:osmdroid-android:6.1.6@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.makeramen:roundedimageview:2.3.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.google.android:flexbox:2.0.1@aar" level="project" />
   </component>

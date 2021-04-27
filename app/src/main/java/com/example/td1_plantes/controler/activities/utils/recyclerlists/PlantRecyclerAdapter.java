@@ -111,7 +111,10 @@ public class PlantRecyclerAdapter extends RecyclerView.Adapter<PlantRecyclerAdap
 
     @Override
     public int getItemCount() {
-        return data.length;
+        if (data != null) {
+            return data.length;
+        }
+        return 0;
     }
 
 

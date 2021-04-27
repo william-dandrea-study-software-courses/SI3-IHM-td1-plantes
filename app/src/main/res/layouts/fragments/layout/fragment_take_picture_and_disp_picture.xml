@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    tools:context=".controler.fragments.TakePictureAndDispPictureFragment">
+
+
+    <!-- ImageView ou nous aurons les icônes d'affichées -->
+    <ImageView
+        android:id="@+id/fragment_take_picture_and_disp_picture_image_view"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_baseline_image_24"
+        android:layout_width="match_parent"
+        android:minWidth="350dp"
+        android:layout_height="350dp"/>
+
+
+    <!-- Bouton pour capturer le moment ou nous allons prendre une photo -->
+    <Button
+        android:id="@+id/fragment_take_picture_and_disp_picture_button"
+        android:text="Ajouter une photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        />
+
+
+
+
+
+</LinearLayout>

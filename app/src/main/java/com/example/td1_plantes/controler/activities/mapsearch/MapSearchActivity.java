@@ -37,8 +37,8 @@ public class MapSearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setPointsOnMap();
 
+        this.setPointsOnMap();
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         Configuration.getInstance().setUserAgentValue(getPackageName());
         setContentView(R.layout.activity_map_search);
