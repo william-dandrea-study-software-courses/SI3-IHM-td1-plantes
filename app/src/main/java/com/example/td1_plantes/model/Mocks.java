@@ -112,7 +112,8 @@ public class Mocks {
         add(new UserAndPlant(user7.getUserId(), plant4.getIdPlant()));
     }};
 
-    public static void PushOnDatabase() {
+    public static void
+    PushOnDatabase() {
         /*userAndPlants.forEach(uap -> uap.save(() -> {}, err -> {}));
         contributions.forEach(c -> c.save(() -> {}, err -> {}));
         plants.forEach(c -> c.save(() -> {}, err -> {}));
