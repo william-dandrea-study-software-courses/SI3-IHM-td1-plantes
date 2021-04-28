@@ -37,7 +37,7 @@ public class UserAndPlantFactory extends FirebaseObjectFactory<UserAndPlant> {
     }
 
     public void getPlantsFor(UUID contributor, IEventHandler<List<UUID>> callback) {
-        db.collection(getCollectionName()).whereEqualTo("contributor", contributor.toString()).get()
+        db.collection(getCollectionName()).whereEqualTo("user", contributor.toString()).get()
                 .addOnFailureListener(err -> callback.onTrigger(new ArrayList<>()))
                 .addOnSuccessListener(res -> {
                     List<UUID> plants = new ArrayList<>();

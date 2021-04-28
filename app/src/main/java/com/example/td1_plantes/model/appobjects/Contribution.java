@@ -66,6 +66,7 @@ public class Contribution extends FirebaseObject {
 
     public void setPositiveAdvice(boolean positiveAdvice) {
         this.positiveAdvice = positiveAdvice;
+        save(() -> {}, err -> {});
     }
 
     @Override

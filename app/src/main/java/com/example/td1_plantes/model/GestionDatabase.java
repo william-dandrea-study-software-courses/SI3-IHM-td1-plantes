@@ -246,9 +246,12 @@ public class GestionDatabase {
         //Mocks.contributions.add(contribution);
     }
 
-    public static void setOnePlantDescription(UUID plantID, String newDescription) {
+    public static void setOnePlantDescription(UUID plantID, String newDescription, IVoidEventHandler success, IEventHandler<Throwable> fail) {
         getRealPlant(plantID, plant -> {
-            if(plant.isPresent()) plant.get().setDescription(newDescription);
+            if(plant.isPresent()) {
+                plant.get().setDescription(newDescription);
+                plant.get().save(success, fail);
+            }
             else throw new RuntimeException("No plant found");
         });
 

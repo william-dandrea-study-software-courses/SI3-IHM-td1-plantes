@@ -11,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -140,7 +141,13 @@ public class PlantPageActivity extends AppCompatActivity {
         validateDescriptionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionDatabase.setOnePlantDescription(currentPlant.getIdPlant(), newDescritpion);
+                GestionDatabase.setOnePlantDescription(currentPlant.getIdPlant(), newDescritpion, () -> {
+                    TextView description = findViewById(R.id.plant_page_description_id);
+                    description.setText(newDescritpion);
+                    Toast.makeText(validateDescriptionButton.getContext(), "Saved successfully !", Toast.LENGTH_SHORT).show();
+                }, err -> {
+                    Toast.makeText(validateDescriptionButton.getContext(), "An error occurred", Toast.LENGTH_LONG).show();
+                });
                 initializeTheInformations();
             }
         });
