@@ -14,6 +14,8 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,8 +28,10 @@ import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.controler.fragments.TakePictureAndDispPictureFragment;
 import com.example.td1_plantes.controler.fragments.TitleYellowDescriberDivFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.PlantListHomePageFragment;
+import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -44,6 +48,9 @@ public class TakePictureActivity extends AppCompatActivity {
 
     private Bitmap imageWeWillSendToDataBase;
     private boolean isCheckedPublic;
+    private String description;
+    private String title;
+    private MyPosition emplacement;
 
 
     @Override
@@ -79,7 +86,7 @@ public class TakePictureActivity extends AppCompatActivity {
 
         Button validateButton = (Button) findViewById(R.id.take_pricture_validate_button);
 
-        TextView test = (TextView) findViewById(R.id.take_picture_activity_test);
+
 
         // PUBLIC - PRIVATE BUTTON
         Chip publicChip = (Chip) findViewById(R.id.take_pricture_chipgroup_public_private_child_1);
@@ -101,7 +108,33 @@ public class TakePictureActivity extends AppCompatActivity {
 
 
 
+        // DESCRIPTION
+        TextInputLayout descriptionInput = (TextInputLayout) findViewById(R.id.take_pricture_description_input);
 
+        descriptionInput.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
+                description = text.toString();
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        // TITRE
+        TextInputLayout titleInput = (TextInputLayout) findViewById(R.id.take_pricture_title_input);
+
+        titleInput.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence text, int start, int count, int after) {
+                title = text.toString();
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
 
 
 
@@ -118,7 +151,6 @@ public class TakePictureActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                test.setText(String.valueOf(isCheckedPublic));
             }
         });
 

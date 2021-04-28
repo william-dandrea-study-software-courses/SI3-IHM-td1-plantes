@@ -29,6 +29,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="20dp"
                 android:text="Ajouter un plante"
                 android:textSize="40sp"
@@ -64,17 +65,8 @@
                 android:layout_height="wrap_content" />
 
 
-            <FrameLayout
-                android:id="@+id/take_pricture_activity_localisation"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
 
-            <TextView
-                android:id="@+id/take_picture_activity_test"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="test" />
+
 
 
             <!-- PUBLIC VS PRIVATE -->
@@ -90,6 +82,7 @@
                     android:id="@+id/take_pricture_chipgroup_public_private"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     app:singleSelection="true"
                     app:selectionRequired="true"
                     >
@@ -97,7 +90,7 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/take_pricture_chipgroup_public_private_child_1"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="150dp"
+                        android:layout_width="180dp"
                         android:layout_height="50dp"
                         android:checked="true"
                         android:text="PUBLIC"
@@ -109,7 +102,7 @@
                     <com.google.android.material.chip.Chip
                         android:id="@+id/take_pricture_chipgroup_public_private_child_2"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
-                        android:layout_width="150dp"
+                        android:layout_width="180dp"
                         android:layout_height="50dp"
                         app:chipCornerRadius="2dp"
                         android:textAlignment="center"
@@ -124,14 +117,65 @@
 
 
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/take_pricture_title_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nom de la plante" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/take_pricture_description_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Description de la plante" />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+            <FrameLayout
+                android:id="@+id/take_pricture_activity_localisation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+
+
 
 
             <Button
                 android:id="@+id/take_pricture_validate_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 android:text="VALIDER"
                 />
+
+
+
 
 
 
