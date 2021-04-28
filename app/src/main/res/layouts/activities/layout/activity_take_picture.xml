@@ -62,7 +62,8 @@
             <FrameLayout
                 android:id="@+id/take_pricture_activity_ajouter_des_informations"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                />
 
 
 
@@ -158,6 +159,8 @@
                 android:id="@+id/take_pricture_activity_localisation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
                 />
 
 

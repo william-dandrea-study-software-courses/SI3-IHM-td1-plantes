@@ -91,4 +91,11 @@ public class TakePictureAndDispPictureFragment extends Fragment {
     public Bitmap getImageWeSendToDatabase() {
         return imageWeSendToDatabase;
     }
+
+    public boolean verifyIfPictureIsPresent() {
+        if (imageWeSendToDatabase == null) {
+            return false;
+        }
+        return true;
+    }
 }

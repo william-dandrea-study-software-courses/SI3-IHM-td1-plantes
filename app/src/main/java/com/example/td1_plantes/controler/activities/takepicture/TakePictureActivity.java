@@ -39,6 +39,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
 /**
  * @author D'Andrea William
  */
@@ -48,8 +50,8 @@ public class TakePictureActivity extends AppCompatActivity {
 
     private Bitmap imageWeWillSendToDataBase;
     private boolean isCheckedPublic;
-    private String description;
-    private String title;
+    private String description = null;
+    private String title = null;
     private MyPosition emplacement;
 
 
@@ -71,10 +73,10 @@ public class TakePictureActivity extends AppCompatActivity {
 
         TakePictureAndDispPictureFragment takePictureAndDispPictureFragment = new TakePictureAndDispPictureFragment();
         transaction.add(R.id.take_pricture_activity_ajouter_une_photo_fragment, takePictureAndDispPictureFragment);
-        imageWeWillSendToDataBase = takePictureAndDispPictureFragment.getImageWeSendToDatabase();
 
 
-        transaction.add(R.id.take_pricture_activity_localisation, new GenerateCurrentLocalisationFragment());
+        GenerateCurrentLocalisationFragment generateCurrentLocalisationFragment = new GenerateCurrentLocalisationFragment();
+        transaction.add(R.id.take_pricture_activity_localisation, generateCurrentLocalisationFragment);
 
         //bottom_app_bar
         transaction.add(R.id.bottom_app_bar, new MyBottomBarFragment(3));
@@ -141,15 +143,46 @@ public class TakePictureActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
         validateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                boolean allIsGood = true;
+                if (!takePictureAndDispPictureFragment.verifyIfPictureIsPresent()) {
+                    allIsGood = false;
+                    Toast.makeText(getApplicationContext(), "Vous devez ajouter une photo avant de continuer", LENGTH_SHORT).show();
+                }
+
+
+                if (!generateCurrentLocalisationFragment.isButtonIsPressed()) {
+                    allIsGood = false;
+                    Toast.makeText(getApplicationContext(), "Vous devez vous loclaiser avant de continuer", LENGTH_SHORT).show();
+                }
+
+                if (description == null) {
+                    allIsGood = false;
+                    Toast.makeText(getApplicationContext(), "Vous devez ajouter une description avant de continuer", LENGTH_SHORT).show();
+                }
+
+                if (title == null) {
+                    allIsGood = false;
+                    Toast.makeText(getApplicationContext(), "Vous devez ajouter un titre avant de continuer", LENGTH_SHORT).show();
+                }
+
+                if (allIsGood) {
+                    Toast.makeText(getApplicationContext(), "Tout est bon !", LENGTH_SHORT).show();
+                }
+
+                imageWeWillSendToDataBase = takePictureAndDispPictureFragment.getImageWeSendToDatabase();
+                emplacement = new MyPosition(generateCurrentLocalisationFragment.getLattitude(), generateCurrentLocalisationFragment.getLongitude(), "");
+                // description = description;
+                // title = title;
+                // isCheckedPublic = isCheckedPublic;
+
+
+
+
 
             }
         });

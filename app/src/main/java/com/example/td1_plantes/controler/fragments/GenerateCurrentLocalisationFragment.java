@@ -41,6 +41,10 @@ public class GenerateCurrentLocalisationFragment extends Fragment {
 
     private TextView latitudeText, longitudeText, adressText;
     private Button button;
+    private double lattitude;
+    private double longitude;
+
+    private boolean buttonIsPressed = false;
 
     FusedLocationProviderClient client;
 
@@ -63,6 +67,7 @@ public class GenerateCurrentLocalisationFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                buttonIsPressed = true;
                 // On check d'abord les autorisations
                 if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                         && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -117,6 +122,9 @@ public class GenerateCurrentLocalisationFragment extends Fragment {
                         // Quand la localisation est non nul, on affiche la position
                         latitudeText.setText(String.valueOf(location.getLatitude()));
                         longitudeText.setText(String.valueOf(location.getLongitude()));
+
+                        lattitude = location.getLatitude();
+                        longitude = location.getLongitude();
                     } else {
                         // Si la localisation est null, on fait une requete pour autorisé la localisation
                         LocationRequest locationRequest = new LocationRequest().setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(10000).setFastestInterval(1000).setNumUpdates(1);
@@ -127,6 +135,10 @@ public class GenerateCurrentLocalisationFragment extends Fragment {
                                 Location location1 = locationResult.getLastLocation();
                                 latitudeText.setText(String.valueOf(location1.getLatitude()));
                                 longitudeText.setText(String.valueOf(location1.getLongitude()));
+
+                                lattitude = location1.getLatitude();
+                                longitude = location1.getLongitude();
+
                             }
                         };
 
@@ -146,6 +158,17 @@ public class GenerateCurrentLocalisationFragment extends Fragment {
         }
     }
 
+    public boolean isButtonIsPressed() {
+        return buttonIsPressed;
+    }
+
+    public double getLattitude() {
+        return lattitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
 }
 
 

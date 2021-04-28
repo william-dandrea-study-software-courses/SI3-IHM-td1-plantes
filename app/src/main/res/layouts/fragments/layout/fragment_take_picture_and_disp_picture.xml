@@ -15,17 +15,18 @@
         android:src="@drawable/ic_baseline_image_24"
         android:layout_width="match_parent"
         android:minWidth="350dp"
-        android:layout_height="350dp"/>
+        android:layout_height="350dp"
+        />
 
 
     <!-- Bouton pour capturer le moment ou nous allons prendre une photo -->
     <Button
+
         android:id="@+id/fragment_take_picture_and_disp_picture_button"
-        android:text="Ajouter une photo"
+        android:text="Cliquez pour ajouter une photo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         />
 
 
