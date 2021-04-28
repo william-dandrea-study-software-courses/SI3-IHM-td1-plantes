@@ -21,10 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.td1_plantes.R;
+import com.example.td1_plantes.controler.fragments.GenerateCurrentLocalisationFragment;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.controler.fragments.TakePictureAndDispPictureFragment;
 import com.example.td1_plantes.controler.fragments.TitleYellowDescriberDivFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.PlantListHomePageFragment;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,13 +43,14 @@ public class TakePictureActivity extends AppCompatActivity {
 
 
     private Bitmap imageWeWillSendToDataBase;
+    private boolean isCheckedPublic;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_take_picture);
-
+        isCheckedPublic = true;
 
         // take_pricture_activity_ajouter_une_photo_title
 
@@ -63,19 +67,68 @@ public class TakePictureActivity extends AppCompatActivity {
         imageWeWillSendToDataBase = takePictureAndDispPictureFragment.getImageWeSendToDatabase();
 
 
-
-
-
-
-
-
+        transaction.add(R.id.take_pricture_activity_localisation, new GenerateCurrentLocalisationFragment());
 
         //bottom_app_bar
         transaction.add(R.id.bottom_app_bar, new MyBottomBarFragment(3));
 
-
-
         transaction.commit();
+
+
+
+
+        Button validateButton = (Button) findViewById(R.id.take_pricture_validate_button);
+
+        TextView test = (TextView) findViewById(R.id.take_picture_activity_test);
+
+        // PUBLIC - PRIVATE BUTTON
+        Chip publicChip = (Chip) findViewById(R.id.take_pricture_chipgroup_public_private_child_1);
+        Chip privateChip = (Chip) findViewById(R.id.take_pricture_chipgroup_public_private_child_2);
+
+        publicChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isCheckedPublic = true;
+            }
+        });
+
+        privateChip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isCheckedPublic = false;
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        validateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                test.setText(String.valueOf(isCheckedPublic));
+            }
+        });
+
+
+
+
+
+
+
+
 
     }
 
