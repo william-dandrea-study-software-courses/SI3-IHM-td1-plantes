@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         GestionDatabase.getAllPublicPlantsOnMap(plants -> {
             locationsPointsMap = plants;
         });

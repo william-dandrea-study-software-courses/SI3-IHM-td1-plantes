@@ -2,6 +2,7 @@ package com.example.td1_plantes.controler.fragments;
 
 import android.Manifest;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
@@ -23,6 +25,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.td1_plantes.R;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.ArrayList;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -32,10 +44,16 @@ public class TakePictureAndDispPictureFragment extends Fragment {
     private static final int PERMISSION_CODE = 1000;
     private static final int IMAGE_CAPTURE_CODE = 1001;
 
+
+
     Button captureButton;
     ImageView imageView;
 
     Bitmap imageWeSendToDatabase;
+
+    private static final String AUTHORITY="com.td1plante.fileprovider";
+
+    FirebaseStorage storage = FirebaseStorage.getInstance();
 
 
 
@@ -69,6 +87,7 @@ public class TakePictureAndDispPictureFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
                 startActivityForResult(intent, 1000);
 
             }
@@ -79,11 +98,38 @@ public class TakePictureAndDispPictureFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        //super.onActivityResult(requestCode, resultCode, data);
+
+
         if (requestCode == 1000 && resultCode == RESULT_OK) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(bitmap);
             imageWeSendToDatabase = bitmap;
+
+            File f = new File(getContext().getCacheDir(), "image");
+            try {
+                f.createNewFile();
+
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 0 , bos);
+                byte[] bitmapdata = bos.toByteArray();
+
+                FileOutputStream fos = new FileOutputStream(f);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+
+                System.out.println("FILE : " + fos.toString());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            // sendToFirebase(bitmap);
+
+            // System.out.println("URI : " + getImageUri(getContext(), bitmap).toString());
         }
     }
 
@@ -98,4 +144,28 @@ public class TakePictureAndDispPictureFragment extends Fragment {
         }
         return true;
     }
+
+
+
+    public void sendToFirebase(Bitmap imageBitmap) {
+
+        StorageReference storageReference = storage.getReferenceFromUrl("gs://tp1-plante.appspot.com");
+        StorageReference mountainImagesRef = storageReference.child("test.jpg");
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
