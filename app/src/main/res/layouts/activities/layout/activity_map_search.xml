@@ -23,7 +23,7 @@
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="750dp">
+        android:layout_height="700dp">
 
         <org.osmdroid.views.MapView android:id="@+id/map"
             android:layout_width="fill_parent"

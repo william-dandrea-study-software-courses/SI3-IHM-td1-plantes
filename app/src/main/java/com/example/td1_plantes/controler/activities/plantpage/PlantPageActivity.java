@@ -32,6 +32,11 @@ import com.example.td1_plantes.notification.NotificationObject;
 import com.example.td1_plantes.notification.NotificationType;
 import com.google.android.material.textfield.TextInputLayout;
 
+import org.osmdroid.util.GeoPoint;
+import org.osmdroid.views.overlay.OverlayItem;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -162,12 +167,31 @@ public class PlantPageActivity extends AppCompatActivity {
 
 
 
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.plant_page_localisation_title, new TitleYellowDescriberDivFragment("Emplacement"));
-        transaction.add(R.id.plant_page_localisation_map, new OpenStreetMapFragment(currentPlant.getMyPosition()));
+        GestionDatabase.getAllPublicPlants(plantsPublic -> {
+            GestionDatabase.getAllPrivatePlants(plantsPrivate -> {
 
-        transaction.commit();
+                List<Plant> goodPlants = plantsPublic;
+                goodPlants.addAll(plantsPrivate);
+
+                List<OverlayItem> pointsOnMap = new ArrayList<>();
+
+                for (Plant plant : goodPlants) {
+
+                    pointsOnMap.add(new OverlayItem(plant.getTitle(), plant.getPublicationDate(), new GeoPoint(plant.getMyPosition().getLattitude(), plant.getMyPosition().getLongitude())));
+
+                }
+
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.add(R.id.plant_page_localisation_title, new TitleYellowDescriberDivFragment("Emplacement"));
+                transaction.add(R.id.plant_page_localisation_map, new OpenStreetMapFragment(currentPlant.getMyPosition(), pointsOnMap));
+
+                transaction.commit();
+
+            });
+        });
+
+
 
 
 

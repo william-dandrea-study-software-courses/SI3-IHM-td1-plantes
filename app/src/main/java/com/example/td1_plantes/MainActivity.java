@@ -16,8 +16,10 @@ import com.example.td1_plantes.model.Mocks;
 import com.example.td1_plantes.model.appobjects.News;
 import com.example.td1_plantes.model.appobjects.Plant;
 
+import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.OverlayItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -86,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
         // frame_layout_homepage_plants
         transaction.add(R.id.frame_layout_homepage_plants, new PlantListHomePageFragment(publicPlantsForHome));
 
-        transaction.add(R.id.frame_layout_homepage_map, new OpenStreetMapFragment());
 
         transaction.add(R.id.frame_layout_homepage_map_title, new TitleYellowDescriberDivFragment("Plantes proche"));
 
@@ -95,6 +96,30 @@ public class MainActivity extends AppCompatActivity {
 
         transaction.commit();
 
+
+
+
+        GestionDatabase.getAllPublicPlants(plantsPublic -> {
+            GestionDatabase.getAllPrivatePlants(plantsPrivate -> {
+
+                List<Plant> goodPlants = plantsPublic;
+                goodPlants.addAll(plantsPrivate);
+
+                List<OverlayItem> pointsOnMap = new ArrayList<>();
+
+                for (Plant plant : goodPlants) {
+
+                    pointsOnMap.add(new OverlayItem(plant.getTitle(), plant.getPublicationDate(), new GeoPoint(plant.getMyPosition().getLattitude(), plant.getMyPosition().getLongitude())));
+
+                }
+
+                FragmentManager managerIntern = getSupportFragmentManager();
+                FragmentTransaction transactionIntern = managerIntern.beginTransaction();
+                transactionIntern.add(R.id.frame_layout_homepage_map, new OpenStreetMapFragment(pointsOnMap));
+                transactionIntern.commit();
+
+            });
+        });
 
 
         /*

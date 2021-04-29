@@ -59,6 +59,8 @@ public class OpenStreetMapFragment extends Fragment {
     private MapView mapView;
     private IMapController mapController;
 
+    private List<OverlayItem> listOfPointsOnMap;
+
 
     private boolean setCenterInUserLocation = true;
 
@@ -68,12 +70,17 @@ public class OpenStreetMapFragment extends Fragment {
 
     public OpenStreetMapFragment() {}
 
+    public OpenStreetMapFragment(List<OverlayItem> listOfPointsOnMap) {
+        this.setCenterInUserLocation = true;
+        this.listOfPointsOnMap = listOfPointsOnMap;
+    }
 
 
-    public OpenStreetMapFragment(MyPosition centerPosition) {
+    public OpenStreetMapFragment(MyPosition centerPosition, List<OverlayItem> listOfPointsOnMap) {
         this.setCenterInUserLocation = false;
         this.centerLongitude = centerPosition.getLongitude();
         this.centerLatitude = centerPosition.getLattitude();
+        this.listOfPointsOnMap = listOfPointsOnMap;
     }
 
 
@@ -100,7 +107,6 @@ public class OpenStreetMapFragment extends Fragment {
         left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-           
 
                 centerLongitude += 0.1;
                 mapController.animateTo(new GeoPoint(centerLatitude, centerLongitude));
@@ -175,13 +181,10 @@ public class OpenStreetMapFragment extends Fragment {
         mapView.invalidate();
 
         // => Ajout des points sur la map
-        List<OverlayItem> tempOverlaysPoints = new ArrayList<OverlayItem>() {{
-            add(new OverlayItem("overlay1", "overlay1desc", new GeoPoint(43.6, 7.25)));
-            add(new OverlayItem("overlay1", "overlay1desc", new GeoPoint(43.7, 7.26)));
-        }};
+
 
         // Ajout réel des points sur la map + affectation des actions a faire si on clique sur un overlay.
-        ItemizedOverlay<OverlayItem> overlaysOnMap = new ItemizedIconOverlay<OverlayItem>(getContext(), tempOverlaysPoints, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
+        ItemizedOverlay<OverlayItem> overlaysOnMap = new ItemizedIconOverlay<OverlayItem>(getContext(), listOfPointsOnMap, new ItemizedIconOverlay.OnItemGestureListener<OverlayItem>() {
             @Override
             public boolean onItemSingleTapUp(int index, OverlayItem item) {
                 return false;
