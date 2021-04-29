@@ -28,6 +28,7 @@ import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.controler.fragments.TakePictureAndDispPictureFragment;
 import com.example.td1_plantes.controler.fragments.TitleYellowDescriberDivFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.PlantListHomePageFragment;
+import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -37,6 +38,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 
 import static android.widget.Toast.LENGTH_SHORT;
@@ -154,28 +158,46 @@ public class TakePictureActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Vous devez ajouter une photo avant de continuer", LENGTH_SHORT).show();
                 }
 
-
-                if (!generateCurrentLocalisationFragment.isButtonIsPressed()) {
+                else if (!generateCurrentLocalisationFragment.isButtonIsPressed()) {
                     allIsGood = false;
                     Toast.makeText(getApplicationContext(), "Vous devez vous loclaiser avant de continuer", LENGTH_SHORT).show();
                 }
 
-                if (description == null) {
+                else if (description == null) {
                     allIsGood = false;
                     Toast.makeText(getApplicationContext(), "Vous devez ajouter une description avant de continuer", LENGTH_SHORT).show();
                 }
 
-                if (title == null) {
+                else if (title == null) {
                     allIsGood = false;
                     Toast.makeText(getApplicationContext(), "Vous devez ajouter un titre avant de continuer", LENGTH_SHORT).show();
                 }
 
-                if (allIsGood) {
-                    Toast.makeText(getApplicationContext(), "Tout est bon !", LENGTH_SHORT).show();
+                else if (allIsGood) {
+                    //Toast.makeText(getApplicationContext(), "Tout est bon !", LENGTH_SHORT).show();
+
+                    imageWeWillSendToDataBase = takePictureAndDispPictureFragment.getImageWeSendToDatabase();
+                    emplacement = new MyPosition(generateCurrentLocalisationFragment.getLattitude(), generateCurrentLocalisationFragment.getLongitude(), "");
+
+                    Plant newPlant = new Plant(
+                            isCheckedPublic,
+                            title,
+                            "",
+                            takePictureAndDispPictureFragment.getFinalImageUrl().toString(),
+                            0,
+                            DateTimeFormatter.ofPattern("yyyy/MM/dd").format(LocalDateTime.now()),
+                            description,
+                            emplacement,
+                            new ArrayList<String>()
+                    );
+
+                    Toast.makeText(getApplicationContext(), newPlant.toString(), LENGTH_SHORT).show();
+                    System.out.println("NEWPLANT : " + newPlant.toString());
+
+
                 }
 
-                imageWeWillSendToDataBase = takePictureAndDispPictureFragment.getImageWeSendToDatabase();
-                emplacement = new MyPosition(generateCurrentLocalisationFragment.getLattitude(), generateCurrentLocalisationFragment.getLongitude(), "");
+
                 // description = description;
                 // title = title;
                 // isCheckedPublic = isCheckedPublic;

@@ -25,8 +25,14 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.td1_plantes.R;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -35,23 +41,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static android.app.Activity.RESULT_OK;
 
 
 public class TakePictureAndDispPictureFragment extends Fragment {
 
-    private static final int PERMISSION_CODE = 1000;
-    private static final int IMAGE_CAPTURE_CODE = 1001;
 
-
+    private Uri finalImageUrl;
 
     Button captureButton;
     ImageView imageView;
 
     Bitmap imageWeSendToDatabase;
 
-    private static final String AUTHORITY="com.td1plante.fileprovider";
 
     FirebaseStorage storage = FirebaseStorage.getInstance();
 
@@ -106,28 +110,10 @@ public class TakePictureAndDispPictureFragment extends Fragment {
             imageView.setImageBitmap(bitmap);
             imageWeSendToDatabase = bitmap;
 
-            File f = new File(getContext().getCacheDir(), "image");
-            try {
-                f.createNewFile();
 
 
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG, 0 , bos);
-                byte[] bitmapdata = bos.toByteArray();
 
-                FileOutputStream fos = new FileOutputStream(f);
-                fos.write(bitmapdata);
-                fos.flush();
-                fos.close();
-
-                System.out.println("FILE : " + fos.toString());
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-            // sendToFirebase(bitmap);
+            sendToFirebase(bitmap);
 
             // System.out.println("URI : " + getImageUri(getContext(), bitmap).toString());
         }
@@ -149,23 +135,77 @@ public class TakePictureAndDispPictureFragment extends Fragment {
 
     public void sendToFirebase(Bitmap imageBitmap) {
 
-        StorageReference storageReference = storage.getReferenceFromUrl("gs://tp1-plante.appspot.com");
-        StorageReference mountainImagesRef = storageReference.child("test.jpg");
+        // Create a storage reference from our app
+        StorageReference storageRef = storage.getReference();
+
+        // Create a reference to "mountains.jpg"
+        StorageReference mountainsRef = storageRef.child(UUID.randomUUID().toString() + ".jpg");
+
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = mountainsRef.putBytes(data);
+
+
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                Toast.makeText(getContext(), "Problème d'upload", Toast.LENGTH_SHORT);
+
+                // Continue with the task to get the download URL
+                return mountainsRef.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getContext(), "Photo bien uploadé", Toast.LENGTH_SHORT);
+                    Uri downloadUri = task.getResult();
+                    finalImageUrl = downloadUri;
+                    System.out.println(downloadUri);
+                } else {
+                    Toast.makeText(getContext(), "Problème lors de l'upload", Toast.LENGTH_SHORT);
+                }
+            }
+        });
 
 
     }
 
 
+    public File bitMapToFile(Bitmap bitmap) {
+        File f = new File(getContext().getCacheDir(), "image");
+        try {
+            f.createNewFile();
 
 
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 0 , bos);
+            byte[] bitmapdata = bos.toByteArray();
+
+            FileOutputStream fos = new FileOutputStream(f);
+            fos.write(bitmapdata);
+            fos.flush();
+            fos.close();
+
+            System.out.println("FILE : " + fos.toString());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return f;
+    }
 
 
-
-
-
-
-
-
+    public Uri getFinalImageUrl() {
+        return finalImageUrl;
+    }
 
 
 }
