@@ -457,6 +457,40 @@
 
 
 
+            <LinearLayout
+                android:id="@+id/plant_page_localisation"
+                app:layout_constraintTop_toBottomOf="@+id/plant_page_description_main_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+
+
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                >
+
+                <FrameLayout
+                    android:id="@+id/plant_page_localisation_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    />
+
+
+                <FrameLayout
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:id="@+id/plant_page_localisation_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp" />
+
+
+
+            </LinearLayout>
+
+
+
+
 
 
 
@@ -467,7 +501,7 @@
 
             <LinearLayout
                 android:id="@+id/plant_page_contributors_main_id"
-                app:layout_constraintTop_toBottomOf="@+id/plant_page_description_main_id"
+                app:layout_constraintTop_toBottomOf="@+id/plant_page_localisation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

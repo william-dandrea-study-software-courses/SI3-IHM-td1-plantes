@@ -6,28 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
 
 import android.os.Looper;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.td1_plantes.R;
-import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -36,60 +29,51 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-
-public class GenerateCurrentLocalisationFragment extends Fragment {
-
-
-    private TextView latitudeText, longitudeText, adressText;
-    private Button button;
-    private double lattitude;
-    private double longitude;
-
-    private boolean buttonIsPressed = false;
-
-    FusedLocationProviderClient client;
+public class GenerateCurrentPositionAndDispNothingFragment extends Fragment  {
 
 
 
-    public GenerateCurrentLocalisationFragment() {}
+    public GenerateCurrentPositionAndDispNothingFragment() {
+        // Required empty public constructor
+    }
 
+    public double getLattitude() {
+        return lattitude;
+    }
 
+    public double getLongitude() {
+        return longitude;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_generate_current_localisation, container, false);
-
-        // Assign variables
-        button = view.findViewById(R.id.fragment_generate_current_localisation_button);
-        latitudeText = view.findViewById(R.id.fragment_generate_current_localisation_lattitude);
-        longitudeText = view.findViewById(R.id.fragment_generate_current_localisation_longitude);
-
-        // Initialze location client
-        client = LocationServices.getFusedLocationProviderClient(getActivity());
-
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_generate_current_position_and_disp_nothing, container, false);
 
 
-                generateAutorisationAndGeneratePosition();
-
-            }
-        });
-
+        generateAutorisationAndGeneratePosition();
 
         return view;
     }
 
 
 
+    FusedLocationProviderClient client;
 
-
+    private double lattitude;
+    private double longitude;
 
 
 
     private void generateAutorisationAndGeneratePosition() {
-        buttonIsPressed = true;
+
+        client = LocationServices.getFusedLocationProviderClient(getActivity());
+
         // On check d'abord les autorisations
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
                 && ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
@@ -136,8 +120,6 @@ public class GenerateCurrentLocalisationFragment extends Fragment {
                     // Check condition
                     if (location != null) {
                         // Quand la localisation est non nul, on affiche la position
-                        latitudeText.setText(String.valueOf(location.getLatitude()));
-                        longitudeText.setText(String.valueOf(location.getLongitude()));
 
                         lattitude = location.getLatitude();
                         longitude = location.getLongitude();
@@ -149,8 +131,6 @@ public class GenerateCurrentLocalisationFragment extends Fragment {
                             @Override
                             public void onLocationResult(@NonNull LocationResult locationResult) {
                                 Location location1 = locationResult.getLastLocation();
-                                latitudeText.setText(String.valueOf(location1.getLatitude()));
-                                longitudeText.setText(String.valueOf(location1.getLongitude()));
 
                                 lattitude = location1.getLatitude();
                                 longitude = location1.getLongitude();
@@ -174,17 +154,5 @@ public class GenerateCurrentLocalisationFragment extends Fragment {
         }
     }
 
-    public boolean isButtonIsPressed() {
-        return buttonIsPressed;
-    }
 
-    public double getLattitude() {
-        return lattitude;
-    }
-
-    public double getLongitude() {
-        return longitude;
-    }
 }
-
-

@@ -1,7 +1,6 @@
 package com.example.td1_plantes;
 
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -9,15 +8,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.controler.fragments.OpenStreetMapFragment;
+import com.example.td1_plantes.controler.fragments.TitleYellowDescriberDivFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.NewsDivHomeFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.PlantListHomePageFragment;
 import com.example.td1_plantes.model.GestionDatabase;
-import com.example.td1_plantes.model.GpsGenerateCurrentLocation;
 import com.example.td1_plantes.model.Mocks;
 import com.example.td1_plantes.model.appobjects.News;
 import com.example.td1_plantes.model.appobjects.Plant;
-import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
-import com.example.td1_plantes.model.database.FirebaseFactories.UserFactory;
 
 import org.osmdroid.views.overlay.OverlayItem;
 
@@ -90,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.frame_layout_homepage_plants, new PlantListHomePageFragment(publicPlantsForHome));
 
         transaction.add(R.id.frame_layout_homepage_map, new OpenStreetMapFragment());
+
+        transaction.add(R.id.frame_layout_homepage_map_title, new TitleYellowDescriberDivFragment("Plantes proche"));
 
         //bottom_app_bar
         transaction.add(R.id.bottom_app_bar, new MyBottomBarFragment(2));

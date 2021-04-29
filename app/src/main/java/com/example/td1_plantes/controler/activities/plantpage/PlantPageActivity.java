@@ -20,6 +20,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.R;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.controler.fragments.OpenStreetMapFragment;
+import com.example.td1_plantes.controler.fragments.TitleYellowDescriberDivFragment;
 import com.example.td1_plantes.model.DownloadImageTask;
 import com.example.td1_plantes.model.GestionDatabase;
 import com.example.td1_plantes.model.appobjects.Plant;
@@ -151,6 +153,25 @@ public class PlantPageActivity extends AppCompatActivity {
                 initializeTheInformations();
             }
         });
+
+        // AJOUT DE LA MAP
+
+        // plant_page_localisation_title
+        // plant_page_localisation_map
+
+
+
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.plant_page_localisation_title, new TitleYellowDescriberDivFragment("Emplacement"));
+        transaction.add(R.id.plant_page_localisation_map, new OpenStreetMapFragment(currentPlant.getMyPosition()));
+
+        transaction.commit();
+
+
+
+
 
 
 
@@ -388,5 +409,12 @@ public class PlantPageActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
+
+
+
 
 }
