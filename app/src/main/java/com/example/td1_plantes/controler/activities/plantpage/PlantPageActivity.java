@@ -87,17 +87,6 @@ public class PlantPageActivity extends AppCompatActivity {
             editElementsInPage();
         });
 
-
-
-
-
-
-
-
-
-
-
-
         //bottom_app_bar
         FragmentManager fm3 = getSupportFragmentManager();
         FragmentTransaction ft3 = fm3.beginTransaction();
@@ -430,15 +419,6 @@ public class PlantPageActivity extends AppCompatActivity {
             fiabilityElem.setText(fiabilityElemString);
         });
 
-
-
     }
-
-
-
-
-
-
-
 
 }

@@ -1,6 +1,7 @@
 package com.example.td1_plantes;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
         GestionDatabase.loadUser("");
 
+
+        TextView welcomePhrase = (TextView) findViewById(R.id.home_welcome);
+        welcomePhrase.setText("Bonjour, " + GestionDatabase.getCurrentUser().getSurname());
 
 
         GestionDatabase.getAllPublicPlants(plants -> {
