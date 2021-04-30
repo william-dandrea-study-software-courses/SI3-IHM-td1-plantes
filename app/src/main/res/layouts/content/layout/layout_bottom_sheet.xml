@@ -12,6 +12,7 @@
         android:layout_height="200dp">
 
         <ImageView
+            android:id="@+id/layout_botom_sheet_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@mipmap/tournesol"
@@ -24,7 +25,7 @@
 
     <TextView
 
-        android:id="@+id/titlePlantMap"
+        android:id="@+id/layout_bootom_sheet_title"
         android:text="TOURNESOL"
         android:textAlignment="center"
         android:textSize="25dp"

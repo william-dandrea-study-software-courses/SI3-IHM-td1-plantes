@@ -20,7 +20,9 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.td1_plantes.R;
@@ -49,7 +51,9 @@ import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.OverlayItem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author D'Andrea William
@@ -58,16 +62,17 @@ public class MapSearchActivity extends AppCompatActivity {
 
     private MapView map;
     private ArrayList<OverlayItem> pointsOnMap;
+    private List<Plant> plantsOnMap;
 
     private double currentLattitude;
     private double currentLongitude;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setPointsOnMap();
         Configuration.getInstance().load(getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(getApplicationContext()));
         Configuration.getInstance().setUserAgentValue(getPackageName());
         setContentView(R.layout.activity_map_search);
@@ -85,6 +90,7 @@ public class MapSearchActivity extends AppCompatActivity {
 
 
         this.pointsOnMap = new ArrayList<>();
+        this.plantsOnMap = new ArrayList<>();
 
         GestionDatabase.getAllPublicPlants(plantsPublic -> {
             GestionDatabase.getAllPrivatePlants(plantsPrivate -> {
@@ -95,10 +101,11 @@ public class MapSearchActivity extends AppCompatActivity {
 
                 for (Plant plant : goodPlants) {
 
-                    this.pointsOnMap.add(new OverlayItem(plant.getTitle(), plant.getPublicationDate(), new GeoPoint(plant.getMyPosition().getLattitude(), plant.getMyPosition().getLongitude())));
+                    OverlayItem currentItem = new OverlayItem(plant.getTitle(), plant.getPublicationDate(), new GeoPoint(plant.getMyPosition().getLattitude(), plant.getMyPosition().getLongitude()));
+                    this.pointsOnMap.add(currentItem);
+                    this.plantsOnMap.add(plant);
 
                 }
-
                 generateAutorisationAndGeneratePosition();
 
             });
@@ -128,39 +135,54 @@ public class MapSearchActivity extends AppCompatActivity {
 
 
 
-    void setPointsOnMap() {
-
-       /*UserFactory userFactory = new UserFactory();
-       userFactory.loadFromFirebase("DSVBZgTAmIdw1k0jqTaW", user -> {
-           TextView welcome = findViewById(R.id.home_welcome);
-           welcome.setText("Bienvenue, " + user.getUsername() + "!");
-       }, error -> {
-
-       });
-        */
-
-        this.pointsOnMap = new ArrayList<>();
-        this.pointsOnMap.add(new OverlayItem("My Title", "My SubTittle", new GeoPoint(43.65020, 7.00517)));
-        this.pointsOnMap.add(new OverlayItem("Resto", "Chez babar", new GeoPoint(43.6495, 7.00517)));
 
 
-    }
 
-
-    void engageTheInfoBottomAppBar() {
+    void engageTheInfoBottomAppBar(OverlayItem item) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MapSearchActivity.this, R.style.BottomSheetDialogTheme);
         View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
 
-        bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MapSearchActivity.this, "Share ...", Toast.LENGTH_SHORT).show();
-                bottomSheetDialog.dismiss();
-            }
-        });
 
-        bottomSheetDialog.setContentView(bottomSheetView);
-        bottomSheetDialog.show();
+        Plant plant = null;
+
+        for (int i = 0; i < this.pointsOnMap.size(); i++) {
+            if (this.pointsOnMap.get(i).equals(item)) {
+                plant = this.plantsOnMap.get(i);
+            }
+        }
+
+        if (plant != null) {
+
+            Plant finalPlant = plant;
+
+            ImageView plantImageView = (ImageView) bottomSheetDialog.findViewById(R.id.layout_botom_sheet_image);
+
+            TextView titleTextView = (TextView) bottomSheetView.findViewById(R.id.layout_bootom_sheet_title);
+            titleTextView.setText(finalPlant.getTitle());
+
+
+            GestionDatabase.findAuthorOfOnePlant(plant.getIdPlant(), users -> {
+                TextView dateTextView = bottomSheetView.findViewById(R.id.layout_bootom_sheet_date_and_user);
+                dateTextView.setText("Crée le " + finalPlant.getPublicationDate() + " par " + users.get(0).getSurname() + " " + users.get(0).getName());
+            });
+
+
+
+
+
+            bottomSheetView.findViewById(R.id.buttonShare).setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MapSearchActivity.this, "Share ...", Toast.LENGTH_SHORT).show();
+                    bottomSheetDialog.dismiss();
+                }
+            });
+
+            bottomSheetDialog.setContentView(bottomSheetView);
+            bottomSheetDialog.show();
+        }
+
+
     }
 
 
@@ -282,7 +304,7 @@ public class MapSearchActivity extends AppCompatActivity {
             @Override
             public boolean onItemSingleTapUp(int index, OverlayItem item) {
                 System.out.println(index);
-                engageTheInfoBottomAppBar();
+                engageTheInfoBottomAppBar(item);
                 return false;
             }
 

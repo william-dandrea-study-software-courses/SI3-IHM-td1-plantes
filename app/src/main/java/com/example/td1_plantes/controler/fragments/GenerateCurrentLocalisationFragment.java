@@ -49,8 +49,6 @@ public class GenerateCurrentLocalisationFragment extends Fragment {
 
     FusedLocationProviderClient client;
 
-
-
     public GenerateCurrentLocalisationFragment() {}
 
 
