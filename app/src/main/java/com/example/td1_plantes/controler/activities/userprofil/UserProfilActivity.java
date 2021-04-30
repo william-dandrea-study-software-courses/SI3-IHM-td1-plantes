@@ -16,8 +16,11 @@ import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.model.GestionDatabase;
 import com.example.td1_plantes.model.LoadImageInBackground;
 import com.example.td1_plantes.model.appobjects.Plant;
+import com.example.td1_plantes.model.appobjects.UserAndPlant;
 import com.example.td1_plantes.model.appobjects.smallelements.StatusUser;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -31,9 +34,6 @@ public class UserProfilActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profil);
-
-
-
 
 
 
@@ -61,10 +61,37 @@ public class UserProfilActivity extends AppCompatActivity {
         GridView photos = findViewById(R.id.photos_mosaic);
 
 
-        contributionCount.setText("0");
+        GestionDatabase.getContributionsForOneContributor(GestionDatabase.getCurrentUser().getUserId(), contribution -> {
+            contributionCount.setText(String.valueOf(contribution.size()));
+        });
 
-        usernameHolder.setText(GestionDatabase.getCurrentUser().getSurname());
-        photoCountHolder.setText(Integer.toString(GestionDatabase.getCurrentUser().getPhotoCount()));
+
+
+
+        usernameHolder.setText(GestionDatabase.getCurrentUser().getSurname() + " " +GestionDatabase.getCurrentUser().getName() );
+
+
+
+        GestionDatabase.getAllPlants(plants -> {
+            GestionDatabase.getAllUserAndPlant(userAndPlants -> {
+
+                List<Plant> userPlant = new ArrayList<>();
+
+                for (Plant plant : plants) {
+                    for (UserAndPlant userAndPlant : userAndPlants) {
+
+                        if (plant.getIdPlant().equals(userAndPlant.getPlant()) && userAndPlant.getUser().equals(GestionDatabase.getCurrentUser().getUserId())) {
+                            userPlant.add(plant);
+                        }
+                    }
+                }
+
+                photoCountHolder.setText(String.valueOf(userPlant.size()));
+                photos.setAdapter(new PhotoAdapter(getApplicationContext(), userPlant.stream().map(Plant::getImageURL).collect(Collectors.toList())));
+
+            });
+        });
+
 
         if(GestionDatabase.getCurrentUser().getStatusUser() == StatusUser.EXPERT) {
             user_status_text.setText("Expert");
@@ -74,9 +101,7 @@ public class UserProfilActivity extends AppCompatActivity {
             user_status_icon.setImageResource(R.drawable.perroquet);
         }
 
-        GestionDatabase.getAllPlantsCreateByCurrentUser(plants -> {
-            photos.setAdapter(new PhotoAdapter(getApplicationContext(), plants.stream().map(Plant::getImageURL).collect(Collectors.toList())));
-        });
+
 
         new LoadImageInBackground(avatarHolder, () -> Log.d("LOAD", "ERror !")).execute(GestionDatabase.getCurrentUser().getAvatar());
 

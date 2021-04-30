@@ -1,5 +1,7 @@
 package com.example.td1_plantes.model;
 
+import android.widget.Toast;
+
 import com.example.td1_plantes.model.appobjects.Contribution;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.User;
@@ -138,15 +140,27 @@ public class GestionDatabase {
 
         getNumberOfContributionForOnePlant(plantID, numberOfContribution -> {
             getNumberOfPositiveReviewForOnePlant(plantID, numberOfPositiveContribution -> {
-                double percentage = (double)numberOfPositiveContribution / (double)numberOfContribution;
-                if (percentage < 0.5) {
+
+                if (numberOfPositiveContribution == 0 || numberOfContribution == 0) {
                     callback.onTrigger(Fiability.LOW);
-                }
-                if (percentage < 0.75) {
-                    callback.onTrigger(Fiability.MEDIUM);
+                } else {
+                    double percentage = (double)numberOfPositiveContribution / (double)numberOfContribution;
+
+                    System.out.println("FIABILITY : " + percentage);
+
+                    if (percentage >= 0.5 && percentage < 0.75) {
+                        callback.onTrigger(Fiability.MEDIUM);
+                    } else if (percentage >= 0.75 && percentage <= 1) {
+                        callback.onTrigger(Fiability.HIGH);
+                    } else if (percentage < 0.5 && percentage >= 0) {
+                        callback.onTrigger(Fiability.LOW);
+                    }
                 }
 
-                callback.onTrigger(Fiability.HIGH);
+
+
+
+
             });
         });
 

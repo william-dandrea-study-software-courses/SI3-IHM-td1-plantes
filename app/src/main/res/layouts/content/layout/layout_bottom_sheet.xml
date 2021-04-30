@@ -62,6 +62,18 @@
 
 
 
+    <TextView
+        android:id="@+id/layout_bootom_sheet_public_or_private"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PLANTE PUBLIQUE"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="14dp"
+
+        />
+
 
 
 

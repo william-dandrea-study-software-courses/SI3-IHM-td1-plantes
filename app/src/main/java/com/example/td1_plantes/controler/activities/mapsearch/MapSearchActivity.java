@@ -12,12 +12,15 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,11 +29,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.td1_plantes.R;
+import com.example.td1_plantes.controler.activities.plantpage.PlantPageActivity;
 import com.example.td1_plantes.controler.fragments.GenerateCurrentLocalisationFragment;
 import com.example.td1_plantes.controler.fragments.GenerateCurrentPositionAndDispNothingFragment;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
+import com.example.td1_plantes.model.DownloadImageTask;
 import com.example.td1_plantes.model.GestionDatabase;
 import com.example.td1_plantes.model.appobjects.Plant;
+import com.example.td1_plantes.model.appobjects.smallelements.Fiability;
 import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
@@ -49,7 +55,11 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.ItemizedIconOverlay;
 import org.osmdroid.views.overlay.ItemizedOverlayWithFocus;
 import org.osmdroid.views.overlay.OverlayItem;
+import org.w3c.dom.Text;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -155,16 +165,68 @@ public class MapSearchActivity extends AppCompatActivity {
 
             Plant finalPlant = plant;
 
-            ImageView plantImageView = (ImageView) bottomSheetDialog.findViewById(R.id.layout_botom_sheet_image);
+            // ImageView plantImageView = (ImageView) bottomSheetDialog.findViewById(R.id.layout_botom_sheet_image);
+            new DownloadImageTask((ImageView) bottomSheetView.findViewById(R.id.layout_botom_sheet_image)).execute(finalPlant.getImageURL());
+
 
             TextView titleTextView = (TextView) bottomSheetView.findViewById(R.id.layout_bootom_sheet_title);
             titleTextView.setText(finalPlant.getTitle());
 
 
+            TextView publicOrPrivateTextView = (TextView) bottomSheetView.findViewById(R.id.layout_bootom_sheet_public_or_private);
+            LinearLayout infosLinearLayout = (LinearLayout) bottomSheetView.findViewById(R.id.layout_bootom_sheet_review_infos);
+
+            if (finalPlant.isPublic()) {
+                publicOrPrivateTextView.setText("PLANTE PUBLIQUE");
+            } else {
+                publicOrPrivateTextView.setText("PLANTE PRIVEE");
+                infosLinearLayout.setVisibility(View.GONE);
+            }
+
             GestionDatabase.findAuthorOfOnePlant(plant.getIdPlant(), users -> {
                 TextView dateTextView = bottomSheetView.findViewById(R.id.layout_bootom_sheet_date_and_user);
                 dateTextView.setText("Crée le " + finalPlant.getPublicationDate() + " par " + users.get(0).getSurname() + " " + users.get(0).getName());
             });
+
+            GestionDatabase.getContributionsForOnePlant(finalPlant.getIdPlant(), contributions -> {
+
+                TextView contributorsTextView = bottomSheetView.findViewById(R.id.layout_bootom_sheet_number_of_contributors_id);
+                contributorsTextView.setText(String.valueOf(contributions.size()));
+
+            });
+
+            GestionDatabase.getNumberOfPositiveReviewForOnePlant(finalPlant.getIdPlant(), numberOfPositivReview -> {
+
+
+                GestionDatabase.getContributionsForOnePlant(finalPlant.getIdPlant(), contributions -> {
+
+                    TextView reviewTextView = bottomSheetView.findViewById(R.id.playout_bootom_sheet_positive_review_id);
+
+                    String dispResult = (numberOfPositivReview == 0 || contributions.size() == 0) ? "0" : String.valueOf((int) (contributions.size() / numberOfPositivReview ));
+
+                    reviewTextView.setText(dispResult);
+
+                });
+            });
+
+
+            // INITIALISATION DE LA FIABILITE
+            GestionDatabase.getFiabilityForOnePlant(finalPlant.getIdPlant(), fiabilityElemObj -> {
+                TextView fiabilityElem = bottomSheetView.findViewById(R.id.layout_bootom_sheet_fiability_level_id);
+                String fiabilityElemString = "";
+                if (fiabilityElemObj == Fiability.LOW)
+                    fiabilityElemString = "NON";
+                if (fiabilityElemObj == Fiability.MEDIUM)
+                    fiabilityElemString = "PEU";
+                if (fiabilityElemObj == Fiability.HIGH)
+                    fiabilityElemString = "TRES";
+                fiabilityElem.setText(fiabilityElemString);
+            });
+
+
+
+
+
 
 
 
@@ -174,6 +236,10 @@ public class MapSearchActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(MapSearchActivity.this, "Share ...", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(getApplicationContext(), PlantPageActivity.class);
+                    i.putExtra("plantID", finalPlant.getIdPlant());
+                    startActivity(i);
+
                     bottomSheetDialog.dismiss();
                 }
             });
@@ -318,6 +384,14 @@ public class MapSearchActivity extends AppCompatActivity {
         map.getOverlays().add(mOverlay);
 
     }
+
+
+
+
+
+
+
+
 
 
 
