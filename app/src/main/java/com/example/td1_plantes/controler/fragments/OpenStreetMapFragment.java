@@ -64,7 +64,6 @@ public class OpenStreetMapFragment extends Fragment {
 
     private boolean setCenterInUserLocation = true;
 
-
     private double centerLongitude;
     private double centerLatitude;
 
@@ -75,14 +74,12 @@ public class OpenStreetMapFragment extends Fragment {
         this.listOfPointsOnMap = listOfPointsOnMap;
     }
 
-
     public OpenStreetMapFragment(MyPosition centerPosition, List<OverlayItem> listOfPointsOnMap) {
         this.setCenterInUserLocation = false;
         this.centerLongitude = centerPosition.getLongitude();
         this.centerLatitude = centerPosition.getLattitude();
         this.listOfPointsOnMap = listOfPointsOnMap;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,9 +92,12 @@ public class OpenStreetMapFragment extends Fragment {
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-         
 
-                centerLongitude -= 0.1;
+
+
+                double distanceValue = mapView.getScaleX() * 0.01;
+                centerLongitude += distanceValue;
+                System.out.println(distanceValue);
 
                 mapController.animateTo(new GeoPoint(centerLatitude, centerLongitude));
             }
@@ -108,7 +108,9 @@ public class OpenStreetMapFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                centerLongitude += 0.1;
+                double distanceValue = mapView.getScaleX() * 0.01;
+                System.out.println(distanceValue);
+                centerLongitude -= distanceValue;
                 mapController.animateTo(new GeoPoint(centerLatitude, centerLongitude));
             }
         });
@@ -117,9 +119,11 @@ public class OpenStreetMapFragment extends Fragment {
         top.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             
 
-                centerLatitude -= 0.1;
+
+                double distanceValue = mapView.getScaleX() * 0.01;
+                System.out.println(distanceValue);
+                centerLatitude += distanceValue;
                 mapController.animateTo(new GeoPoint(centerLatitude, centerLongitude));
             }
         });
@@ -128,9 +132,10 @@ public class OpenStreetMapFragment extends Fragment {
         bottom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-        
 
-                centerLatitude += 0.1;
+                double distanceValue = mapView.getScaleX() * 0.01;
+                System.out.println(distanceValue);
+                centerLatitude -= distanceValue;
                 mapController.animateTo(new GeoPoint(centerLatitude, centerLongitude));
             }
         });

@@ -28,7 +28,10 @@ import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.controler.fragments.TakePictureAndDispPictureFragment;
 import com.example.td1_plantes.controler.fragments.TitleYellowDescriberDivFragment;
 import com.example.td1_plantes.controler.fragments.homefragments.PlantListHomePageFragment;
+import com.example.td1_plantes.model.GestionDatabase;
+import com.example.td1_plantes.model.appobjects.Contribution;
 import com.example.td1_plantes.model.appobjects.Plant;
+import com.example.td1_plantes.model.appobjects.UserAndPlant;
 import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -177,7 +180,7 @@ public class TakePictureActivity extends AppCompatActivity {
                     //Toast.makeText(getApplicationContext(), "Tout est bon !", LENGTH_SHORT).show();
 
                     imageWeWillSendToDataBase = takePictureAndDispPictureFragment.getImageWeSendToDatabase();
-                    emplacement = new MyPosition(generateCurrentLocalisationFragment.getLattitude(), generateCurrentLocalisationFragment.getLongitude(), "");
+                    emplacement = new MyPosition(generateCurrentLocalisationFragment.getLattitude(), generateCurrentLocalisationFragment.getLongitude(), "TEST");
 
                     Plant newPlant = new Plant(
                             isCheckedPublic,
@@ -191,8 +194,22 @@ public class TakePictureActivity extends AppCompatActivity {
                             new ArrayList<String>()
                     );
 
-                    Toast.makeText(getApplicationContext(), newPlant.toString(), LENGTH_SHORT).show();
+
                     System.out.println("NEWPLANT : " + newPlant.toString());
+
+                    UserAndPlant userAndPlant = new UserAndPlant(GestionDatabase.getCurrentUser().getUserId(), newPlant.getIdPlant());
+
+                    userAndPlant.save(() -> {
+                        Toast.makeText(getApplicationContext(), "Votre plante est en ligne !", LENGTH_SHORT).show();
+                    }, err -> {
+                        Toast.makeText(getApplicationContext(), "Erreur lors de la mise en ligne de votre plante !", LENGTH_SHORT).show();
+                    });
+
+                    newPlant.save(() -> {
+                        Toast.makeText(getApplicationContext(), "Votre plante est en ligne !", LENGTH_SHORT).show();
+                    }, err -> {
+                        Toast.makeText(getApplicationContext(), "Erreur lors de la mise en ligne de votre plante !", LENGTH_SHORT).show();
+                    });
 
 
                 }
