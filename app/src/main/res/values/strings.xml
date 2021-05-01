@@ -8,4 +8,7 @@
     <string name="contributions">contributions</string>
     <string name="expert">expert</string>
     <string name="photo">Photo</string>
+    <string name="chooser_title">Share</string>
+    <string name="facebook_app_id">486187089478342</string>
+    <string name="fb_login_protocol_scheme">fb486187089478342</string>
 </resources>

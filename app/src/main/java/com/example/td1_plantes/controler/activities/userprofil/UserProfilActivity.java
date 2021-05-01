@@ -1,7 +1,11 @@
 package com.example.td1_plantes.controler.activities.userprofil;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +26,8 @@ import com.example.td1_plantes.model.appobjects.smallelements.StatusUser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.example.td1_plantes.interfaces.IFacebookShare.SHARE_CODE;
 
 /**
  * @author D'Andrea William
@@ -104,6 +110,30 @@ public class UserProfilActivity extends AppCompatActivity {
 
 
         new LoadImageInBackground(avatarHolder, () -> Log.d("LOAD", "ERror !")).execute(GestionDatabase.getCurrentUser().getAvatar());
+
+
+        photos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener(){
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.e("test","LongClick");
+                String planteUrl = (String) parent.getItemAtPosition(position);
+                /*Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(planteUrl));
+                shareIntent.setType("image/*");
+                startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.chooser_title)));*/
+
+
+                // Toolbar monActionBar  = (Toolbar)findViewById(R.id.mon_actionBar);
+                //monActionBar.setVisibility(View.VISIBLE);
+                // setSupportActionBar(monActionBar);
+
+                Intent intent = new Intent(getApplicationContext(), FacebookActivity.class);
+                intent.putExtra(SHARE_CODE, planteUrl);
+                startActivity(intent);
+                return true;
+            }
+        } );
 
     }
 
