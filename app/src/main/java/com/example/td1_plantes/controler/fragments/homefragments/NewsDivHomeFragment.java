@@ -1,5 +1,9 @@
 package com.example.td1_plantes.controler.fragments.homefragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.td1_plantes.R;
 import com.example.td1_plantes.controler.activities.utils.recyclerlists.NewsRecyclerAdapter;
@@ -21,7 +26,7 @@ import com.example.td1_plantes.model.appobjects.News;
  */
 public class NewsDivHomeFragment extends Fragment {
 
-
+    String urlTwitter = "https://twitter.com/botaniquecomte?lang=fr" ;
     RecyclerView recyclerView;
     NewsRecyclerAdapter adapter;
     News[] elements;
@@ -32,7 +37,30 @@ public class NewsDivHomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_news_div_home, container, false);
+        View viewRoot = inflater.inflate(R.layout.fragment_news_div_home, container, false);
+
+        viewRoot.findViewById(R.id.fragment_news_div_home_title_id).setOnLongClickListener(click ->{
+            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+            builder.setTitle("News Twitter");
+            builder.setMessage("Souhaitez vous regarder des news sur Twitter ?");
+            builder.setNegativeButton("Non", null);
+            builder.setPositiveButton("Oui",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            /*Toast toast = Toast.makeText(getContext(), "Ca marche",Toast.LENGTH_LONG);
+                            toast.show();*/
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(urlTwitter));
+                            startActivity(intent);
+
+                        }
+                    });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+            return true;
+        } );
+        return viewRoot;
     }
 
     @Override
