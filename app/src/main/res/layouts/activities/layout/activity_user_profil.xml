@@ -205,14 +205,14 @@
 
                 </RelativeLayout>
 
-                <GridView
+                <com.example.td1_plantes.controler.activities.userprofil.MyGridView
                     android:id="@+id/photos_mosaic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:horizontalSpacing="5dp"
-                    android:verticalSpacing="5dp"
                     android:numColumns="4"
+                    android:verticalSpacing="5dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />

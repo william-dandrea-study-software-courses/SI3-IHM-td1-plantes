@@ -4,7 +4,6 @@ import com.example.td1_plantes.model.IEventHandler;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
 import com.example.td1_plantes.model.database.FirebaseObjectFactory;
-import com.google.firebase.firestore.FieldPath;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +37,9 @@ public class PlantFactory extends FirebaseObjectFactory<Plant> {
             onsuccess.onTrigger(new ArrayList<>());
             return;
         }
-        db.collection(getCollectionName()).whereIn(FieldPath.documentId(), plants.stream().map(UUID::toString).collect(Collectors.toList())).get().addOnSuccessListener(res -> {
+        db.collection(getCollectionName()).get().addOnSuccessListener(res -> {
             List<Plant> result = new ArrayList<>();
-            res.getDocuments().forEach(d -> result.add(fromMapWithId(d.getData(), d.getId())));
+            res.getDocuments().stream().filter(d -> plants.stream().map(UUID::toString).collect(Collectors.toList()).contains(d.getId())).forEach(d -> result.add(fromMapWithId(d.getData(), d.getId())));
             onsuccess.onTrigger(result);
         }).addOnFailureListener(err -> onfailure.onTrigger(err.getCause()));
     }
