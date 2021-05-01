@@ -2,6 +2,7 @@ package com.example.td1_plantes.model;
 
 import android.widget.Toast;
 
+import com.example.td1_plantes.controler.activities.userprofil.PhotoAdapter;
 import com.example.td1_plantes.model.appobjects.Contribution;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.User;
@@ -179,14 +180,44 @@ public class GestionDatabase {
 
 
     public static void getAllPlantsCreateByCurrentUser(IEventHandler<List<Plant>> callback) {
-        getAllUserAndPlant(uaps -> {
+        /*getAllUserAndPlant(uaps -> {
             List<UUID> plants = new ArrayList<>();
             uaps.forEach(uap -> plants.add(uap.getPlant()));
             plantFactory.getManyPlants(plants, callback, err -> {
                 throw new RuntimeException("Error while retrieving plants");
             });
+        });*/
+
+        getAllPlantsCreatedByOneUser(getCurrentUser().getUserId(), plants -> {
+            callback.onTrigger(plants);
         });
     }
+
+
+
+    public static void getAllPlantsCreatedByOneUser(UUID userID, IEventHandler<List<Plant>> callback) {
+        GestionDatabase.getAllPlants(plants -> {
+            GestionDatabase.getAllUserAndPlant(userAndPlants -> {
+
+                List<Plant> userPlant = new ArrayList<>();
+
+                for (Plant plant : plants) {
+                    for (UserAndPlant userAndPlant : userAndPlants) {
+
+                        if (plant.getIdPlant().equals(userAndPlant.getPlant()) && userAndPlant.getUser().equals(userID)) {
+                            userPlant.add(plant);
+                        }
+                    }
+                }
+
+
+                callback.onTrigger(userPlant);
+
+            });
+        });
+    }
+
+
 
 
 
