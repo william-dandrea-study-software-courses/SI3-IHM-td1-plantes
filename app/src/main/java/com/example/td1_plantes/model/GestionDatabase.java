@@ -1,8 +1,5 @@
 package com.example.td1_plantes.model;
 
-import android.widget.Toast;
-
-import com.example.td1_plantes.controler.activities.userprofil.PhotoAdapter;
 import com.example.td1_plantes.model.appobjects.Contribution;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.User;
@@ -38,10 +35,18 @@ public class GestionDatabase {
     }
 
     public static void loadUser(String username) {
+        loadUser(username, () -> {});
+    }
+
+    public static void loadUser(String username, IVoidEventHandler callback) {
+        if(username.equals(getCurrentUser().getSurname())) return;
         userFactory.getBySurname(username,
-                user -> currentUser = user,
+                user -> {
+                    currentUser = user;
+                    callback.onTrigger();
+                },
                 err -> { throw (RuntimeException)err; }
-                );
+        );
     }
 
     public static void getAllUsers(IEventHandler<List<User>> callback) {

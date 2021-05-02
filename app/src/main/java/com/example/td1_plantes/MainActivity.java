@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         Mocks.PushOnDatabase();
 
-        GestionDatabase.loadUser("Delaroche");
+        //GestionDatabase.loadUser("Delaroche", this::refresh);
 
 
         TextView welcomePhrase = (TextView) findViewById(R.id.home_welcome);
@@ -85,28 +85,28 @@ public class MainActivity extends AppCompatActivity {
         switchUserPassionateOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionDatabase.loadUser("Dumarchant");
+                GestionDatabase.loadUser("Dumarchant", () -> refresh());
             }
         });
 
         switchUserPassionateTwoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionDatabase.loadUser("Delaroche");
+                GestionDatabase.loadUser("Delaroche", () -> refresh());
             }
         });
 
         switchUserExpertOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionDatabase.loadUser("Fanzi");
+                GestionDatabase.loadUser("Fanzi", () -> refresh());
             }
         });
 
         switchUserExpertOneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionDatabase.loadUser("Lavalant");
+                GestionDatabase.loadUser("Lavalant", () -> refresh());
             }
         });
 
@@ -169,6 +169,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
          */
+    }
+
+    private void refresh() {
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
     }
 
 
