@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        ((Button)findViewById(R.id.refresh_button)).setOnClickListener((v) -> refresh());
+
 
 
 
