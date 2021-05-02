@@ -1,6 +1,8 @@
 package com.example.td1_plantes;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
         Mocks.PushOnDatabase();
 
-        GestionDatabase.loadUser("");
+        GestionDatabase.loadUser("Delaroche");
 
 
         TextView welcomePhrase = (TextView) findViewById(R.id.home_welcome);
@@ -75,7 +77,38 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        Button switchUserPassionateOneButton = findViewById(R.id.activity_main_switch_user_passionate_1);
+        Button switchUserExpertOneButton = findViewById(R.id.activity_main_switch_user_expert_1);
+        Button switchUserPassionateTwoButton = findViewById(R.id.activity_main_switch_user_passionate_2);
+        Button switchUserExpertTwoButton = findViewById(R.id.activity_main_switch_user_expert_2);
 
+        switchUserPassionateOneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionDatabase.loadUser("Dumarchant");
+            }
+        });
+
+        switchUserPassionateTwoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionDatabase.loadUser("Delaroche");
+            }
+        });
+
+        switchUserExpertOneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionDatabase.loadUser("Fanzi");
+            }
+        });
+
+        switchUserExpertOneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GestionDatabase.loadUser("Lavalant");
+            }
+        });
 
 
 

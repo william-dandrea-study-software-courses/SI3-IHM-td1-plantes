@@ -38,7 +38,7 @@ public class GestionDatabase {
     }
 
     public static void loadUser(String username) {
-        userFactory.getBySurname("Delaroche",
+        userFactory.getBySurname(username,
                 user -> currentUser = user,
                 err -> { throw (RuntimeException)err; }
                 );
