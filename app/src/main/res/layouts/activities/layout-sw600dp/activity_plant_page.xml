@@ -15,6 +15,7 @@
         >
 
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
 
             android:id="@+id/plante_page_main_scrollview"
@@ -702,15 +703,9 @@
 
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="3000dp"
-                app:layout_constraintTop_toBottomOf="@+id/plant_page_sources_main_id"
-                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 

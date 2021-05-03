@@ -23,6 +23,9 @@ public class PlantListHomePageFragment extends Fragment {
     RecyclerView recyclerView;
     PlantRecyclerAdapter adapter;
 
+    public PlantListHomePageFragment(){
+    }
+
     public PlantListHomePageFragment(Plant[] elements) {
         this.elements = elements;
     }

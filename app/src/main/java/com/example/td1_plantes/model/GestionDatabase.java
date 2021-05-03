@@ -177,9 +177,36 @@ public class GestionDatabase {
 
 
     public static void findAuthorOfOnePlant(UUID idPlant, IEventHandler<List<User>> callback) {
+
+        getAllUserAndPlant(usersAndPlants -> {
+
+            for (UserAndPlant userAndPlant : usersAndPlants) {
+
+                if (userAndPlant.getPlant().equals(idPlant)) {
+
+                    getAllUsers(users -> {
+
+                        for (User user: users) {
+                            if (user.getUserId().equals(userAndPlant.getUser())) {
+                                callback.onTrigger(new ArrayList<User>(){{add(user);}});
+                            }
+                        }
+
+                    });
+
+
+                }
+
+            }
+
+        });
+
+        /*
         userAndPlantFactory.getContributorFor(idPlant, userIds -> {
             userFactory.getMany(userIds, callback);
         });
+
+         */
     }
 
 
