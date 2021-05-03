@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    * @author : D'Andrea William
+    *
+-->
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="75dp"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/home_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/black"
+                android:textSize="30dp"
+                android:text="Votre repertoire"/>
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+
+            >
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+
+
+                <!-- REPERTOIRE PUBLIC -->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <View
+                        android:layout_width="315dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentTop="true"
+
+                        android:layout_marginTop="10dp"
+                        android:background="#FFF617" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="-8dp"
+                        android:fontFamily="@font/montserrat_bold"
+
+                        android:text="Répertoire public"
+                        android:textColor="#000000"
+                        android:textSize="30sp" />
+
+
+                </RelativeLayout>
+
+
+
+                <!-- REPRTOIRE PUBLIC - LIST -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_repertoire_public"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                >
+
+
+                <!-- VOS PLANTES -->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <View
+
+                        android:layout_width="315dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentTop="true"
+
+                        android:layout_marginTop="10dp"
+                        android:background="#FFF617" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="-8dp"
+                        android:fontFamily="@font/montserrat_bold"
+
+                        android:text="Vos plantes"
+                        android:textColor="#000000"
+                        android:textSize="30sp" />
+
+
+                </RelativeLayout>
+
+                <!-- VOS PLANTES - LIST -->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_vos_plantes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -7,94 +7,187 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+
     >
     <!--
         * @author : D'Andrea William
         *
     -->
 
-
-
-    <androidx.core.widget.NestedScrollView
+    <LinearLayout
+        android:gravity="top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="75dp"
         >
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/home_welcome"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/black"
+            android:textSize="50dp"
+            android:text="Bienvenue, George!"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/montserrat"
+            android:layout_marginBottom="15dp"
+            android:textSize="20dp"
+            android:text="Que voulez vous faire aujourd'hui ?" />
 
 
 
-            <TextView
-                android:id="@+id/home_welcome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/montserrat_bold"
-                android:textColor="@color/black"
-                android:textSize="80dp"
-                android:text="Bienvenue, George!"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/montserrat"
-                android:layout_marginBottom="15dp"
-                android:textSize="30dp"
-                android:text="Que voulez vous faire aujourd'hui ?" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_anchor="@+id/tab_activity_main_text_welcome"
+            app:layout_anchorGravity="top"
+            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            >
 
 
-            <FrameLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/frame_layout_homepage_news"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                 />
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/tab_activity_main_scroll"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="700dp"
+                android:layout_height="match_parent"
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                >
 
-            <FrameLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/frame_layout_homepage_plants"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="20dp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
 
 
-            <FrameLayout
-                android:id="@+id/frame_layout_homepage_map_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                />
+                    <FrameLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/frame_layout_homepage_news"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
 
-            <FrameLayout
-                android:id="@+id/frame_layout_homepage_map"
-                android:layout_width="wrap_content"
-                android:layout_height="500dp"
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <FrameLayout
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/frame_layout_homepage_plants"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+
+
+
+
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp" />
+
+
+
+                    <Button
+                        android:id="@+id/activity_main_switch_user_passionate_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PASSIONATE 1" />
+
+                    <Button
+                        android:id="@+id/activity_main_switch_user_passionate_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PASSIONATE 2" />
+
+                    <Button
+                        android:id="@+id/activity_main_switch_user_expert_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="EXPERT 1" />
+
+                    <Button
+                        android:id="@+id/activity_main_switch_user_expert_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="EXPERT 2" />
+
+                    <Button
+                        android:id="@+id/refresh_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Refresh" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp" />
+
+                </LinearLayout>
+
+
+            </androidx.core.widget.NestedScrollView>
+
+
+
+            <LinearLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/tab_activity_main_scroll"
+                app:layout_constraintRight_toRightOf="parent"
                 android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
-                />
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <FrameLayout
+                    android:id="@+id/frame_layout_homepage_map_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    />
+
+                <FrameLayout
+
+                    android:id="@+id/frame_layout_homepage_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    />
+
+            </LinearLayout>
 
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="100dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+
+
+
+
+
+
+
 
 
 

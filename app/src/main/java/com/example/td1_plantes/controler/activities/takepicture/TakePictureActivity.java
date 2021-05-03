@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.td1_plantes.R;
+import com.example.td1_plantes.controler.activities.WichActivitiesWeAre;
 import com.example.td1_plantes.controler.fragments.GenerateCurrentLocalisationFragment;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.controler.fragments.TakePictureAndDispPictureFragment;
@@ -86,7 +87,7 @@ public class TakePictureActivity extends AppCompatActivity {
         transaction.add(R.id.take_pricture_activity_localisation, generateCurrentLocalisationFragment);
 
         //bottom_app_bar
-        transaction.add(R.id.bottom_app_bar, new MyBottomBarFragment(3));
+        transaction.add(R.id.bottom_app_bar, new MyBottomBarFragment(WichActivitiesWeAre.TAKE_PICTURE_PAGE));
 
         transaction.commit();
 

@@ -1,7 +1,6 @@
 package com.example.td1_plantes.controler.activities.userprofil;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.R;
+import com.example.td1_plantes.controler.activities.WichActivitiesWeAre;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.model.GestionDatabase;
 import com.example.td1_plantes.model.LoadImageInBackground;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.td1_plantes.interfaces.IFacebookShare.SHARE_CODE;
+import static com.example.td1_plantes.model.interfaces.IFacebookShare.SHARE_CODE;
 
 /**
  * @author D'Andrea William
@@ -50,7 +50,7 @@ public class UserProfilActivity extends AppCompatActivity {
         //bottom_app_bar
         FragmentManager fm2 = getSupportFragmentManager();
         FragmentTransaction ft2 = fm2.beginTransaction();
-        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(0));
+        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(WichActivitiesWeAre.USER_PAGE));
         ft2.commit();
     }
 

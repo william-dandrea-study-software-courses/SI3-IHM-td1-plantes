@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    * @author : D'Andrea William
+    *
+-->
+
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".controler.activities.takepicture.TakePictureActivity"
+
+    >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="75dp"
+        >
+
+
+        <TextView
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"
+            android:text="Ajouter un plante"
+            android:textSize="40sp"
+            android:fontFamily="@font/montserrat_bold"
+            android:textColor="@color/black"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <LinearLayout
+                android:id="@+id/activity_take_pricture_column_1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="800dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+
+
+
+
+                <FrameLayout
+                    android:layout_marginTop="15dp"
+                    android:id="@+id/take_pricture_activity_ajouter_une_photo_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+
+                <FrameLayout
+                    android:id="@+id/take_pricture_activity_ajouter_une_photo_fragment"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="600dp"
+                    android:layout_height="450dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center"
+                    />
+
+
+
+            </LinearLayout>
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toRightOf="@+id/activity_take_pricture_column_1"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <FrameLayout
+                        android:id="@+id/take_pricture_activity_ajouter_des_informations"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <!-- PUBLIC VS PRIVATE -->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        >
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/take_pricture_chipgroup_public_private"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            app:singleSelection="true"
+                            app:selectionRequired="true"
+                            >
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/take_pricture_chipgroup_public_private_child_1"
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="180dp"
+                                android:layout_height="50dp"
+                                android:checked="true"
+                                android:text="PUBLIC"
+                                android:textAlignment="center"
+                                app:chipCornerRadius="2dp"
+                                />
+
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/take_pricture_chipgroup_public_private_child_2"
+                                style="@style/Widget.MaterialComponents.Chip.Choice"
+                                android:layout_width="180dp"
+                                android:layout_height="50dp"
+                                app:chipCornerRadius="2dp"
+                                android:textAlignment="center"
+                                android:text="PRIVEE"/>
+
+
+                        </com.google.android.material.chip.ChipGroup>
+                    </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/take_pricture_title_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Nom de la plante" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/take_pricture_description_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Description de la plante" />
+
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <FrameLayout
+                        android:id="@+id/take_pricture_activity_localisation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        />
+
+
+
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp" />
+
+
+
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/take_pricture_validate_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="VALIDER"
+            />
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/bottom_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.td1_plantes.R;
+import com.example.td1_plantes.controler.activities.WichActivitiesWeAre;
 import com.example.td1_plantes.controler.activities.utils.recyclerlists.PlantRecyclerAdapter;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.model.GestionDatabase;
@@ -66,15 +67,12 @@ public class PersonnalFolderActivity extends AppCompatActivity {
             recyclerViewTwo.setAdapter(adapterTwo);
         });
 
-
-
-
-
+        
 
         //bottom_app_bar
         FragmentManager fm2 = getSupportFragmentManager();
         FragmentTransaction ft2 = fm2.beginTransaction();
-        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(2));
+        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(WichActivitiesWeAre.REPOSITORY_PAGE));
         ft2.commit();
     }
 }

@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottomSheetContainer"
+    android:layout_width="500dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bottom_sheet_background"
+    android:orientation="vertical"
+    >
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/layout_botom_sheet_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/tournesol"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+
+        android:id="@+id/layout_bootom_sheet_title"
+        android:text="TOURNESOL"
+        android:textAlignment="center"
+        android:textSize="25dp"
+        android:fontFamily="@font/montserrat_bold"
+
+        android:paddingTop="3dp"
+
+
+
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="-20dp"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white"
+
+        />
+
+
+    <TextView
+        android:id="@+id/layout_bootom_sheet_date_and_user"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Crée le .. / .. / .. par .........."
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="14dp"
+
+        />
+
+
+
+    <TextView
+        android:id="@+id/layout_bootom_sheet_public_or_private"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="PLANTE PUBLIQUE"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:fontFamily="@font/montserrat"
+        android:textSize="14dp"
+
+        />
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- ====================================================== -->
+    <!-- CONTRIBUTIONS -->
+    <!-- ====================================================== -->
+
+
+    <LinearLayout
+        android:id="@+id/layout_bootom_sheet_review_infos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+
+            android:orientation="vertical"
+
+            android:background="#F8F8F8"
+
+            android:padding="10dp"
+            >
+
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TableRow>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:id="@+id/layout_bootom_sheet_number_of_contributors_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="128"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="22dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="contributeurs"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="10dp"
+                            android:textStyle="italic"
+                            android:textColor="@color/black"
+                            />
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="5dp"
+                        android:background="#C9C9C9"
+                        />
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:id="@+id/playout_bootom_sheet_positive_review_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="98%"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="22dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="d'avis positifs"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="10dp"
+                            android:textStyle="italic"
+                            android:textColor="@color/black"
+                            />
+
+                    </LinearLayout>
+
+
+                    <View
+                        android:layout_height="match_parent"
+                        android:layout_width="5dp"
+                        android:background="#C9C9C9"
+                        />
+
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+
+                        >
+
+
+                        <TextView
+                            android:id="@+id/layout_bootom_sheet_fiability_level_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="PEU"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/montserrat"
+                            android:textSize="22dp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="FIABLE"
+                            android:textAlignment="center"
+                            android:fontFamily="@font/montserrat"
+                            android:textColor="@color/black"
+                            />
+
+                    </LinearLayout>
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonShare"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:text="Découvrir plante"
+        android:textColor="@color/white"
+        android:textSize="15dp"
+        />
+
+
+
+</LinearLayout>

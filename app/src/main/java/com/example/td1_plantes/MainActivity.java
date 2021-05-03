@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.td1_plantes.controler.activities.WichActivitiesWeAre;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.controler.fragments.OpenStreetMapFragment;
 import com.example.td1_plantes.controler.fragments.TitleYellowDescriberDivFragment;
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        switchUserExpertOneButton.setOnClickListener(new View.OnClickListener() {
+        switchUserExpertTwoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GestionDatabase.loadUser("Lavalant", () -> refresh());
@@ -131,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         transaction.add(R.id.frame_layout_homepage_map_title, new TitleYellowDescriberDivFragment("Plantes proche"));
 
         //bottom_app_bar
-        transaction.add(R.id.bottom_app_bar, new MyBottomBarFragment(2));
+        transaction.add(R.id.bottom_app_bar, new MyBottomBarFragment(WichActivitiesWeAre.HOME_PAGE));
 
         transaction.commit();
 

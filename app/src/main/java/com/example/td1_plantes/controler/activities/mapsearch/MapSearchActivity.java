@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.td1_plantes.R;
+import com.example.td1_plantes.controler.activities.WichActivitiesWeAre;
 import com.example.td1_plantes.controler.activities.plantpage.PlantPageActivity;
 import com.example.td1_plantes.controler.fragments.GenerateCurrentLocalisationFragment;
 import com.example.td1_plantes.controler.fragments.GenerateCurrentPositionAndDispNothingFragment;
@@ -95,7 +96,7 @@ public class MapSearchActivity extends AppCompatActivity {
         //bottom_app_bar
         FragmentManager fm2 = getSupportFragmentManager();
         FragmentTransaction ft2 = fm2.beginTransaction();
-        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(1));
+        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(WichActivitiesWeAre.MAP_SEARCH_PAGE));
         ft2.commit();
 
 
@@ -151,6 +152,7 @@ public class MapSearchActivity extends AppCompatActivity {
     void engageTheInfoBottomAppBar(OverlayItem item) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(MapSearchActivity.this, R.style.BottomSheetDialogTheme);
         View bottomSheetView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.layout_bottom_sheet, (LinearLayout)findViewById(R.id.bottomSheetContainer));
+
 
 
         Plant plant = null;

@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.td1_plantes.R;
+import com.example.td1_plantes.controler.activities.WichActivitiesWeAre;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.facebook.CallbackManager;
 import com.facebook.login.widget.LoginButton;
@@ -16,7 +18,7 @@ import com.facebook.share.model.SharePhoto;
 import com.facebook.share.model.SharePhotoContent;
 import com.facebook.share.widget.ShareButton;
 
-import static com.example.td1_plantes.interfaces.IFacebookShare.SHARE_CODE;
+import static com.example.td1_plantes.model.interfaces.IFacebookShare.SHARE_CODE;
 
 public class FacebookActivity extends AppCompatActivity {
 
@@ -46,7 +48,7 @@ public class FacebookActivity extends AppCompatActivity {
         //bottom_app_bar
         FragmentManager fm2 = getSupportFragmentManager();
         FragmentTransaction ft2 = fm2.beginTransaction();
-        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(0));
+        ft2.add(R.id.bottom_app_bar, new MyBottomBarFragment(WichActivitiesWeAre.NOTHING));
         ft2.commit();
     }
 

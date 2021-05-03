@@ -13,11 +13,22 @@
 
 
 
+    <com.google.android.material.navigationrail.NavigationRailView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:menu="@menu/bottom_navigation_menu" />
+
+
+
+
+
+    <!--
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
 
         app:fabCradleMargin="8dp"
@@ -37,7 +48,7 @@
             android:layout_marginEnd="16dp"
             android:background="@color/colorPrimary"
 
-            app:itemIconSize="50dp"
+            app:itemIconSize="30dp"
 
             >
 
@@ -48,20 +59,7 @@
 
     </com.google.android.material.bottomappbar.BottomAppBar>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floating_action_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/home_24"
-        app:layout_anchor="@id/bottomAppBar"
-        android:backgroundTint="@color/colorPrimary"
-        android:tint="@android:color/white"
-
-
-        app:fabCustomSize="120dp"
-        app:maxImageSize="70dp"
-
-        android:contentDescription="Thehe" />
+    -->
 
 
 

@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.td1_plantes.R;
+import com.example.td1_plantes.controler.activities.WichActivitiesWeAre;
 import com.example.td1_plantes.controler.fragments.MyBottomBarFragment;
 import com.example.td1_plantes.controler.fragments.OpenStreetMapFragment;
 import com.example.td1_plantes.controler.fragments.TitleYellowDescriberDivFragment;
@@ -90,7 +91,7 @@ public class PlantPageActivity extends AppCompatActivity {
         //bottom_app_bar
         FragmentManager fm3 = getSupportFragmentManager();
         FragmentTransaction ft3 = fm3.beginTransaction();
-        ft3.add(R.id.bottom_app_bar, new MyBottomBarFragment(2));
+        ft3.add(R.id.bottom_app_bar, new MyBottomBarFragment(WichActivitiesWeAre.NOTHING));
         ft3.commit();
     }
 
