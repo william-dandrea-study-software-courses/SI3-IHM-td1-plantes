@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 
-import com.example.td1_plantes.controler.activities.takepicture.TakePictureActivity;
 import com.example.td1_plantes.notification.NotificationObject;
 import com.example.td1_plantes.notification.NotificationType;
 
@@ -18,8 +17,6 @@ public class App extends Application {
     public static NotificationManager notificationManager;
 
     public static final Map<NotificationObject, Context> notificationsSources = new HashMap<>();
-
-    public static Context DEFAULT_CONTEXT; // to be set in `MainActivity`
 
     @Override
     public void onCreate() {
@@ -48,7 +45,6 @@ public class App extends Application {
             NotificationType.TYPE_PICTURE = new NotificationType("Picture taken")
                     .setImportance(NotificationManager.IMPORTANCE_LOW)
                     .setIcon(R.drawable.take_picture_24)
-                    .setTarget(TakePictureActivity.class.getName())
                     .setDescription("When taking pictures");
 
             NotificationType.TYPE_SHARED = new NotificationType("Post")

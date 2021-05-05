@@ -29,7 +29,7 @@
         </activity>
         <activity android:name=".controler.activities.userprofil.UserProfilActivity" />
 
-        <receiver android:name=".notification.NotificationReceiver"/>
+        <receiver android:name=".NotificationReceiver" />
 
         <meta-data
             android:name="preloaded_fonts"
