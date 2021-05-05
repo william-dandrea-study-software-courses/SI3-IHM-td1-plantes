@@ -22,6 +22,7 @@
             android:background="@color/transparent"
             android:paddingTop="5dp"
             android:paddingStart="45dp"
+            android:paddingEnd="72dp"
             tools:ignore="RtlSymmetry" />
 
         <TextView
@@ -30,8 +31,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/transparent"
-            android:paddingStart="45dp"
             android:paddingTop="2dp"
+            android:paddingStart="45dp"
+            android:paddingEnd="72dp"
             android:textAlignment="textStart"
             android:textColor="@color/white"
             tools:ignore="RtlSymmetry"/>
