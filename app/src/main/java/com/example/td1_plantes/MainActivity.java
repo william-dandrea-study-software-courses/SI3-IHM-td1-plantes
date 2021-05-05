@@ -37,13 +37,13 @@ public class MainActivity extends AppCompatActivity {
     Plant[] publicPlantsForHome;
     List<OverlayItem> locationsPointsMap;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // gpsGenerateCurrentLocation = new GpsGenerateCurrentLocation(this);
+
+        App.DEFAULT_CONTEXT = MainActivity.this;
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();

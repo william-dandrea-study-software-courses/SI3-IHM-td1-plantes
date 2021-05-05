@@ -34,6 +34,8 @@ import com.example.td1_plantes.model.appobjects.Contribution;
 import com.example.td1_plantes.model.appobjects.Plant;
 import com.example.td1_plantes.model.appobjects.UserAndPlant;
 import com.example.td1_plantes.model.appobjects.smallelements.MyPosition;
+import com.example.td1_plantes.notification.NotificationObject;
+import com.example.td1_plantes.notification.NotificationType;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
@@ -213,32 +215,23 @@ public class TakePictureActivity extends AppCompatActivity {
                     });
 
 
+
+                    NotificationObject notification = new NotificationObject();
+                    if (imageWeWillSendToDataBase != null) {
+                        notification.setImage(imageWeWillSendToDataBase);
+                    }
+                    if (title != null) {
+                        notification.setTitle("Post: " + title);
+                    }
+                    if (description != null) {
+                        notification.setMessage(description);
+                    }
+                    notification.setType(NotificationType.TYPE_PICTURE)
+                                .sendFrom(TakePictureActivity.this);
+                                //.sendFrom(TakePictureActivity.this);
+
                 }
-
-
-                // description = description;
-                // title = title;
-                // isCheckedPublic = isCheckedPublic;
-
-
-
-
-
             }
         });
-
-
-
-
-
-
-
-
-
     }
-
-
-
-
-
 }
